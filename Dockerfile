@@ -28,12 +28,14 @@ RUN apt-get install -y \
     ros-${ROS_DISTRO}-moveit-ros-perception \
     && rm -rf /var/lib/apt/lists/*
 
-
 # Set ROSBRIDGE port env
 ENV ROSBRIDGE_PORT=9090
 
 # Expose rosbridge websocket port
 EXPOSE ${ROSBRIDGE_PORT}
+
+RUN git clone https://andre.lourenco:glpat-qH5Sf0Eh51JXwGUnFhcbcm86MQp1OjR3a2I5Cw.01.1219cu76o@gitlab.com/atlas_incm/ros_utils.git
+RUN git clone https://andre.lourenco:glpat-qH5Sf0Eh51JXwGUnFhcbcm86MQp1OjR3a2I5Cw.01.1219cu76o@gitlab.com/atlas_incm/moveit_commander.git
 
 RUN mkdir -p /home/ubuntu/catkin_ws/src
 WORKDIR /home/ubuntu/catkin_ws/src
