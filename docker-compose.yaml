@@ -1,0 +1,40 @@
+services:
+  ros:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ROS_DISTRO: noetic
+
+    image: ros-desktop-vnc-yumi
+    container_name: ros_vnc
+    network_mode: bridge
+    environment:
+      - ROS_DISTRO=noetic       # Ensure runtime environment matches build
+      - ROSBRIDGE_PORT=9091
+    ports:
+      - "6080:80"
+      - "9091:9091"
+    #volumes:
+    #  - ./ros2_ws:/home/ubuntu/ros2_ws
+    shm_size: '512mb'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"   # Max size of one log file
+        max-file: "3"     # Keep only the last 3 files
+
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    network_mode: bridge
+    environment:
+      - TZ=Europe/London  # Set your local timezone
+    ports:
+      - "1880:1880"
+    volumes:
+      - node-red-data:/data
+    restart: unless-stopped
+    
+volumes:
+  node-red-data:
