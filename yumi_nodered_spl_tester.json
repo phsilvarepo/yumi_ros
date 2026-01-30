@@ -934,7 +934,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position : {\n        x: 0.0,\n        y: 0.36,\n        z: 0.21\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position : {\n        x: 0.0,\n        y: 0.36,\n        z: 0.25\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.35\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -90.0,\n        yaw: -90.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -1568,7 +1568,7 @@
         "topicname": "/yumi_commander/goal_pose",
         "msgtype": "geometry_msgs/PoseStamped",
         "x": 1190,
-        "y": 3200,
+        "y": 3180,
         "wires": []
     },
     {
@@ -3472,7 +3472,7 @@
         "type": "ui-text",
         "z": "c68dc494590553a0",
         "group": "753f34d0c1ed001e",
-        "order": 11,
+        "order": 12,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3671,7 +3671,7 @@
         "type": "ui-text",
         "z": "c68dc494590553a0",
         "group": "753f34d0c1ed001e",
-        "order": 12,
+        "order": 13,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3695,7 +3695,7 @@
         "type": "ui-text",
         "z": "c68dc494590553a0",
         "group": "753f34d0c1ed001e",
-        "order": 13,
+        "order": 14,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3719,7 +3719,7 @@
         "type": "ui-text",
         "z": "c68dc494590553a0",
         "group": "753f34d0c1ed001e",
-        "order": 14,
+        "order": 15,
         "width": 0,
         "height": 0,
         "name": "",
@@ -3957,8 +3957,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1160,
-        "y": 3340,
+        "x": 1220,
+        "y": 3540,
         "wires": []
     },
     {
@@ -3973,7 +3973,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 880,
+        "x": 800,
         "y": 3200,
         "wires": [
             [
@@ -4111,7 +4111,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 790,
+        "x": 850,
         "y": 3260,
         "wires": [
             [
@@ -4224,7 +4224,145 @@
         ]
     },
     {
-        "id": "ca20ebf5c476dc59",
+        "id": "f2baabc5826db83b",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "SPLProgPath",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 300,
+        "y": 3760,
+        "wires": [
+            [
+                "747c684e73ee42e2"
+            ]
+        ]
+    },
+    {
+        "id": "53b5bb26fbe18f1f",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = JSON.parse(JSON.stringify(flow.get(\"spl_container_pose\")));\n\nvar spl_container_path_index = JSON.parse(JSON.stringify(flow.get(\"spl_container_path_index\")));\n\n//goal_pose.position.y += 0.2 * (Math.floor(spl_container_path_index / 2) % 2)\n\n//goal_pose.position.z += (0.2 * (spl_container_path_index % 2))\n\n//goal_pose.orientation.yaw += ((Math.floor(spl_container_path_index / 2) % 2) * 180)\n\n//node.warn(goal_pose.orientation)\n\ngoal_pose.position.y += 0.02 * (Math.floor(spl_container_path_index / 2) % 5)\n\ngoal_pose.position.z += (0.2 * (spl_container_path_index % 2))\n\ngoal_pose.position.z += 0.025 * (Math.floor(spl_container_path_index / 2) % 5)\n\ngoal_pose.position.x += 0.0856* (Math.floor(spl_container_path_index / 10) % 2)\n\nflow.set(\"spl_container_path_index\", ++spl_container_path_index);\n\nmsg.payload = {\n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n  }\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 3760,
+        "wires": [
+            [
+                "9f559d31f0a26b79",
+                "614095fe8b8c842c",
+                "2e9ffceebb048a17"
+            ]
+        ]
+    },
+    {
+        "id": "747c684e73ee42e2",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "spl_container_pose",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 3760,
+        "wires": [
+            [
+                "53b5bb26fbe18f1f"
+            ]
+        ]
+    },
+    {
+        "id": "d4ea1fa4103bb786",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 3840,
+        "wires": [
+            [
+                "747c684e73ee42e2"
+            ]
+        ]
+    },
+    {
+        "id": "9f559d31f0a26b79",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose to Stamped",
+        "func": "\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : msg.payload\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 3620,
+        "wires": [
+            [
+                "4e628a077ede50ad",
+                "2e9ffceebb048a17"
+            ]
+        ]
+    },
+    {
+        "id": "83668fec661d9a31",
         "type": "global-config",
         "env": [],
         "modules": {
