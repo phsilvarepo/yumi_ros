@@ -1,0 +1,4235 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "YUMI POSE RECORD",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c68dc494590553a0",
+        "type": "tab",
+        "label": "YUMI SIM",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "98acc585bfe962b1",
+        "type": "ros-server",
+        "url": "ws://host.docker.internal:9090"
+    },
+    {
+        "id": "4bf02018241b669e",
+        "type": "ros-server",
+        "url": "ws://host.docker.internal:9091"
+    },
+    {
+        "id": "4e125a295347f507",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "43d152f59436dab1",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "82fc5575064a24b6",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "4e125a295347f507",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "43d152f59436dab1",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "1a9c1a14e1ddeeed",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "82fc5575064a24b6",
+        "width": 6,
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "71a7f9f66f1df546",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "$(BROKER_SERVICE_HOST)",
+        "port": "$(BROKER_SERVICE_PORT)",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b83b88304d55b606",
+        "type": "ros-server",
+        "d": true,
+        "url": "ws://ROS_BRIDGE_MOVEIT_SERVER:ROS_BRIDGE_MOVEIT_PORT"
+    },
+    {
+        "id": "89bbbc2824d7a4c3",
+        "type": "ui-group",
+        "name": "YUMI AAS",
+        "page": "82fc5575064a24b6",
+        "width": 6,
+        "height": 1,
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "24c4815848824551",
+        "type": "ui-group",
+        "name": "Joint Control",
+        "page": "82fc5575064a24b6",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "753f34d0c1ed001e",
+        "type": "ui-group",
+        "name": "Pose Control",
+        "page": "82fc5575064a24b6",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "8eb20c4e7f9cdb54",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/joint_states",
+        "x": 410,
+        "y": 600,
+        "wires": [
+            [
+                "b83691056b3e4d2c"
+            ]
+        ]
+    },
+    {
+        "id": "4e527f8dc9160dc6",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/joint_command",
+        "msgtype": "sensor_msgs/JointState",
+        "x": 1300,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "b83691056b3e4d2c",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 610,
+        "y": 600,
+        "wires": [
+            [
+                "36837b3e47a2a62d"
+            ]
+        ]
+    },
+    {
+        "id": "8a476b1b5a982d15",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "4b57f9d1a7e71cc9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Store JS Change",
+        "func": "const threshold = 0.05;  // change limit\n\nlet prev = context.get(\"prev\");\nlet curr = msg.payload;\n\n// Get or initialize the stored list\nlet list = flow.get(\"list\") || [];\n\nif (!prev) {\n    context.set(\"prev\", curr);\n    list.push(curr);\n    flow.set(\"list\", list);\n    return msg;\n}\n\n// Example: check change in position[0] (customize as needed)\nlet changed = false;\nif (prev.position && curr.position) {\n    if (Math.abs(curr.position[0] - prev.position[0]) > threshold) {\n        changed = true;\n    }\n}\n\n// Save if flagged externally or if changed\nif (flow.get(\"save\") || changed) {\n    list.push(curr);          // store entire payload\n    flow.set(\"list\", list);\n    context.set(\"prev\", curr);\n    flow.set(\"save\", false);\n    return msg;\n}\n\n// Drop message if no significant change\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 540,
+        "wires": [
+            [
+                "bb9f8d7bd304e5d4"
+            ]
+        ]
+    },
+    {
+        "id": "36837b3e47a2a62d",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 600,
+        "wires": [
+            [
+                "175f763f12d6f8b0",
+                "4b57f9d1a7e71cc9",
+                "8a476b1b5a982d15"
+            ]
+        ]
+    },
+    {
+        "id": "bb9f8d7bd304e5d4",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "0379dc6a019925fc",
+        "type": "ui-button",
+        "z": "f6f2187d.f17ca8",
+        "group": "1a9c1a14e1ddeeed",
+        "name": "save joint pose",
+        "label": "save joint pose",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 420,
+        "y": 480,
+        "wires": [
+            [
+                "c6d7b92962b8653d"
+            ]
+        ]
+    },
+    {
+        "id": "c6d7b92962b8653d",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "save",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "175f763f12d6f8b0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 600,
+        "wires": [
+            [
+                "4e527f8dc9160dc6"
+            ]
+        ]
+    },
+    {
+        "id": "53fc111e1eb6ff0d",
+        "type": "ui-button",
+        "z": "f6f2187d.f17ca8",
+        "group": "1a9c1a14e1ddeeed",
+        "name": "pub joint",
+        "label": "pub joint",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "e9b125ee00df1318"
+            ]
+        ]
+    },
+    {
+        "id": "e9b125ee00df1318",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 4",
+        "func": "let list_joint_0 = flow.get(\"list\")[0]\nlet list_joint_1 = flow.get(\"list\")[1]\n\nmsg.payload=list_joint_0\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 380,
+        "wires": [
+            [
+                "f87c6e7863c85ea1"
+            ]
+        ]
+    },
+    {
+        "id": "f87c6e7863c85ea1",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/joint_command",
+        "msgtype": "sensor_msgs/JointState",
+        "x": 820,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "547c5744763542f9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "STARTUP",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "flow.set(\"changed\", false);",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c4dd694478a65776",
+        "type": "http request",
+        "z": "c68dc494590553a0",
+        "name": "POST INVOKE poseCommand",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 1170,
+        "y": 2240,
+        "wires": [
+            [
+                "add78d267fcb4482"
+            ]
+        ]
+    },
+    {
+        "id": "d341b21395c0b91a",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "INVOKE poseCommand",
+        "func": "msg.url = \"http://\" + env.get('AAS_HOST') + \":\" + env.get('AAS_PORT') + \n    \"/aasServer/shells/d3d3LnhyNTAuY29tL2t1a2Eva3IxMC9pZHMvYWFzL2t1a2E=\" + \n    \"/aas/submodels/d3d3LnhyNTAuY29tL2t1a2Eva3IxMC9pZHMvc20vT3BlcmF0aW9uYWxEYXRh/submodel/submodel-elements/moveIt.poseCommand/Invoke?async=false\"\nmsg.payload = {\n    inoutputArguments:[\n        {\n            value: {\n                submodelElement:{\n                    value: msg.payload,\n                    semanticId:{\n                        keys:[]\n                    },\n                    idShort:\"id\",\n                    category:\"VARIABLE\",\n                    modelType:{\n                        name:\"Property\"\n                    },\n                    valueType:{\n                        dataObjectType:{\n                            name:\"\"\n                        }\n                    },\n                    kind:\"Instance\"\n                }\n            },\n            \"modelType\":{\n                name:\"OperationVariable\"\n            }\n        }\n    ],\n    inputArguments: [\n        {\n            value: {\n                \"idShort\": \"pose\",\n                \"value\": [\n                    {\n                        \"idShort\": \"position\",\n                        \"value\": [\n                            {\n                                \"idShort\": \"x\",\n                                \"valueType\": \"xs:float\",\n                                \"modelType\": \"Property\",\n                                value: msg.payload.position.x\n                            },\n                            {\n                                \"idShort\": \"y\",\n                                \"valueType\": \"xs:float\",\n                                \"modelType\": \"Property\",\n                                value: msg.payload.position.y\n                            },\n                            {\n                                \"idShort\": \"z\",\n                                \"valueType\": \"xs:float\",\n                                \"modelType\": \"Property\",\n                                value: msg.payload.position.z\n                            }\n                        ],\n                        \"modelType\": \"SubmodelElementCollection\"\n                    },\n                    {\n                        \"idShort\": \"orientation\",\n                        \"value\": [\n                            {\n                                \"idShort\": \"w\",\n                                \"valueType\": \"xs:float\",\n                                \"modelType\": \"Property\",\n                                value: msg.payload.orientation.w\n                            },\n                            {\n                                \"idShort\": \"x\",\n                                \"valueType\": \"xs:float\",\n                                \"modelType\": \"Property\",\n                                value: msg.payload.orientation.x\n                            },\n                            {\n                                \"idShort\": \"y\",\n                                \"valueType\": \"xs:float\",\n                                \"modelType\": \"Property\",\n                                value: msg.payload.orientation.y\n                            },\n                            {\n                                \"idShort\": \"z\",\n                                \"valueType\": \"xs:float\",\n                                \"modelType\": \"Property\",\n                                value: msg.payload.orientation.z\n                            }\n                        ],\n                        \"modelType\": \"SubmodelElementCollection\"\n                    }\n                ],\n                \"modelType\": \"SubmodelElementCollection\"\n            }\n        },\n        {\n            value: {\n                \"idShort\": \"execute\",\n                \"valueType\": \"xs:bool\",\n                \"modelType\": \"Property\",\n                value: flow.get(\"execute\")\n            }\n            \n        }\n\n    ]\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 2240,
+        "wires": [
+            [
+                "c4dd694478a65776",
+                "d03c8d5cf531d47a"
+            ]
+        ]
+    },
+    {
+        "id": "3bf62250f0904a1b",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "PoseCommand Reply",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1660,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "add78d267fcb4482",
+        "type": "json",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1430,
+        "y": 2240,
+        "wires": [
+            [
+                "3bf62250f0904a1b"
+            ]
+        ]
+    },
+    {
+        "id": "fb508584426e6e19",
+        "type": "mqtt in",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "topic": "aas//aasServer/shells/d3d3LnhyNTAuY29tL2t1a2Eva3IxMC9pZHMvYWFzL2t1a2E=/sm/d3d3LnhyNTAuY29tL2t1a2Eva3IxMC9pZHMvc20vT3BlcmF0aW9uYWxEYXRh/moveIt.moveStatus",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "71a7f9f66f1df546",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 850,
+        "y": 2360,
+        "wires": [
+            [
+                "710842bdf0013399",
+                "ad13c17093115890"
+            ]
+        ]
+    },
+    {
+        "id": "710842bdf0013399",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "robotStatus (unscrewApproach) feedback MQTT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1740,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "e7fbbca17af1c37c",
+        "type": "http request",
+        "z": "c68dc494590553a0",
+        "name": "POST INVOKE jointCommand",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 1190,
+        "y": 2440,
+        "wires": [
+            [
+                "c282a1fbebb48185"
+            ]
+        ]
+    },
+    {
+        "id": "cb950b5381b5d208",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "INVOKE jointCommand",
+        "func": "var joint_states = flow.get( \"joint_states\")\n\nmsg.url = \"http://\" + env.get('AAS_HOST') + \":\" + env.get('AAS_PORT') + \n    \"/aasServer/shells/d3d3LnhyNTAuY29tL2t1a2Eva3IxMC9pZHMvYWFzL2t1a2E=\" +\n    \"/aas/submodels/d3d3LnhyNTAuY29tL2t1a2Eva3IxMC9pZHMvc20vT3BlcmF0aW9uYWxEYXRh/submodel/submodel-elements/moveIt.jointCommand/Invoke?async=false\"\nmsg.payload = {\n    inoutputArguments: [\n        {\n            value: {\n                submodelElement: {\n                    value: msg.payload,\n                    semanticId: {\n                        keys: []\n                    },\n                    idShort: \"id\",\n                    category: \"VARIABLE\",\n                    modelType: {\n                        name: \"Property\"\n                    },\n                    valueType: {\n                        dataObjectType: {\n                            name: \"\"\n                        }\n                    },\n                    kind: \"Instance\"\n                }\n            },\n            \"modelType\": {\n                name: \"OperationVariable\"\n            }\n        }\n    ],\n    inputArguments: [\n        {\n            value: {\n                \"idShort\": \"joints\",\n                \"value\": [\n                    {\n                        \"idShort\": \"positions\",\n                        \"value\": [\n                            {\n                                \"idShort\": \"a1\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: joint_states.position[0]\n                            },\n                            {\n                                \"idShort\": \"a2\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: joint_states.position[1]\n                            },\n                            {\n                                \"idShort\": \"a3\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: joint_states.position[2]\n                            },\n                            {\n                                \"idShort\": \"a4\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: joint_states.position[3]\n                            },\n                            {\n                                \"idShort\": \"a5\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: joint_states.position[4]\n                            },\n                            {\n                                \"idShort\": \"a6\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: joint_states.position[5]\n                            }\n                        ],\n                        \"modelType\": \"SubmodelElementCollection\"\n                    },\n                    {\n                        \"idShort\": \"velocities\",\n                        \"value\": [\n                            {\n                                \"idShort\": \"a1Speed\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a2Speed\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a3Speed\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a4Speed\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a5Speed\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a6Speed\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            }\n                        ],\n                        \"modelType\": \"SubmodelElementCollection\"\n                    },\n                    {\n                        \"idShort\": \"efforts\",\n                        \"value\": [\n                            {\n                                \"idShort\": \"a1Effort\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a2Effort\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a3Effort\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a4Effort\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a5Effort\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            },\n                            {\n                                \"idShort\": \"a6Effort\",\n                                \"valueType\": \"xs:double\",\n                                \"modelType\": \"Property\",\n                                value: 0.0\n                            }\n                        ],\n                        \"modelType\": \"SubmodelElementCollection\"\n                    }\n                ],\n                \"modelType\": \"SubmodelElementCollection\"\n            }\n        },\n        {\n            value: {\n                \"idShort\": \"execute\",\n                \"valueType\": \"xs:bool\",\n                \"modelType\": \"Property\",\n                value: flow.get(\"execute\")\n            }\n\n        }\n\n    ]\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 2440,
+        "wires": [
+            [
+                "e7fbbca17af1c37c"
+            ]
+        ]
+    },
+    {
+        "id": "f758daeff3d13085",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "Invoke JointCommand Reply",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 2440,
+        "wires": []
+    },
+    {
+        "id": "c282a1fbebb48185",
+        "type": "json",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1430,
+        "y": 2440,
+        "wires": [
+            [
+                "f758daeff3d13085"
+            ]
+        ]
+    },
+    {
+        "id": "d03c8d5cf531d47a",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "PoseCommand Request",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "url",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "ad13c17093115890",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1640,
+        "y": 2360,
+        "wires": [
+            [
+                "991a7d32af47feea"
+            ]
+        ]
+    },
+    {
+        "id": "991a7d32af47feea",
+        "type": "json",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1850,
+        "y": 2360,
+        "wires": [
+            [
+                "aa42246c23fae64e"
+            ]
+        ]
+    },
+    {
+        "id": "9dde1335b98d9878",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\n\nif (msg.field.isdegree == true)\n    joint_states.position[msg.field.index] = msg.payload * (Math.PI / 180);\nelse \n    joint_states.position[msg.field.index] = msg.payload\n\nflow.set(\"joint_states\", joint_states);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 620,
+        "wires": [
+            [
+                "f3a4112ec0666191"
+            ]
+        ]
+    },
+    {
+        "id": "7cf55e3140f10d1c",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":0,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 280,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "22c969d557a34dc4",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":1,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 320,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "e51b497a122435dd",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":2,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 360,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "62d7fca21d36de2a",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":3,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 400,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "03968ec10cec0154",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":4,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 440,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "2df8be83c8c0efe0",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":5,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 480,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "bd4d06d9025b2a22",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "STARTUP",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position : {\n        x: 0.0,\n        y: 0.36,\n        z: 0.21\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d7268fb3b726e84",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH JOINTS Update",
+        "links": [
+            "f3a4112ec0666191",
+            "33d2be3aab688dd7"
+        ],
+        "x": 220,
+        "y": 1440,
+        "wires": [
+            [
+                "bad86e164202e117",
+                "90513b0bc18327e4"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "f3a4112ec0666191",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH JOINTS Update",
+        "mode": "link",
+        "links": [
+            "0d7268fb3b726e84",
+            "b026229d752d0576",
+            "fb7303edc0e890d8"
+        ],
+        "x": 1700,
+        "y": 620,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "bad86e164202e117",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\n\nif (!joint_states || !joint_states.position || !joint_states.name) {\n    return null;\n}\n\nvar outputs = [];\n\nfor (let i = 0; i < joint_states.name.length; i++) {\n    if (i > 13) {\n        outputs[i] = {\n            payload: joint_states.position[i],\n            //ui_update: {label: joint_states.name[i]}\n        };\n    }\n    else {\n        outputs[i] = {\n        payload: (joint_states.position[i] / (Math.PI / 180)).toFixed(0),\n        //ui_update: {label: joint_states.name[i]}\n        };\n    }\n    \n}\n\nreturn outputs;",
+        "outputs": 18,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 1440,
+        "wires": [
+            [
+                "0ac449ef8a83a973"
+            ],
+            [
+                "30c1ee7033abc55c"
+            ],
+            [
+                "2e3faac0f6c3d1fb"
+            ],
+            [
+                "49486f8d9c118f63"
+            ],
+            [
+                "9d17dee7b493e6bc"
+            ],
+            [
+                "0f72401b33a98140"
+            ],
+            [
+                "d83b799dd25eba09"
+            ],
+            [
+                "c022e85d4b4849bf"
+            ],
+            [
+                "d8b192f473e1dc74"
+            ],
+            [
+                "8aedf2e7c52c3723"
+            ],
+            [
+                "8febb970973e74f3"
+            ],
+            [
+                "ea4d378dde18397d"
+            ],
+            [
+                "15b77b9ff2bb9e89"
+            ],
+            [
+                "ef54df41b753b2a0"
+            ],
+            [
+                "d1eea1d0b2fe15af"
+            ],
+            [
+                "8af72d50ca4226d3"
+            ],
+            [
+                "de43208e455a3a9d"
+            ],
+            [
+                "7da35fe640b2e13b"
+            ]
+        ]
+    },
+    {
+        "id": "6f2a7f198a99e5cb",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "STARTUP",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 190,
+        "y": 120,
+        "wires": [
+            [
+                "33d2be3aab688dd7"
+            ]
+        ]
+    },
+    {
+        "id": "33d2be3aab688dd7",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH STARTUP",
+        "mode": "link",
+        "links": [
+            "b026229d752d0576",
+            "fb7303edc0e890d8",
+            "d9453bb3a0f459b8",
+            "0d7268fb3b726e84"
+        ],
+        "x": 480,
+        "y": 120,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "b026229d752d0576",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH JOINTS STARTUP",
+        "links": [
+            "33d2be3aab688dd7",
+            "f3a4112ec0666191"
+        ],
+        "x": 190,
+        "y": 640,
+        "wires": [
+            [
+                "f6b2d0671077fee4",
+                "4ed58dce89299d53",
+                "25ff608bf0eed55c",
+                "747e27275a8910ab",
+                "1747f0de3d52e1bb",
+                "7248dfae738fb29c",
+                "6ddad16c910401dc",
+                "8a8e5f7bb2e5f238",
+                "016679f3ce6eb1c7",
+                "32281e9ea83414dc",
+                "27b40aac95c60682",
+                "133f093376592dc6",
+                "bb4a3a5a0e639b77",
+                "b887f9a3c9d8a053",
+                "ad9e845ce94da8da",
+                "72b7e1d75bbaca24",
+                "7d55917215424d97",
+                "fbef53930b5974a9"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "4ed58dce89299d53",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[1] / (Math.PI / 180)).toFixed(1);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 320,
+        "wires": [
+            [
+                "99f57ace925f0857"
+            ]
+        ]
+    },
+    {
+        "id": "f6b2d0671077fee4",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[0] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 280,
+        "wires": [
+            [
+                "77c6ba14bbe8ae60"
+            ]
+        ]
+    },
+    {
+        "id": "747e27275a8910ab",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[2] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "ea7e44fc7037e6f0"
+            ]
+        ]
+    },
+    {
+        "id": "25ff608bf0eed55c",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[3] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 400,
+        "wires": [
+            [
+                "ed964fe3d6810bc8"
+            ]
+        ]
+    },
+    {
+        "id": "1747f0de3d52e1bb",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[4] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 440,
+        "wires": [
+            [
+                "4d247e3817c0105a"
+            ]
+        ]
+    },
+    {
+        "id": "7248dfae738fb29c",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[5] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 480,
+        "wires": [
+            [
+                "acd9796f675f0a5b"
+            ]
+        ]
+    },
+    {
+        "id": "90513b0bc18327e4",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "d": true,
+        "name": "Use as JointStatePublisher",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 1780,
+        "wires": [
+            [
+                "84d841b6d940edc9"
+            ]
+        ]
+    },
+    {
+        "id": "7a8592945dd146ac",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "execute",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 2140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7a09aa71f16675fc",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "execute",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 2140,
+        "wires": [
+            [
+                "5c3fda63d6aa6dc0"
+            ]
+        ]
+    },
+    {
+        "id": "fb7303edc0e890d8",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH EXECUTE STARTUP",
+        "links": [
+            "33d2be3aab688dd7",
+            "5c9f679e0bdd5e8a",
+            "f3a4112ec0666191"
+        ],
+        "x": 350,
+        "y": 2140,
+        "wires": [
+            [
+                "7a09aa71f16675fc"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "30f644c1779fd79e",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH POSE Update",
+        "links": [
+            "5c9f679e0bdd5e8a"
+        ],
+        "x": 330,
+        "y": 2940,
+        "wires": [
+            [
+                "e89c23473a06a274",
+                "682cedbedccf9e74",
+                "74b2a7b9754d7cf1",
+                "1e77c70ef8341a9d",
+                "2b8af0112d880289",
+                "fbbdd6be418de96a",
+                "e9ce65dc56e23e1e"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "5c9f679e0bdd5e8a",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH POSE Update",
+        "mode": "link",
+        "links": [
+            "30f644c1779fd79e",
+            "d9453bb3a0f459b8",
+            "fb7303edc0e890d8"
+        ],
+        "x": 1740,
+        "y": 2660,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "d9453bb3a0f459b8",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH POSE STARTUP",
+        "links": [
+            "33d2be3aab688dd7",
+            "5c9f679e0bdd5e8a"
+        ],
+        "x": 340,
+        "y": 2660,
+        "wires": [
+            [
+                "b765ee084324119c",
+                "ad04145ebdb8e54e",
+                "445561ec8dc89798",
+                "f53cc4f030c551e6",
+                "16805c3d91d39cc5",
+                "e4dc74b7edcb11f1"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "b765ee084324119c",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Position X",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.x\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 2560,
+        "wires": [
+            [
+                "7ca11e996120efce"
+            ]
+        ]
+    },
+    {
+        "id": "ad04145ebdb8e54e",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Position Y",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.y\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 2600,
+        "wires": [
+            [
+                "57e1817e73d66529"
+            ]
+        ]
+    },
+    {
+        "id": "f53cc4f030c551e6",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Position Z",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.z\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 2640,
+        "wires": [
+            [
+                "95a6b14da7c7e65a"
+            ]
+        ]
+    },
+    {
+        "id": "445561ec8dc89798",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Orientation R",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.roll\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 2680,
+        "wires": [
+            [
+                "79def986eaabc751"
+            ]
+        ]
+    },
+    {
+        "id": "16805c3d91d39cc5",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Orientation P",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.pitch\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 2720,
+        "wires": [
+            [
+                "a0d01cd6bcb2580d"
+            ]
+        ]
+    },
+    {
+        "id": "e4dc74b7edcb11f1",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Orientation Y",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.yaw\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 2760,
+        "wires": [
+            [
+                "54f5743d3a3d5aab"
+            ]
+        ]
+    },
+    {
+        "id": "360bbf993cca772e",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = flow.get(\"goal_pose\");\n\n\nmsg.payload = {\n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 2240,
+        "wires": [
+            [
+                "d341b21395c0b91a"
+            ]
+        ]
+    },
+    {
+        "id": "e9ce65dc56e23e1e",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose to Stamped",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = flow.get(\"goal_pose\");\n\n\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : {\n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n  }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 3140,
+        "wires": [
+            [
+                "4e628a077ede50ad"
+            ]
+        ]
+    },
+    {
+        "id": "4e628a077ede50ad",
+        "type": "ros-publish",
+        "z": "c68dc494590553a0",
+        "server": "4bf02018241b669e",
+        "topicname": "/yumi_commander/goal_pose",
+        "msgtype": "geometry_msgs/PoseStamped",
+        "x": 1190,
+        "y": 3200,
+        "wires": []
+    },
+    {
+        "id": "e89c23473a06a274",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Position X",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.x\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 2840,
+        "wires": [
+            [
+                "f67fb5b2b1e7ad95"
+            ]
+        ]
+    },
+    {
+        "id": "682cedbedccf9e74",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Position Y",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.y\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 2880,
+        "wires": [
+            [
+                "6e24f6f034bbdc56"
+            ]
+        ]
+    },
+    {
+        "id": "74b2a7b9754d7cf1",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Position Z",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.z\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 2920,
+        "wires": [
+            [
+                "1e8dae35250601a3"
+            ]
+        ]
+    },
+    {
+        "id": "1e77c70ef8341a9d",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Orientation R",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.roll\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 2960,
+        "wires": [
+            [
+                "e7baf6bf8f9c99c5"
+            ]
+        ]
+    },
+    {
+        "id": "2b8af0112d880289",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Orientation P",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.pitch\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 3000,
+        "wires": [
+            [
+                "0da2b452b694597c"
+            ]
+        ]
+    },
+    {
+        "id": "fbbdd6be418de96a",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get GOAL Pose Orientation Y",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.yaw\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 3040,
+        "wires": [
+            [
+                "892c7604324b14cf"
+            ]
+        ]
+    },
+    {
+        "id": "7d55917215424d97",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = joint_states.position[16];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 960,
+        "wires": [
+            [
+                "2ad791853f879c84",
+                "811e45e1d1fc3d49"
+            ]
+        ]
+    },
+    {
+        "id": "72b7e1d75bbaca24",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[6] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 520,
+        "wires": [
+            [
+                "830d6451ac2bec49"
+            ]
+        ]
+    },
+    {
+        "id": "fbef53930b5974a9",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[8] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ddad16c910401dc",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[7] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 580,
+        "wires": [
+            [
+                "cc21321e1e061fee"
+            ]
+        ]
+    },
+    {
+        "id": "8a8e5f7bb2e5f238",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[8] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 620,
+        "wires": [
+            [
+                "f34ffe307001f09d"
+            ]
+        ]
+    },
+    {
+        "id": "016679f3ce6eb1c7",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[9] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 660,
+        "wires": [
+            [
+                "a1526a3dbe41bf25"
+            ]
+        ]
+    },
+    {
+        "id": "2aeafe1292713bbd",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":6,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 520,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "db0f538a782bdf4d",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":16,\"isdegree\":false}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 960,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "72e2cf8c8c816723",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":17,\"isdegree\":false}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 1000,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "868b8d3b9b4c84f6",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":7,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 580,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "b9148216e948bdb9",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":8,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 620,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "016dfbb4984307e2",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":9,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 660,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "27b40aac95c60682",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[11] / (Math.PI / 180)).toFixed(1);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 740,
+        "wires": [
+            [
+                "3021a46e9ae4f209"
+            ]
+        ]
+    },
+    {
+        "id": "32281e9ea83414dc",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[10] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 700,
+        "wires": [
+            [
+                "419e24b9d700cdb6"
+            ]
+        ]
+    },
+    {
+        "id": "133f093376592dc6",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[12] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 780,
+        "wires": [
+            [
+                "40fa1dd05eb1022f"
+            ]
+        ]
+    },
+    {
+        "id": "bb4a3a5a0e639b77",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[13] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 820,
+        "wires": [
+            [
+                "b84384aa138b3b48"
+            ]
+        ]
+    },
+    {
+        "id": "b887f9a3c9d8a053",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = joint_states.position[14];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 880,
+        "wires": [
+            [
+                "4a8cf079baf45a95",
+                "370e8c0782164b14"
+            ]
+        ]
+    },
+    {
+        "id": "ad9e845ce94da8da",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Get Joint Position",
+        "func": "var joint_states = flow.get(\"joint_states\");\nmsg.payload = (joint_states.position[17] / (Math.PI / 180)).toFixed(0);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1fcca9d8eee605a5",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":10,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 700,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "ac239abf0dec3668",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":11,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 740,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "23b10fcc8a366edf",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":12,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 780,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "9b0bfa0ac9113d6b",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":13,\"isdegree\":true}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 820,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "651a0e383f0a01fe",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":14,\"isdegree\":false}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 880,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "e26445a33fd31094",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "field",
+                "pt": "msg",
+                "to": "{\"index\":15,\"isdegree\":false}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 920,
+        "wires": [
+            [
+                "9dde1335b98d9878"
+            ]
+        ]
+    },
+    {
+        "id": "4a8cf079baf45a95",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "",
+        "label": "gripper_r_joint",
+        "tooltip": "",
+        "order": 29,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": 0,
+        "max": "0.025",
+        "step": "0.002",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 880,
+        "wires": [
+            [
+                "651a0e383f0a01fe",
+                "e26445a33fd31094"
+            ]
+        ]
+    },
+    {
+        "id": "f6052d73ed8a9e5e",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "",
+        "label": "Joint Command",
+        "order": 37,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 320,
+        "y": 1880,
+        "wires": [
+            [
+                "84d841b6d940edc9"
+            ]
+        ]
+    },
+    {
+        "id": "5c3fda63d6aa6dc0",
+        "type": "ui-switch",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "label": "EXECUTE",
+        "group": "1a9c1a14e1ddeeed",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 910,
+        "y": 2140,
+        "wires": [
+            [
+                "7a8592945dd146ac"
+            ]
+        ]
+    },
+    {
+        "id": "cc21321e1e061fee",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_l_1_joint",
+        "label": "yumi_l_1_joint",
+        "tooltip": "",
+        "order": 15,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-168",
+        "max": "168",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 580,
+        "wires": [
+            [
+                "868b8d3b9b4c84f6"
+            ]
+        ]
+    },
+    {
+        "id": "a1526a3dbe41bf25",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_l_7_joint",
+        "label": "yumi_l_7_joint",
+        "tooltip": "",
+        "order": 27,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-168",
+        "max": "168",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 660,
+        "wires": [
+            [
+                "016dfbb4984307e2"
+            ]
+        ]
+    },
+    {
+        "id": "3021a46e9ae4f209",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_l_4_joint",
+        "label": "yumi_l_4_joint",
+        "tooltip": "",
+        "order": 21,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-290",
+        "max": "290",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 740,
+        "wires": [
+            [
+                "ac239abf0dec3668"
+            ]
+        ]
+    },
+    {
+        "id": "b84384aa138b3b48",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_l_6_joint",
+        "label": "yumi_l_6_joint",
+        "tooltip": "",
+        "order": 25,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-229",
+        "max": "229",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 820,
+        "wires": [
+            [
+                "9b0bfa0ac9113d6b"
+            ]
+        ]
+    },
+    {
+        "id": "419e24b9d700cdb6",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_l_3_joint",
+        "label": "yumi_l_3_joint",
+        "tooltip": "",
+        "order": 19,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-123",
+        "max": "80",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 700,
+        "wires": [
+            [
+                "1fcca9d8eee605a5"
+            ]
+        ]
+    },
+    {
+        "id": "f34ffe307001f09d",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_l_2_joint",
+        "label": "yumi_l_2_joint",
+        "tooltip": "",
+        "order": 17,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-143",
+        "max": "44",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 620,
+        "wires": [
+            [
+                "b9148216e948bdb9"
+            ]
+        ]
+    },
+    {
+        "id": "40fa1dd05eb1022f",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_l_5_joint",
+        "label": "yumi_l_5_joint",
+        "tooltip": "",
+        "order": 23,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-88",
+        "max": "138",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 780,
+        "wires": [
+            [
+                "23b10fcc8a366edf"
+            ]
+        ]
+    },
+    {
+        "id": "77c6ba14bbe8ae60",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_r_1_joint",
+        "label": "yumi_r_1_joint",
+        "tooltip": "",
+        "order": 1,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-168",
+        "max": "168",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 280,
+        "wires": [
+            [
+                "7cf55e3140f10d1c"
+            ]
+        ]
+    },
+    {
+        "id": "ea7e44fc7037e6f0",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_r_7_joint",
+        "label": "yumi_r_7_joint",
+        "tooltip": "",
+        "order": 13,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-168",
+        "max": "168",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 360,
+        "wires": [
+            [
+                "e51b497a122435dd"
+            ]
+        ]
+    },
+    {
+        "id": "4d247e3817c0105a",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_r_4_joint",
+        "label": "yumi_r_4_joint",
+        "tooltip": "",
+        "order": 7,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-290",
+        "max": "290",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 440,
+        "wires": [
+            [
+                "03968ec10cec0154"
+            ]
+        ]
+    },
+    {
+        "id": "830d6451ac2bec49",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_r_6_joint",
+        "label": "yumi_r_6_joint",
+        "tooltip": "",
+        "order": 11,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-229",
+        "max": "229",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 520,
+        "wires": [
+            [
+                "2aeafe1292713bbd"
+            ]
+        ]
+    },
+    {
+        "id": "ed964fe3d6810bc8",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_r_3_joint",
+        "label": "yumi_r_3_joint",
+        "tooltip": "",
+        "order": 5,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-123",
+        "max": "80",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 400,
+        "wires": [
+            [
+                "62d7fca21d36de2a"
+            ]
+        ]
+    },
+    {
+        "id": "99f57ace925f0857",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_r_2_joint",
+        "label": "yumi_r_2_joint",
+        "tooltip": "",
+        "order": 3,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-143",
+        "max": "44",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 320,
+        "wires": [
+            [
+                "22c969d557a34dc4"
+            ]
+        ]
+    },
+    {
+        "id": "acd9796f675f0a5b",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "yumi_r_5_joint",
+        "label": "yumi_r_5_joint",
+        "tooltip": "",
+        "order": 9,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-88",
+        "max": "138",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 480,
+        "wires": [
+            [
+                "2df8be83c8c0efe0"
+            ]
+        ]
+    },
+    {
+        "id": "0ac449ef8a83a973",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_r_1_joint",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "30c1ee7033abc55c",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_r_2_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "2e3faac0f6c3d1fb",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 14,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_r_7_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "49486f8d9c118f63",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 6,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_r_3_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "0f72401b33a98140",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 10,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_r_5_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "9d17dee7b493e6bc",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 8,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_r_4_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "d83b799dd25eba09",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 12,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_r_6_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "d8b192f473e1dc74",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 18,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_l_2_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "c022e85d4b4849bf",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 16,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_l_1_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "8aedf2e7c52c3723",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 28,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_l_7_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "8febb970973e74f3",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 20,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_l_3_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "ea4d378dde18397d",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 22,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_l_4_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "15b77b9ff2bb9e89",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 24,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_l_5_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "ef54df41b753b2a0",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 26,
+        "width": "2",
+        "height": "1",
+        "name": "yumi_l_6_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "d1eea1d0b2fe15af",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 30,
+        "width": "2",
+        "height": "1",
+        "name": "gripper_r_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "8af72d50ca4226d3",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "d": true,
+        "group": "24c4815848824551",
+        "order": 32,
+        "width": "2",
+        "height": "1",
+        "name": "gripper_r_joint_m",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 790,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "de43208e455a3a9d",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "order": 34,
+        "width": "2",
+        "height": "1",
+        "name": "gripper_l_joint",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 780,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "7da35fe640b2e13b",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "d": true,
+        "group": "24c4815848824551",
+        "order": 36,
+        "width": "2",
+        "height": "1",
+        "name": "gripper_l_joint_m",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 790,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "84d841b6d940edc9",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Setup joint_states ROS message",
+        "func": "msg.payload = flow.get( \"joint_states\")\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 1880,
+        "wires": [
+            [
+                "be30d4fc45be1938"
+            ]
+        ]
+    },
+    {
+        "id": "5bc2eb9685f1efa8",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "89bbbc2824d7a4c3",
+        "name": "",
+        "label": "Send Pose Command",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 340,
+        "y": 2240,
+        "wires": [
+            [
+                "360bbf993cca772e"
+            ]
+        ]
+    },
+    {
+        "id": "a44841e0d546d354",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "89bbbc2824d7a4c3",
+        "name": "",
+        "label": "Send Joint Command",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 340,
+        "y": 2440,
+        "wires": [
+            [
+                "cb950b5381b5d208"
+            ]
+        ]
+    },
+    {
+        "id": "7ca11e996120efce",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position X",
+        "tooltip": "",
+        "order": 1,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-1",
+        "max": "1",
+        "step": "0.01",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 1100,
+        "y": 2560,
+        "wires": [
+            [
+                "22131226336eafe0"
+            ]
+        ]
+    },
+    {
+        "id": "f67fb5b2b1e7ad95",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "name": "Position X",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1120,
+        "y": 2840,
+        "wires": []
+    },
+    {
+        "id": "6e24f6f034bbdc56",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "name": "Position Y",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1120,
+        "y": 2880,
+        "wires": []
+    },
+    {
+        "id": "1e8dae35250601a3",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Position Z",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1120,
+        "y": 2920,
+        "wires": []
+    },
+    {
+        "id": "57e1817e73d66529",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position Y",
+        "tooltip": "",
+        "order": 3,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-1",
+        "max": "1",
+        "step": "0.01",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 1100,
+        "y": 2600,
+        "wires": [
+            [
+                "5f25d729c4402639"
+            ]
+        ]
+    },
+    {
+        "id": "95a6b14da7c7e65a",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position Z",
+        "tooltip": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-1",
+        "max": "1",
+        "step": "0.01",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 1100,
+        "y": 2640,
+        "wires": [
+            [
+                "2ffa480819d25e73"
+            ]
+        ]
+    },
+    {
+        "id": "79def986eaabc751",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position Roll",
+        "tooltip": "",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-180",
+        "max": "180",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 1090,
+        "y": 2680,
+        "wires": [
+            [
+                "58c63ddbd05e5d01"
+            ]
+        ]
+    },
+    {
+        "id": "a0d01cd6bcb2580d",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position Pitch",
+        "tooltip": "",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-180",
+        "max": "180",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 1080,
+        "y": 2720,
+        "wires": [
+            [
+                "51460c9bb2298661"
+            ]
+        ]
+    },
+    {
+        "id": "54f5743d3a3d5aab",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position Yaw",
+        "tooltip": "",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-180",
+        "max": "180",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 1090,
+        "y": 2760,
+        "wires": [
+            [
+                "2f1cfac0197cd849"
+            ]
+        ]
+    },
+    {
+        "id": "e7baf6bf8f9c99c5",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Position Roll",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1110,
+        "y": 2960,
+        "wires": []
+    },
+    {
+        "id": "0da2b452b694597c",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "order": 13,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Position Pitch",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1100,
+        "y": 3000,
+        "wires": []
+    },
+    {
+        "id": "892c7604324b14cf",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "order": 14,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Position Yaw",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1110,
+        "y": 3040,
+        "wires": []
+    },
+    {
+        "id": "aa42246c23fae64e",
+        "type": "ui-text",
+        "z": "c68dc494590553a0",
+        "group": "89bbbc2824d7a4c3",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "MoveStatus",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 2070,
+        "y": 2360,
+        "wires": []
+    },
+    {
+        "id": "22131226336eafe0",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Goal Pose",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\n\ngoal_pose.position.x = msg.payload;\n\nflow.set(\"goal_pose\", goal_pose);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2560,
+        "wires": [
+            [
+                "5c9f679e0bdd5e8a"
+            ]
+        ]
+    },
+    {
+        "id": "5f25d729c4402639",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Goal Pose",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\n\ngoal_pose.position.y = msg.payload;\n\nflow.set(\"goal_pose\", goal_pose);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2600,
+        "wires": [
+            [
+                "5c9f679e0bdd5e8a"
+            ]
+        ]
+    },
+    {
+        "id": "2ffa480819d25e73",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Goal Pose",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\n\ngoal_pose.position.z = msg.payload;\n\nflow.set(\"goal_pose\", goal_pose);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2640,
+        "wires": [
+            [
+                "5c9f679e0bdd5e8a"
+            ]
+        ]
+    },
+    {
+        "id": "58c63ddbd05e5d01",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Goal Pose",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\n\ngoal_pose.orientation.roll = msg.payload;\n\nflow.set(\"goal_pose\", goal_pose);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2680,
+        "wires": [
+            [
+                "5c9f679e0bdd5e8a"
+            ]
+        ]
+    },
+    {
+        "id": "51460c9bb2298661",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Goal Pose",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\n\ngoal_pose.orientation.pitch = msg.payload;\n\nflow.set(\"goal_pose\", goal_pose);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2720,
+        "wires": [
+            [
+                "5c9f679e0bdd5e8a"
+            ]
+        ]
+    },
+    {
+        "id": "2f1cfac0197cd849",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Goal Pose",
+        "func": "var goal_pose = flow.get(\"goal_pose\");\n\ngoal_pose.orientation.yaw = msg.payload;\n\nflow.set(\"goal_pose\", goal_pose);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 2760,
+        "wires": [
+            [
+                "5c9f679e0bdd5e8a"
+            ]
+        ]
+    },
+    {
+        "id": "be30d4fc45be1938",
+        "type": "ros-publish",
+        "z": "c68dc494590553a0",
+        "server": "4bf02018241b669e",
+        "topicname": "/joint_command",
+        "msgtype": "sensor_msgs/JointState",
+        "x": 1200,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "6fdc81351696be23",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Pose Command",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 320,
+        "y": 3140,
+        "wires": [
+            [
+                "e9ce65dc56e23e1e",
+                "fda85bbb51362440"
+            ]
+        ]
+    },
+    {
+        "id": "614095fe8b8c842c",
+        "type": "ros-publish",
+        "z": "c68dc494590553a0",
+        "server": "4bf02018241b669e",
+        "topicname": "/pose_command",
+        "msgtype": "geometry_msgs/Pose",
+        "x": 1140,
+        "y": 3260,
+        "wires": []
+    },
+    {
+        "id": "2e9ffceebb048a17",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.position",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 3340,
+        "wires": []
+    },
+    {
+        "id": "fda85bbb51362440",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = flow.get(\"goal_pose\");\n\n\nmsg.payload = { \n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 3200,
+        "wires": [
+            [
+                "614095fe8b8c842c",
+                "2e9ffceebb048a17"
+            ]
+        ]
+    },
+    {
+        "id": "4d85b8f63bb502f8",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "ProgPath",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 300,
+        "y": 3400,
+        "wires": [
+            [
+                "6e7d164510f08093"
+            ]
+        ]
+    },
+    {
+        "id": "c7652eb8a569e83e",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = JSON.parse(JSON.stringify(flow.get(\"goal_pose\")));\n\nvar spl_path_index = JSON.parse(JSON.stringify(flow.get(\"spl_path_index\")));\n\ngoal_pose.position.x += 0.14*(Math.floor(spl_path_index / 2) % 4)\n\ngoal_pose.position.y += (0.2*(( Math.floor(spl_path_index / 8)) %2) )\n\ngoal_pose.position.z += (0.2*(spl_path_index %2))\n\n\nflow.set(\"spl_path_index\", ++spl_path_index);\n\nmsg.payload = {\n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n  }\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 3400,
+        "wires": [
+            [
+                "2e9ffceebb048a17",
+                "3628cb819edd3b70",
+                "614095fe8b8c842c"
+            ]
+        ]
+    },
+    {
+        "id": "6e7d164510f08093",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "goal_pose",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 3400,
+        "wires": [
+            [
+                "c7652eb8a569e83e"
+            ]
+        ]
+    },
+    {
+        "id": "fb14e0e3c7a39baa",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 3480,
+        "wires": [
+            [
+                "6e7d164510f08093"
+            ]
+        ]
+    },
+    {
+        "id": "3628cb819edd3b70",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose to Stamped",
+        "func": "\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : msg.payload\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 3260,
+        "wires": [
+            [
+                "4e628a077ede50ad"
+            ]
+        ]
+    },
+    {
+        "id": "370e8c0782164b14",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "d": true,
+        "group": "24c4815848824551",
+        "name": "",
+        "label": "gripper_r_joint_m",
+        "tooltip": "",
+        "order": 31,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 870,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "811e45e1d1fc3d49",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "d": true,
+        "group": "24c4815848824551",
+        "name": "",
+        "label": "gripper_l_joint_m",
+        "tooltip": "",
+        "order": 35,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 870,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ad791853f879c84",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "",
+        "label": "gripper_l_joint",
+        "tooltip": "",
+        "order": 33,
+        "width": "4",
+        "height": "1",
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": 0,
+        "max": "0.025",
+        "step": "0.002",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 860,
+        "y": 960,
+        "wires": [
+            [
+                "db0f538a782bdf4d",
+                "72e2cf8c8c816723"
+            ]
+        ]
+    },
+    {
+        "id": "ca20ebf5c476dc59",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-flowake-ros-nodes": "1.2.0",
+            "@flowfuse/node-red-dashboard": "1.30.2"
+        }
+    }
+]
