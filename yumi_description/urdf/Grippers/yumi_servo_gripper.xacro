@@ -70,7 +70,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://yumi_description/meshes/gripper/finger.stl"/>
+          <mesh filename="package://yumi_description/meshes/gripper/SPL_Yumi_Right_Finger.stl"/>
         </geometry>
         <material name="Blue"/>
       </visual>
@@ -78,7 +78,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://yumi_description/meshes/gripper/coarse/finger.stl"/>
+          <mesh filename="package://yumi_description/meshes/gripper/SPL_Yumi_Right_Finger.stl"/>
         </geometry>
         <material name="Blue"/>
       </collision>
@@ -106,7 +106,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://yumi_description/meshes/gripper/finger.stl"/>
+          <mesh filename="package://yumi_description/meshes/gripper/SPL_Yumi_Left_Finger.stl"/>
         </geometry>
         <material name="Blue"/>
       </visual>
@@ -114,7 +114,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://yumi_description/meshes/gripper/coarse/finger.stl"/>
+          <mesh filename="package://yumi_description/meshes/gripper/SPL_Yumi_Left_Finger.stl"/>
         </geometry>
         <material name="Blue"/>
       </collision>
