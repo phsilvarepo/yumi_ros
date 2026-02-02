@@ -1,0 +1,2 @@
+moveit_commander:ros_utils:yumi_description:yumi_moveit_config
+-DCATKIN_DEVEL_PREFIX=/home/ubuntu/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/catkin_ws/install -G Unix Makefiles
