@@ -1,2 +1,0 @@
-set(moveit_commander_MESSAGE_FILES "")
-set(moveit_commander_SERVICE_FILES "/home/ubuntu/catkin_ws/src/moveit_commander/srv/ExecuteSequence.srv;/home/ubuntu/catkin_ws/src/moveit_commander/srv/AddObjectToScene.srv;/home/ubuntu/catkin_ws/src/moveit_commander/srv/RemoveObjectFromScene.srv;/home/ubuntu/catkin_ws/src/moveit_commander/srv/AttachObject.srv;/home/ubuntu/catkin_ws/src/moveit_commander/srv/DetachObject.srv;/home/ubuntu/catkin_ws/src/moveit_commander/srv/SetPathConstraints.srv;/home/ubuntu/catkin_ws/src/moveit_commander/srv/ClearPathConstraints.srv")

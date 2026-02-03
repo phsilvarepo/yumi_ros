@@ -34,11 +34,12 @@ ENV ROSBRIDGE_PORT=9090
 # Expose rosbridge websocket port
 EXPOSE ${ROSBRIDGE_PORT}
 
+RUN mkdir -p /home/ubuntu/catkin_ws/src
+WORKDIR /home/ubuntu/catkin_ws/src
+
 RUN git clone https://andre.lourenco:glpat-qH5Sf0Eh51JXwGUnFhcbcm86MQp1OjR3a2I5Cw.01.1219cu76o@gitlab.com/atlas_incm/ros_utils.git
 RUN git clone https://andre.lourenco:glpat-qH5Sf0Eh51JXwGUnFhcbcm86MQp1OjR3a2I5Cw.01.1219cu76o@gitlab.com/atlas_incm/moveit_commander.git
 
-RUN mkdir -p /home/ubuntu/catkin_ws/src
-WORKDIR /home/ubuntu/catkin_ws/src
 COPY yumi_description  /home/ubuntu/catkin_ws/src/yumi_description
 COPY yumi_moveit_config /home/ubuntu/catkin_ws/src/yumi_moveit_config
 
