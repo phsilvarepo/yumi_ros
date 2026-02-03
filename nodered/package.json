@@ -1,0 +1,9 @@
+{
+  "name": "yumi-nodered-spl",
+  "description": "YUMI ROS Node-RED SPL Tester",
+  "version": "1.0.0",
+  "dependencies": {
+    "node-red-contrib-flowake-ros-nodes": "1.2.0",
+    "@flowfuse/node-red-dashboard": "^1.18.1"
+  }
+}

@@ -34,6 +34,11 @@ services:
       - "1880:1880"
     volumes:
       - node-red-data:/data
+      - ./nodered/yumi_nodered_spl_tester.json:/data/flows.json
+      - ./nodered/package.json:/data/package.json
+      - ./nodered/settings.js:/data/settings.js
+      - ./nodered/docker-entrypoint.sh:/docker-entrypoint.sh
+    entrypoint: ["/bin/bash", "/docker-entrypoint.sh"]
     restart: unless-stopped
     
 volumes:
