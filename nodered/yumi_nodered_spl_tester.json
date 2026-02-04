@@ -2,7 +2,7 @@
     {
         "id": "f6f2187d.f17ca8",
         "type": "tab",
-        "label": "YUMI POSE RECORD",
+        "label": "YUMI BRIDGE",
         "disabled": false,
         "info": ""
     },
@@ -15,6 +15,14 @@
         "env": []
     },
     {
+        "id": "58de6cfd0e1f91cf",
+        "type": "tab",
+        "label": "WORLD OBJECTS",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "98acc585bfe962b1",
         "type": "ros-server",
         "url": "ws://host.docker.internal:9090"
@@ -22,7 +30,7 @@
     {
         "id": "4bf02018241b669e",
         "type": "ros-server",
-        "url": "ws://host.docker.internal:9091"
+        "url": "ws://10.0.1.35:9091"
     },
     {
         "id": "4e125a295347f507",
@@ -306,7 +314,7 @@
         "type": "debug",
         "z": "f6f2187d.f17ca8",
         "name": "debug 2",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -480,7 +488,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"changed\", false);",
+        "initialize": "flow.set(\"changed\", false);\n\nglobal.set(\"ros_world_frame\", \"world\");",
         "finalize": "",
         "libs": [],
         "x": 400,
@@ -488,6 +496,2249 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "2c03b5cdf8586a19",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/panel_station/sensors/camera/spl_qr/rgb",
+        "x": 340,
+        "y": 900,
+        "wires": [
+            [
+                "ffe2c508ae6f8f9c",
+                "28bef5ea5234f09e"
+            ]
+        ]
+    },
+    {
+        "id": "ffe2c508ae6f8f9c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 880,
+        "wires": [
+            [
+                "091449fd71a42a20"
+            ]
+        ]
+    },
+    {
+        "id": "091449fd71a42a20",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/panel_station/sensors/camera/spl_qr/rgb",
+        "msgtype": "sensor_msgs/Image",
+        "x": 1360,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "28bef5ea5234f09e",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 940,
+        "wires": [
+            [
+                "bddf21ec6f36b4ff"
+            ]
+        ]
+    },
+    {
+        "id": "bddf21ec6f36b4ff",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 940,
+        "wires": [
+            [
+                "e5faae07d8685614"
+            ]
+        ]
+    },
+    {
+        "id": "e5faae07d8685614",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "9d4f5998f3187740",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/panel_station/sensors/camera/spl_qr/camera_info",
+        "x": 370,
+        "y": 1080,
+        "wires": [
+            [
+                "c0537fa619aa5c29",
+                "0ed512affa8ebb1e"
+            ]
+        ]
+    },
+    {
+        "id": "c0537fa619aa5c29",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 1060,
+        "wires": [
+            [
+                "1e6160f8c0160503"
+            ]
+        ]
+    },
+    {
+        "id": "1e6160f8c0160503",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/panel_station/sensors/camera/spl_qr/camera_info",
+        "msgtype": "sensor_msgs/CameraInfo",
+        "x": 1390,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "0ed512affa8ebb1e",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 1120,
+        "wires": [
+            [
+                "3afdc5c9f248498e"
+            ]
+        ]
+    },
+    {
+        "id": "3afdc5c9f248498e",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 1120,
+        "wires": [
+            [
+                "07dd92b08113bbd8"
+            ]
+        ]
+    },
+    {
+        "id": "07dd92b08113bbd8",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "5e2c6e63087ddcb1",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/left_object_detection/rgb",
+        "x": 360,
+        "y": 1240,
+        "wires": [
+            [
+                "a12e5a7cd57fbb78",
+                "e085f3e3f4416e6b"
+            ]
+        ]
+    },
+    {
+        "id": "a12e5a7cd57fbb78",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 1220,
+        "wires": [
+            [
+                "e23adbc9d86292c7"
+            ]
+        ]
+    },
+    {
+        "id": "e23adbc9d86292c7",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/left_object_detection/rgb",
+        "msgtype": "sensor_msgs/Image",
+        "x": 1390,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "e085f3e3f4416e6b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 1280,
+        "wires": [
+            [
+                "9e1ba3d3a3936d68"
+            ]
+        ]
+    },
+    {
+        "id": "9e1ba3d3a3936d68",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 1280,
+        "wires": [
+            [
+                "c923b1c7dc6210d5"
+            ]
+        ]
+    },
+    {
+        "id": "c923b1c7dc6210d5",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "a1f69455db93cb17",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/left_object_detection/camera_info",
+        "x": 390,
+        "y": 1420,
+        "wires": [
+            [
+                "eab4cdf1e4248a0e",
+                "9fba294cd76c09de"
+            ]
+        ]
+    },
+    {
+        "id": "eab4cdf1e4248a0e",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 1400,
+        "wires": [
+            [
+                "99645555bf0a8644"
+            ]
+        ]
+    },
+    {
+        "id": "99645555bf0a8644",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/left_object_detection/camera_info",
+        "msgtype": "sensor_msgs/CameraInfo",
+        "x": 1410,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "9fba294cd76c09de",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 1460,
+        "wires": [
+            [
+                "1524c2e80777b0c9"
+            ]
+        ]
+    },
+    {
+        "id": "1524c2e80777b0c9",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 1460,
+        "wires": [
+            [
+                "4bd5ea7e40196105"
+            ]
+        ]
+    },
+    {
+        "id": "4bd5ea7e40196105",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "c54b610a42fa4a0b",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/left_spl_qr/rgb",
+        "x": 330,
+        "y": 1960,
+        "wires": [
+            [
+                "ce8236b27485d540",
+                "77bfb6644fd320cb"
+            ]
+        ]
+    },
+    {
+        "id": "ce8236b27485d540",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 1940,
+        "wires": [
+            [
+                "f7f54d820e15aec0"
+            ]
+        ]
+    },
+    {
+        "id": "f7f54d820e15aec0",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/left_spl_qr/rgb",
+        "msgtype": "sensor_msgs/Image",
+        "x": 1350,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "77bfb6644fd320cb",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 2000,
+        "wires": [
+            [
+                "274b0b9b8dcb6580"
+            ]
+        ]
+    },
+    {
+        "id": "274b0b9b8dcb6580",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 2000,
+        "wires": [
+            [
+                "62994a8630393e74"
+            ]
+        ]
+    },
+    {
+        "id": "62994a8630393e74",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "181b7c01b1b0b370",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/people/camera_info",
+        "x": 350,
+        "y": 1580,
+        "wires": [
+            [
+                "6b1dc3a974b8667f",
+                "4822dde2b4197336"
+            ]
+        ]
+    },
+    {
+        "id": "6b1dc3a974b8667f",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 1560,
+        "wires": [
+            [
+                "f5ba5cf403a880c2"
+            ]
+        ]
+    },
+    {
+        "id": "f5ba5cf403a880c2",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/people/camera_info",
+        "msgtype": "sensor_msgs/CameraInfo",
+        "x": 1370,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "4822dde2b4197336",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 1620,
+        "wires": [
+            [
+                "a6756eb1106b4563"
+            ]
+        ]
+    },
+    {
+        "id": "a6756eb1106b4563",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 1620,
+        "wires": [
+            [
+                "058de937c526e78e"
+            ]
+        ]
+    },
+    {
+        "id": "058de937c526e78e",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "876b4aafeba23e2c",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/people/rgb",
+        "x": 320,
+        "y": 1740,
+        "wires": [
+            [
+                "a826df615faa37c0",
+                "b153e522840b0bbc"
+            ]
+        ]
+    },
+    {
+        "id": "a826df615faa37c0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 1720,
+        "wires": [
+            [
+                "3d909fe1d6257ade"
+            ]
+        ]
+    },
+    {
+        "id": "3d909fe1d6257ade",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/people/rgb",
+        "msgtype": "sensor_msgs/Image",
+        "x": 1340,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "b153e522840b0bbc",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 1780,
+        "wires": [
+            [
+                "3e2fc251304617cb"
+            ]
+        ]
+    },
+    {
+        "id": "3e2fc251304617cb",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 1780,
+        "wires": [
+            [
+                "182edb034e3bb254"
+            ]
+        ]
+    },
+    {
+        "id": "182edb034e3bb254",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "44fa8bc2609e92c1",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/left_spl_qr/camera_info",
+        "x": 360,
+        "y": 2100,
+        "wires": [
+            [
+                "1c23775c125e932c",
+                "550fabe5466c6a09"
+            ]
+        ]
+    },
+    {
+        "id": "1c23775c125e932c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 2080,
+        "wires": [
+            [
+                "2f6ac42b91da7794"
+            ]
+        ]
+    },
+    {
+        "id": "2f6ac42b91da7794",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/left_spl_qr/camera_info",
+        "msgtype": "sensor_msgs/CameraInfo",
+        "x": 1380,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "550fabe5466c6a09",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 2140,
+        "wires": [
+            [
+                "a8d658bd9f46b8dd"
+            ]
+        ]
+    },
+    {
+        "id": "a8d658bd9f46b8dd",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 2140,
+        "wires": [
+            [
+                "14254f1280aabfd3"
+            ]
+        ]
+    },
+    {
+        "id": "14254f1280aabfd3",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "ea3fac867aecaa41",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/right_object_detection/rgb",
+        "x": 370,
+        "y": 2240,
+        "wires": [
+            [
+                "8b4be4910a56d8f0",
+                "2d56b2e4233afe84"
+            ]
+        ]
+    },
+    {
+        "id": "8b4be4910a56d8f0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 2220,
+        "wires": [
+            [
+                "86186fb8da18a826"
+            ]
+        ]
+    },
+    {
+        "id": "86186fb8da18a826",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/right_object_detection/rgb",
+        "msgtype": "sensor_msgs/Image",
+        "x": 1390,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "2d56b2e4233afe84",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 2280,
+        "wires": [
+            [
+                "f426c8286a63f1c5"
+            ]
+        ]
+    },
+    {
+        "id": "f426c8286a63f1c5",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 2280,
+        "wires": [
+            [
+                "efb5480d48ef4d3a"
+            ]
+        ]
+    },
+    {
+        "id": "efb5480d48ef4d3a",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "a87e4c61ee34483a",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/right_object_detection/camera_info",
+        "x": 390,
+        "y": 2420,
+        "wires": [
+            [
+                "e48009c889233bf9",
+                "327662d7cec76538"
+            ]
+        ]
+    },
+    {
+        "id": "e48009c889233bf9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 2400,
+        "wires": [
+            [
+                "e819f6a2c9472bcc"
+            ]
+        ]
+    },
+    {
+        "id": "e819f6a2c9472bcc",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/right_object_detection/camera_info",
+        "msgtype": "sensor_msgs/CameraInfo",
+        "x": 1420,
+        "y": 2400,
+        "wires": []
+    },
+    {
+        "id": "327662d7cec76538",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 2460,
+        "wires": [
+            [
+                "3f76a4281008f4ed"
+            ]
+        ]
+    },
+    {
+        "id": "3f76a4281008f4ed",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 2460,
+        "wires": [
+            [
+                "87318ad9e0bfbd54"
+            ]
+        ]
+    },
+    {
+        "id": "87318ad9e0bfbd54",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 13",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 2460,
+        "wires": []
+    },
+    {
+        "id": "dbc7324d95e3446d",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/right_spl_qr/rgb",
+        "x": 330,
+        "y": 2580,
+        "wires": [
+            [
+                "983e765616f12967",
+                "bd8fb4db4fdbce52"
+            ]
+        ]
+    },
+    {
+        "id": "983e765616f12967",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 2560,
+        "wires": [
+            [
+                "be5bd153bf4562cb"
+            ]
+        ]
+    },
+    {
+        "id": "be5bd153bf4562cb",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/right_spl_qr/rgb",
+        "msgtype": "sensor_msgs/Image",
+        "x": 1360,
+        "y": 2560,
+        "wires": []
+    },
+    {
+        "id": "bd8fb4db4fdbce52",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 2620,
+        "wires": [
+            [
+                "6122f0fb81c41c8c"
+            ]
+        ]
+    },
+    {
+        "id": "6122f0fb81c41c8c",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 2620,
+        "wires": [
+            [
+                "6a0af3f77bcfcae6"
+            ]
+        ]
+    },
+    {
+        "id": "6a0af3f77bcfcae6",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 14",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 2620,
+        "wires": []
+    },
+    {
+        "id": "bc9de6d9c7fd0182",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/sensors/camera/right_spl_qr/camera_info",
+        "x": 360,
+        "y": 2760,
+        "wires": [
+            [
+                "1379ce31a2644c9d",
+                "866c6d03ad5d2a80"
+            ]
+        ]
+    },
+    {
+        "id": "1379ce31a2644c9d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Convert JS (ROS2 -> ROS1)",
+        "func": "if (msg.payload && msg.payload.header && msg.payload.header.seq !== undefined) {\n    delete msg.payload.header.seq;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 2740,
+        "wires": [
+            [
+                "14fbcee066848dae"
+            ]
+        ]
+    },
+    {
+        "id": "14fbcee066848dae",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/sensors/camera/right_spl_qr/camera_info",
+        "msgtype": "sensor_msgs/CameraInfo",
+        "x": 1390,
+        "y": 2740,
+        "wires": []
+    },
+    {
+        "id": "866c6d03ad5d2a80",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 810,
+        "y": 2800,
+        "wires": [
+            [
+                "dcc18994e7228b46"
+            ]
+        ]
+    },
+    {
+        "id": "dcc18994e7228b46",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 970,
+        "y": 2800,
+        "wires": [
+            [
+                "47afd541bea6f210"
+            ]
+        ]
+    },
+    {
+        "id": "47afd541bea6f210",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 2800,
+        "wires": []
+    },
+    {
+        "id": "64d601908bad3a9b",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/misc/yumi/world/pose_stamped",
+        "x": 320,
+        "y": 3080,
+        "wires": [
+            [
+                "2cbfcee00f480203"
+            ]
+        ]
+    },
+    {
+        "id": "2cbfcee00f480203",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 730,
+        "y": 3080,
+        "wires": [
+            [
+                "19cdb3900bc92ced"
+            ]
+        ]
+    },
+    {
+        "id": "19cdb3900bc92ced",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 890,
+        "y": 3080,
+        "wires": [
+            [
+                "176cd98225e160ac",
+                "cf36662fa0447ba7"
+            ]
+        ]
+    },
+    {
+        "id": "176cd98225e160ac",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 3140,
+        "wires": []
+    },
+    {
+        "id": "1aab54dc49ed6e84",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Compute Relative Pose",
+        "func": "// Get poses\nconst poseA = global.get('isaac_station_world_pose');\nconst poseB = msg.payload\n\nif (!poseA || !poseB) {\n    return null;\n}\n\n// Quaternion helpers\nfunction quatConjugate(q) {\n    return { x: -q.x, y: -q.y, z: -q.z, w: q.w };\n}\n\nfunction quatMultiply(a, b) {\n    return {\n        w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,\n        x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,\n        y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,\n        z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w\n    };\n}\n\nfunction rotateVector(v, q) {\n    const qv = { x: v.x, y: v.y, z: v.z, w: 0 };\n    const qInv = quatConjugate(q);\n    const r = quatMultiply(quatMultiply(q, qv), qInv);\n    return { x: r.x, y: r.y, z: r.z };\n}\n\nconst A = poseA.pose;\nconst B = poseB.pose;\n\n// Invert A\nconst qA_inv = quatConjugate(A.orientation);\nconst pA_inv = rotateVector({\n    x: -A.position.x,\n    y: -A.position.y,\n    z: -A.position.z\n}, qA_inv);\n\n// Relative position\nconst pB_rot = rotateVector(B.position, qA_inv);\nconst pRel = {\n    x: pB_rot.x + pA_inv.x,\n    y: pB_rot.y + pA_inv.y,\n    z: pB_rot.z + pA_inv.z\n};\n\n// Relative orientation\nconst qRel = quatMultiply(qA_inv, B.orientation);\n\nmsg.payload = {\n    header: {\n        frame_id: global.get(\"ros_world_frame\"),\n        stamp: poseB.header.stamp\n    },\n    pose: {\n        position: pRel,\n        orientation: qRel\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 3220,
+        "wires": [
+            [
+                "fc03096cbc976a5f",
+                "92abdf00e2492fe8",
+                "7c575333298311ca"
+            ]
+        ]
+    },
+    {
+        "id": "fc03096cbc976a5f",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Relative Pose Output",
+        "active": false,
+        "tosidebar": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1420,
+        "y": 3280,
+        "wires": []
+    },
+    {
+        "id": "fc19844076eb111d",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/misc/camera/right_object_detection/pose_stamped",
+        "x": 380,
+        "y": 3220,
+        "wires": [
+            [
+                "6f3404f375c6c8ea"
+            ]
+        ]
+    },
+    {
+        "id": "6f3404f375c6c8ea",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 730,
+        "y": 3220,
+        "wires": [
+            [
+                "bd644121aa8131f2"
+            ]
+        ]
+    },
+    {
+        "id": "bd644121aa8131f2",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 890,
+        "y": 3220,
+        "wires": [
+            [
+                "e7a46953d50164f1",
+                "1aab54dc49ed6e84"
+            ]
+        ]
+    },
+    {
+        "id": "e7a46953d50164f1",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 3280,
+        "wires": []
+    },
+    {
+        "id": "92abdf00e2492fe8",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/structure/camera/right_object_detection/pose_stamped",
+        "msgtype": "geometry_msgs/PoseStamped",
+        "x": 1550,
+        "y": 3220,
+        "wires": []
+    },
+    {
+        "id": "cf36662fa0447ba7",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "isaac_station_world_pose",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1170,
+        "y": 3080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "285b5ea1336085d9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Compute Relative Pose",
+        "func": "// Get poses\nconst poseA = global.get('isaac_station_world_pose');\nconst poseB = msg.payload\n\nif (!poseA || !poseB) {\n    return null;\n}\n\n// Quaternion helpers\nfunction quatConjugate(q) {\n    return { x: -q.x, y: -q.y, z: -q.z, w: q.w };\n}\n\nfunction quatMultiply(a, b) {\n    return {\n        w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,\n        x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,\n        y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,\n        z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w\n    };\n}\n\nfunction rotateVector(v, q) {\n    const qv = { x: v.x, y: v.y, z: v.z, w: 0 };\n    const qInv = quatConjugate(q);\n    const r = quatMultiply(quatMultiply(q, qv), qInv);\n    return { x: r.x, y: r.y, z: r.z };\n}\n\nconst A = poseA.pose;\nconst B = poseB.pose;\n\n// Invert A\nconst qA_inv = quatConjugate(A.orientation);\nconst pA_inv = rotateVector({\n    x: -A.position.x,\n    y: -A.position.y,\n    z: -A.position.z\n}, qA_inv);\n\n// Relative position\nconst pB_rot = rotateVector(B.position, qA_inv);\nconst pRel = {\n    x: pB_rot.x + pA_inv.x,\n    y: pB_rot.y + pA_inv.y,\n    z: pB_rot.z + pA_inv.z\n};\n\n// Relative orientation\nconst qRel = quatMultiply(qA_inv, B.orientation);\n\nmsg.payload = {\n    header: {\n        frame_id: global.get(\"ros_world_frame\"),\n        stamp: poseB.header.stamp\n    },\n    pose: {\n        position: pRel,\n        orientation: qRel\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 3420,
+        "wires": [
+            [
+                "e52b7f6aea43d373",
+                "cb892f02fab2e49d",
+                "5a822bd4ec9c4912"
+            ]
+        ]
+    },
+    {
+        "id": "e52b7f6aea43d373",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Relative Pose Output",
+        "active": false,
+        "tosidebar": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1410,
+        "y": 3480,
+        "wires": []
+    },
+    {
+        "id": "d4540fc9c2e9fbeb",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/misc/camera/left_object_detection/pose_stamped",
+        "x": 370,
+        "y": 3420,
+        "wires": [
+            [
+                "1b287657ebfe042c"
+            ]
+        ]
+    },
+    {
+        "id": "1b287657ebfe042c",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 720,
+        "y": 3420,
+        "wires": [
+            [
+                "2444508b57e6d1c1"
+            ]
+        ]
+    },
+    {
+        "id": "2444508b57e6d1c1",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 880,
+        "y": 3420,
+        "wires": [
+            [
+                "b0be30576d8d562a",
+                "285b5ea1336085d9"
+            ]
+        ]
+    },
+    {
+        "id": "b0be30576d8d562a",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 3480,
+        "wires": []
+    },
+    {
+        "id": "cb892f02fab2e49d",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/structure/camera/left_object_detection/pose_stamped",
+        "msgtype": "geometry_msgs/PoseStamped",
+        "x": 1540,
+        "y": 3420,
+        "wires": []
+    },
+    {
+        "id": "fbbacde155766023",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Compute Relative Pose",
+        "func": "// Get poses\nconst poseA = global.get('isaac_station_world_pose');\nconst poseB = msg.payload\n\nif (!poseA || !poseB) {\n    return null;\n}\n\n// Quaternion helpers\nfunction quatConjugate(q) {\n    return { x: -q.x, y: -q.y, z: -q.z, w: q.w };\n}\n\nfunction quatMultiply(a, b) {\n    return {\n        w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,\n        x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,\n        y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,\n        z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w\n    };\n}\n\nfunction rotateVector(v, q) {\n    const qv = { x: v.x, y: v.y, z: v.z, w: 0 };\n    const qInv = quatConjugate(q);\n    const r = quatMultiply(quatMultiply(q, qv), qInv);\n    return { x: r.x, y: r.y, z: r.z };\n}\n\nconst A = poseA.pose;\nconst B = poseB.pose;\n\n// Invert A\nconst qA_inv = quatConjugate(A.orientation);\nconst pA_inv = rotateVector({\n    x: -A.position.x,\n    y: -A.position.y,\n    z: -A.position.z\n}, qA_inv);\n\n// Relative position\nconst pB_rot = rotateVector(B.position, qA_inv);\nconst pRel = {\n    x: pB_rot.x + pA_inv.x,\n    y: pB_rot.y + pA_inv.y,\n    z: pB_rot.z + pA_inv.z\n};\n\n// Relative orientation\nconst qRel = quatMultiply(qA_inv, B.orientation);\n\nmsg.payload = {\n    header: {\n        frame_id: global.get(\"ros_world_frame\"),\n        stamp: poseB.header.stamp\n    },\n    pose: {\n        position: pRel,\n        orientation: qRel\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 3620,
+        "wires": [
+            [
+                "2b1103b8774d2bb9",
+                "31e949ed2994acb6",
+                "ccb286f9a16bfe6e"
+            ]
+        ]
+    },
+    {
+        "id": "2b1103b8774d2bb9",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Relative Pose Output",
+        "active": false,
+        "tosidebar": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1380,
+        "y": 3680,
+        "wires": []
+    },
+    {
+        "id": "2f6d7f81accae161",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/misc/camera/left_spl_qr/pose_stamped",
+        "x": 340,
+        "y": 3620,
+        "wires": [
+            [
+                "0b32e71e8143c91b"
+            ]
+        ]
+    },
+    {
+        "id": "0b32e71e8143c91b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 690,
+        "y": 3620,
+        "wires": [
+            [
+                "af00a344c34ee2a8"
+            ]
+        ]
+    },
+    {
+        "id": "af00a344c34ee2a8",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 850,
+        "y": 3620,
+        "wires": [
+            [
+                "f38f856dcfc3ab19",
+                "fbbacde155766023"
+            ]
+        ]
+    },
+    {
+        "id": "f38f856dcfc3ab19",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 3680,
+        "wires": []
+    },
+    {
+        "id": "31e949ed2994acb6",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/structure/camera/left_spl_qr/pose_stamped",
+        "msgtype": "geometry_msgs/PoseStamped",
+        "x": 1480,
+        "y": 3620,
+        "wires": []
+    },
+    {
+        "id": "ee89cdcb681df3df",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Compute Relative Pose",
+        "func": "// Get poses\nconst poseA = global.get('isaac_station_world_pose');\nconst poseB = msg.payload\n\nif (!poseA || !poseB) {\n    return null;\n}\n\n// Quaternion helpers\nfunction quatConjugate(q) {\n    return { x: -q.x, y: -q.y, z: -q.z, w: q.w };\n}\n\nfunction quatMultiply(a, b) {\n    return {\n        w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,\n        x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,\n        y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,\n        z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w\n    };\n}\n\nfunction rotateVector(v, q) {\n    const qv = { x: v.x, y: v.y, z: v.z, w: 0 };\n    const qInv = quatConjugate(q);\n    const r = quatMultiply(quatMultiply(q, qv), qInv);\n    return { x: r.x, y: r.y, z: r.z };\n}\n\nconst A = poseA.pose;\nconst B = poseB.pose;\n\n// Invert A\nconst qA_inv = quatConjugate(A.orientation);\nconst pA_inv = rotateVector({\n    x: -A.position.x,\n    y: -A.position.y,\n    z: -A.position.z\n}, qA_inv);\n\n// Relative position\nconst pB_rot = rotateVector(B.position, qA_inv);\nconst pRel = {\n    x: pB_rot.x + pA_inv.x,\n    y: pB_rot.y + pA_inv.y,\n    z: pB_rot.z + pA_inv.z\n};\n\n// Relative orientation\nconst qRel = quatMultiply(qA_inv, B.orientation);\n\nmsg.payload = {\n    header: {\n        frame_id: global.get(\"ros_world_frame\"),\n        stamp: poseB.header.stamp\n    },\n    pose: {\n        position: pRel,\n        orientation: qRel\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 3820,
+        "wires": [
+            [
+                "9f1d8d0567587575",
+                "8302b39bcedf5236",
+                "6542a19e93d4eab0"
+            ]
+        ]
+    },
+    {
+        "id": "9f1d8d0567587575",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Relative Pose Output",
+        "active": false,
+        "tosidebar": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1380,
+        "y": 3880,
+        "wires": []
+    },
+    {
+        "id": "1db088231ea85e11",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/misc/camera/right_spl_qr/pose_stamped",
+        "x": 340,
+        "y": 3820,
+        "wires": [
+            [
+                "d1360692b9e8665a"
+            ]
+        ]
+    },
+    {
+        "id": "d1360692b9e8665a",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 690,
+        "y": 3820,
+        "wires": [
+            [
+                "ec5e7cb6d5816605"
+            ]
+        ]
+    },
+    {
+        "id": "ec5e7cb6d5816605",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 850,
+        "y": 3820,
+        "wires": [
+            [
+                "d94a9daa423ffddd",
+                "ee89cdcb681df3df"
+            ]
+        ]
+    },
+    {
+        "id": "d94a9daa423ffddd",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 3880,
+        "wires": []
+    },
+    {
+        "id": "8302b39bcedf5236",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/structure/camera/right_spl_qr/pose_stamped",
+        "msgtype": "geometry_msgs/PoseStamped",
+        "x": 1480,
+        "y": 3820,
+        "wires": []
+    },
+    {
+        "id": "65d1f3ee4ba78344",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Compute Relative Pose",
+        "func": "// Get poses\nconst poseA = global.get('isaac_station_world_pose');\nconst poseB = msg.payload\n\nif (!poseA || !poseB) {\n    return null;\n}\n\n// Quaternion helpers\nfunction quatConjugate(q) {\n    return { x: -q.x, y: -q.y, z: -q.z, w: q.w };\n}\n\nfunction quatMultiply(a, b) {\n    return {\n        w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,\n        x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,\n        y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,\n        z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w\n    };\n}\n\nfunction rotateVector(v, q) {\n    const qv = { x: v.x, y: v.y, z: v.z, w: 0 };\n    const qInv = quatConjugate(q);\n    const r = quatMultiply(quatMultiply(q, qv), qInv);\n    return { x: r.x, y: r.y, z: r.z };\n}\n\nconst A = poseA.pose;\nconst B = poseB.pose;\n\n// Invert A\nconst qA_inv = quatConjugate(A.orientation);\nconst pA_inv = rotateVector({\n    x: -A.position.x,\n    y: -A.position.y,\n    z: -A.position.z\n}, qA_inv);\n\n// Relative position\nconst pB_rot = rotateVector(B.position, qA_inv);\nconst pRel = {\n    x: pB_rot.x + pA_inv.x,\n    y: pB_rot.y + pA_inv.y,\n    z: pB_rot.z + pA_inv.z\n};\n\n// Relative orientation\nconst qRel = quatMultiply(qA_inv, B.orientation);\n\nmsg.payload = {\n    header: {\n        frame_id: global.get(\"ros_world_frame\"),\n        stamp: poseB.header.stamp\n    },\n    pose: {\n        position: pRel,\n        orientation: qRel\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 4020,
+        "wires": [
+            [
+                "9bc5c97787414f7f",
+                "a1f054532679068f",
+                "ed1fa27d21115517"
+            ]
+        ]
+    },
+    {
+        "id": "9bc5c97787414f7f",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Relative Pose Output",
+        "active": false,
+        "tosidebar": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1370,
+        "y": 4080,
+        "wires": []
+    },
+    {
+        "id": "c488ceea0c0f1c22",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/misc/camera/people/pose_stamped",
+        "x": 330,
+        "y": 4020,
+        "wires": [
+            [
+                "ab00af1767f56986"
+            ]
+        ]
+    },
+    {
+        "id": "ab00af1767f56986",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 680,
+        "y": 4020,
+        "wires": [
+            [
+                "31024b978cc7b308"
+            ]
+        ]
+    },
+    {
+        "id": "31024b978cc7b308",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 840,
+        "y": 4020,
+        "wires": [
+            [
+                "82627155ec3851ba",
+                "65d1f3ee4ba78344"
+            ]
+        ]
+    },
+    {
+        "id": "82627155ec3851ba",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 4080,
+        "wires": []
+    },
+    {
+        "id": "a1f054532679068f",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/station/structure/camera/people/pose_stamped",
+        "msgtype": "geometry_msgs/PoseStamped",
+        "x": 1450,
+        "y": 4020,
+        "wires": []
+    },
+    {
+        "id": "9b7812bb7fa45786",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Compute Relative Pose",
+        "func": "// Get poses\nconst poseA = global.get('isaac_station_world_pose');\nconst poseB = msg.payload\n\nif (!poseA || !poseB) {\n    return null;\n}\n\n// Quaternion helpers\nfunction quatConjugate(q) {\n    return { x: -q.x, y: -q.y, z: -q.z, w: q.w };\n}\n\nfunction quatMultiply(a, b) {\n    return {\n        w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,\n        x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,\n        y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,\n        z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w\n    };\n}\n\nfunction rotateVector(v, q) {\n    const qv = { x: v.x, y: v.y, z: v.z, w: 0 };\n    const qInv = quatConjugate(q);\n    const r = quatMultiply(quatMultiply(q, qv), qInv);\n    return { x: r.x, y: r.y, z: r.z };\n}\n\nconst A = poseA.pose;\nconst B = poseB.pose;\n\n// Invert A\nconst qA_inv = quatConjugate(A.orientation);\nconst pA_inv = rotateVector({\n    x: -A.position.x,\n    y: -A.position.y,\n    z: -A.position.z\n}, qA_inv);\n\n// Relative position\nconst pB_rot = rotateVector(B.position, qA_inv);\nconst pRel = {\n    x: pB_rot.x + pA_inv.x,\n    y: pB_rot.y + pA_inv.y,\n    z: pB_rot.z + pA_inv.z\n};\n\n// Relative orientation\nconst qRel = quatMultiply(qA_inv, B.orientation);\n\nmsg.payload = {\n    header: {\n        frame_id: global.get(\"ros_world_frame\"),\n        stamp: poseB.header.stamp\n    },\n    pose: {\n        position: pRel,\n        orientation: qRel\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 4220,
+        "wires": [
+            [
+                "4057614911c09b56",
+                "628b733bfb2d480d",
+                "bea90abbd6daa57c",
+                "27c6e512c6bfd726"
+            ]
+        ]
+    },
+    {
+        "id": "4057614911c09b56",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Relative Pose Output",
+        "active": false,
+        "tosidebar": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1370,
+        "y": 4280,
+        "wires": []
+    },
+    {
+        "id": "d7a908da1d58e42a",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/panel_station/misc/camera/spl_qr/pose_stamped",
+        "x": 350,
+        "y": 4220,
+        "wires": [
+            [
+                "c08e15217a76dbe7"
+            ]
+        ]
+    },
+    {
+        "id": "c08e15217a76dbe7",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 680,
+        "y": 4220,
+        "wires": [
+            [
+                "4036d57a768c7cae"
+            ]
+        ]
+    },
+    {
+        "id": "4036d57a768c7cae",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 840,
+        "y": 4220,
+        "wires": [
+            [
+                "c9d4dea3db4ae592",
+                "9b7812bb7fa45786"
+            ]
+        ]
+    },
+    {
+        "id": "c9d4dea3db4ae592",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 4280,
+        "wires": []
+    },
+    {
+        "id": "628b733bfb2d480d",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/panel_station/structure/camera//panel_stationspl_qr/pose_stamped",
+        "msgtype": "geometry_msgs/PoseStamped",
+        "x": 1520,
+        "y": 4220,
+        "wires": []
+    },
+    {
+        "id": "bea90abbd6daa57c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "d": true,
+        "name": "PoseToTF",
+        "func": "const pose = msg.payload;\n\n// Frame naming (change as needed)\nconst parentFrame = \"world\";\nconst childFrame  = \"panel_station_camera_spl_qr\";\n\n// Timestamp (ROS2 style)\nconst now = Date.now();\nconst sec = Math.floor(now / 1000);\nconst nanosec = (now % 1000) * 1e6;\n\nmsg.payload = {\n    transforms: [\n        {\n            header: {\n                frame_id: parentFrame,\n                stamp: {\n                    sec: sec,\n                    nanosec: nanosec\n                }\n            },\n            child_frame_id: childFrame,\n            transform: {\n                translation: {\n                    x: pose.pose.position.x,\n                    y: pose.pose.position.y,\n                    z: pose.pose.position.z\n                },\n                rotation: {\n                    x: pose.pose.orientation.x,\n                    y: pose.pose.orientation.y,\n                    z: pose.pose.orientation.z,\n                    w: pose.pose.orientation.w\n                }\n            }\n        }\n    ]\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 4400,
+        "wires": [
+            [
+                "198db433243d7337"
+            ]
+        ]
+    },
+    {
+        "id": "198db433243d7337",
+        "type": "ros-publish",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/tf",
+        "msgtype": "tf2_msgs/TFMessage",
+        "x": 1520,
+        "y": 4400,
+        "wires": []
+    },
+    {
+        "id": "018013521726872c",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "PROCESS_OBJECT_OUT",
+        "mode": "link",
+        "links": [
+            "904a9a3144a05d83",
+            "9ff3fb9bbe964ac8",
+            "0142dc90ad47b764"
+        ],
+        "x": 1680,
+        "y": 3540,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "5a822bd4ec9c4912",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "station_camera_left_object_detection",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1390,
+        "y": 3540,
+        "wires": [
+            [
+                "018013521726872c"
+            ]
+        ]
+    },
+    {
+        "id": "20fd3909d23e268d",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "PROCESS_OBJECT_OUT",
+        "mode": "link",
+        "links": [
+            "904a9a3144a05d83",
+            "9ff3fb9bbe964ac8",
+            "0142dc90ad47b764"
+        ],
+        "x": 1630,
+        "y": 4340,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "27c6e512c6bfd726",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "panel_station_camera_spl_qr",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1350,
+        "y": 4340,
+        "wires": [
+            [
+                "20fd3909d23e268d"
+            ]
+        ]
+    },
+    {
+        "id": "a2d921d655104a71",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "PROCESS_OBJECT_OUT",
+        "mode": "link",
+        "links": [
+            "904a9a3144a05d83",
+            "9ff3fb9bbe964ac8",
+            "0142dc90ad47b764"
+        ],
+        "x": 1630,
+        "y": 4140,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "ed1fa27d21115517",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "station_camera_people",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1350,
+        "y": 4140,
+        "wires": [
+            [
+                "a2d921d655104a71"
+            ]
+        ]
+    },
+    {
+        "id": "0cd58b0c32f0ea81",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "PROCESS_OBJECT_OUT",
+        "mode": "link",
+        "links": [
+            "904a9a3144a05d83",
+            "9ff3fb9bbe964ac8",
+            "0142dc90ad47b764"
+        ],
+        "x": 1630,
+        "y": 3940,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "6542a19e93d4eab0",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "station_camera_right_spl_qr",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 3940,
+        "wires": [
+            [
+                "0cd58b0c32f0ea81"
+            ]
+        ]
+    },
+    {
+        "id": "d9268c761ac22e7e",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "PROCESS_OBJECT_OUT",
+        "mode": "link",
+        "links": [
+            "904a9a3144a05d83",
+            "9ff3fb9bbe964ac8",
+            "0142dc90ad47b764"
+        ],
+        "x": 1630,
+        "y": 3740,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "ccb286f9a16bfe6e",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "station_camera_left_spl_qr",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 3740,
+        "wires": [
+            [
+                "d9268c761ac22e7e"
+            ]
+        ]
+    },
+    {
+        "id": "16484e1890c799eb",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "PROCESS_OBJECT_OUT",
+        "mode": "link",
+        "links": [
+            "904a9a3144a05d83",
+            "9ff3fb9bbe964ac8",
+            "0142dc90ad47b764"
+        ],
+        "x": 1690,
+        "y": 3340,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "7c575333298311ca",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "name",
+                "pt": "msg",
+                "to": "station_camera_right_object_detection",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1400,
+        "y": 3340,
+        "wires": [
+            [
+                "16484e1890c799eb"
+            ]
+        ]
+    },
+    {
+        "id": "b03fa728bb046d91",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/panel_station/structure/static_objects/pose",
+        "x": 330,
+        "y": 4500,
+        "wires": [
+            [
+                "8bc6f2881bce7006"
+            ]
+        ]
+    },
+    {
+        "id": "8bc6f2881bce7006",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 4500,
+        "wires": [
+            [
+                "e999a2aee0bd5aa2"
+            ]
+        ]
+    },
+    {
+        "id": "e999a2aee0bd5aa2",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 910,
+        "y": 4500,
+        "wires": [
+            [
+                "e363f0da109ce9c7"
+            ]
+        ]
+    },
+    {
+        "id": "e363f0da109ce9c7",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Compute Relative Pose (w FrameId)",
+        "func": "// Get poses\nconst poseA = global.get('isaac_station_world_pose');\nconst poseB = msg.payload\n\nif (!poseA || !poseB) {\n    return null;\n}\n\n// Quaternion helpers\nfunction quatConjugate(q) {\n    return { x: -q.x, y: -q.y, z: -q.z, w: q.w };\n}\n\nfunction quatMultiply(a, b) {\n    return {\n        w: a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,\n        x: a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,\n        y: a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,\n        z: a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w\n    };\n}\n\nfunction rotateVector(v, q) {\n    const qv = { x: v.x, y: v.y, z: v.z, w: 0 };\n    const qInv = quatConjugate(q);\n    const r = quatMultiply(quatMultiply(q, qv), qInv);\n    return { x: r.x, y: r.y, z: r.z };\n}\n\nconst A = poseA.pose;\nconst B = poseB.pose;\n\n// Invert A\nconst qA_inv = quatConjugate(A.orientation);\nconst pA_inv = rotateVector({\n    x: -A.position.x,\n    y: -A.position.y,\n    z: -A.position.z\n}, qA_inv);\n\n// Relative position\nconst pB_rot = rotateVector(B.position, qA_inv);\nconst pRel = {\n    x: pB_rot.x + pA_inv.x,\n    y: pB_rot.y + pA_inv.y,\n    z: pB_rot.z + pA_inv.z\n};\n\n// Relative orientation\nconst qRel = quatMultiply(qA_inv, B.orientation);\n\nmsg.name = msg.payload.header.frame_id;\nmsg.payload = {\n    header: {\n        frame_id: global.get(\"ros_world_frame\"),\n        stamp: poseB.header.stamp\n    },\n    pose: {\n        position: pRel,\n        orientation: {x: 0.0, y:0.0, z: 0.0, w: 1.0}//qRel\n    }\n};\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 4500,
+        "wires": [
+            [
+                "e74fee85d6a38bf6"
+            ]
+        ]
+    },
+    {
+        "id": "e74fee85d6a38bf6",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "PROCESS_OBJECT_OUT",
+        "mode": "link",
+        "links": [
+            "904a9a3144a05d83",
+            "9ff3fb9bbe964ac8",
+            "0142dc90ad47b764"
+        ],
+        "x": 1630,
+        "y": 4500,
+        "wires": [],
+        "l": true
     },
     {
         "id": "c4dd694478a65776",
@@ -948,7 +3199,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: 0.0428,\n        y: 0.04,\n        z: 0.12 + 0.05\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados \n        y: 0.01,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -4272,7 +6523,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 370,
-        "y": 3680,
+        "y": 3540,
         "wires": [
             [
                 "747c684e73ee42e2"
@@ -4292,7 +6543,7 @@
         "finalize": "",
         "libs": [],
         "x": 740,
-        "y": 3760,
+        "y": 3620,
         "wires": [
             [
                 "9f559d31f0a26b79",
@@ -4321,7 +6572,7 @@
         "to": "",
         "reg": false,
         "x": 520,
-        "y": 3760,
+        "y": 3620,
         "wires": [
             [
                 "53b5bb26fbe18f1f"
@@ -4350,7 +6601,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 300,
-        "y": 3840,
+        "y": 3700,
         "wires": [
             [
                 "747c684e73ee42e2"
@@ -4370,7 +6621,7 @@
         "finalize": "",
         "libs": [],
         "x": 770,
-        "y": 3620,
+        "y": 3480,
         "wires": [
             [
                 "4e628a077ede50ad",
@@ -4407,7 +6658,7 @@
         "colorThumb": "",
         "showTextField": true,
         "x": 980,
-        "y": 3900,
+        "y": 4040,
         "wires": [
             [
                 "56c4f2ec49e7816d"
@@ -4442,7 +6693,7 @@
         "colorThumb": "",
         "showTextField": true,
         "x": 960,
-        "y": 4000,
+        "y": 4140,
         "wires": [
             [
                 "d4d1d70c2ab329a9"
@@ -4469,7 +6720,7 @@
         "to": "",
         "reg": false,
         "x": 1300,
-        "y": 3900,
+        "y": 4040,
         "wires": [
             []
         ]
@@ -4494,7 +6745,7 @@
         "to": "",
         "reg": false,
         "x": 1270,
-        "y": 4000,
+        "y": 4140,
         "wires": [
             []
         ]
@@ -4509,7 +6760,7 @@
             "8ebb580cc2585ec8"
         ],
         "x": 360,
-        "y": 3900,
+        "y": 4040,
         "wires": [
             [
                 "21246896419d80f3"
@@ -4527,7 +6778,7 @@
             "8ebb580cc2585ec8"
         ],
         "x": 360,
-        "y": 4000,
+        "y": 4140,
         "wires": [
             [
                 "9d28bd48520caa14"
@@ -4555,7 +6806,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 3900,
+        "y": 4040,
         "wires": [
             [
                 "9e37c2a9b0ba5c05"
@@ -4582,7 +6833,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 4000,
+        "y": 4140,
         "wires": [
             [
                 "6f55175c906e2c56"
@@ -4605,7 +6856,504 @@
         "l": true
     },
     {
-        "id": "c2a2815a81867969",
+        "id": "d8204cfc51b309ae",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "PRODUCTION PATH NEXT",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 360,
+        "y": 3800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cb98cc1972974fda",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar poses = [];\nvar object_poses = JSON.parse(JSON.stringify(flow.get(\"object_poses\")));\nvar offset_eurocontainer_slot = flow.get(\"offset_eurocontainer_slot\");\nvar offset_redboard = flow.get(\"offset_redboard\");\n\nvar spl_container_path_index = JSON.parse(JSON.stringify(flow.get(\"spl_container_path_index\")));\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"position/readboard_0\"+ msg.payload.slots[0] )) {\n          poses.push({\n            name : element,\n            pose: {}\n          })\n      }\n    });\n    object_poses.forEach(function(element) {\n      if (element.name == (\"position/readboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n    poses[0].pose.position.x = \n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 4,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 3880,
+        "wires": [
+            [
+                "2163e056d1211a2b"
+            ]
+        ]
+    },
+    {
+        "id": "9f371ac712997981",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 3960,
+        "wires": [
+            [
+                "6d5fa49867d3b05d"
+            ]
+        ]
+    },
+    {
+        "id": "a983b7340f96021a",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose to Stamped",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = flow.get(\"goal_pose\");\n\n\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : {\n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n  }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 3740,
+        "wires": [
+            [
+                "4e628a077ede50ad"
+            ]
+        ]
+    },
+    {
+        "id": "0142dc90ad47b764",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "PROCESS OBJECT ROS",
+        "links": [
+            "018013521726872c",
+            "20fd3909d23e268d",
+            "a2d921d655104a71",
+            "0cd58b0c32f0ea81",
+            "d9268c761ac22e7e",
+            "16484e1890c799eb",
+            "e74fee85d6a38bf6",
+            "07f5c1e7ddfffa40"
+        ],
+        "x": 350,
+        "y": 4240,
+        "wires": [
+            [
+                "d2b310a6bb0fdc3f"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "d2b310a6bb0fdc3f",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "object_poses",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 4240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6d5fa49867d3b05d",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Inject",
+        "func": "var action = 1;\n\nvar slots = [0,0,0]\n\nmsg.payload = {action:action, slots:slots}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 3960,
+        "wires": [
+            [
+                "cb98cc1972974fda"
+            ]
+        ]
+    },
+    {
+        "id": "2163e056d1211a2b",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 3880,
+        "wires": []
+    },
+    {
+        "id": "16511e0e2b0e6eaf",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "OBJECT POSES",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "a56ccb142412e4a3",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "debug 18",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "e03532cc81e3b74b",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "PoseToTF",
+        "func": "const pose = msg.payload.pose;\n\n// Frame naming (change as needed)\nconst parentFrame = global.get(\"ros_world_frame\");\nconst childFrame  = msg.payload.name;\n\n// Timestamp (ROS2 style)\nconst now = Date.now();\nconst sec = Math.floor(now / 1000);\nconst nanosec = (now % 1000) * 1e6;\n\nmsg.payload = {\n    transforms: [\n        {\n            header: {\n                frame_id: parentFrame,\n                stamp: {\n                    sec: sec,\n                    nanosec: nanosec\n                }\n            },\n            child_frame_id: childFrame,\n            transform: {\n                translation: {\n                    x: pose.pose.position.x,\n                    y: pose.pose.position.y,\n                    z: pose.pose.position.z\n                },\n                rotation: {\n                    x: pose.pose.orientation.x,\n                    y: pose.pose.orientation.y,\n                    z: pose.pose.orientation.z,\n                    w: pose.pose.orientation.w\n                }\n            }\n        }\n    ]\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 540,
+        "wires": [
+            [
+                "87d4ce8081a6fac5",
+                "a56ccb142412e4a3"
+            ]
+        ]
+    },
+    {
+        "id": "87d4ce8081a6fac5",
+        "type": "ros-publish",
+        "z": "58de6cfd0e1f91cf",
+        "server": "4bf02018241b669e",
+        "topicname": "/tf",
+        "msgtype": "tf2_msgs/TFMessage",
+        "x": 1190,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ba737c0db4f1f15f",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "CreateCollisionObject",
+        "func": "// Configuration\nconst boxId = msg.payload.name + \"_box\";\nconst linkName = global.get(\"ros_world_frame\");          // Robot link to attach to\nconst collisionFrame = msg.payload.name; // TF frame you published\nconst boxSize = { x: 0.05, y: 0.05, z: 0.05 }; // meters\n\nmsg.payload = {\n    link_name: linkName,\n    object: {\n        id: boxId,\n        operation: 0, // ADD\n        header: {\n            frame_id: collisionFrame\n        },\n        primitives: [\n            {\n                type: 1, // BOX\n                dimensions: [\n                    boxSize.x,\n                    boxSize.y,\n                    boxSize.z\n                ]\n            }\n        ],\n        primitive_poses: [\n            {\n                position: { x: 0, y: 0, z: 0 },\n                orientation: { x: 0, y: 0, z: 0, w: 1 }\n            }\n        ]\n    }\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 880,
+        "wires": [
+            [
+                "02ac8f4741247104"
+            ]
+        ]
+    },
+    {
+        "id": "02ac8f4741247104",
+        "type": "ros-publish",
+        "z": "58de6cfd0e1f91cf",
+        "server": "4bf02018241b669e",
+        "topicname": "/attached_collision_object",
+        "msgtype": "moveit_msgs/AttachedCollisionObject",
+        "x": 1310,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "5216c21b10c959a1",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 880,
+        "wires": [
+            [
+                "450ddcce0f83c34d"
+            ]
+        ]
+    },
+    {
+        "id": "904a9a3144a05d83",
+        "type": "link in",
+        "z": "58de6cfd0e1f91cf",
+        "name": "PROCESS OBJECT ROS",
+        "links": [
+            "018013521726872c",
+            "20fd3909d23e268d",
+            "a2d921d655104a71",
+            "0cd58b0c32f0ea81",
+            "d9268c761ac22e7e",
+            "16484e1890c799eb",
+            "e74fee85d6a38bf6"
+        ],
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "39aed324555ec7b7"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "39aed324555ec7b7",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "SaveObjectPose",
+        "func": "// Incoming data\nconst name = msg.name;\nconst pose = msg.payload;\n\nif (!name || !pose) {\n    node.warn(\"Missing name or pose\");\n    return null;\n}\n\n// Get existing array (or init)\nlet poses = flow.get(\"object_poses\");\nif (!Array.isArray(poses)) {\n    poses = [];\n}\n\n// Find existing entry\nconst index = poses.findIndex(p => p.name === name);\n\nif (index === -1) {\n    // New name → push\n    poses.push({\n        name: name,\n        pose: pose\n    });\n    node.log(`Added new pose: ${name}`);\n} else {\n    // Existing name → update (optional behavior)\n    poses[index].pose = pose;\n    node.log(`Updated pose: ${name}`);\n}\n\n// Save back to context\nflow.set(\"object_poses\", poses);\n\n// Optional outputs\nmsg.payload = poses;\nmsg.count = poses.length;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 320,
+        "wires": [
+            [
+                "16511e0e2b0e6eaf",
+                "07f5c1e7ddfffa40"
+            ]
+        ]
+    },
+    {
+        "id": "b69bf94cca558f50",
+        "type": "split",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 650,
+        "y": 540,
+        "wires": [
+            [
+                "e03532cc81e3b74b"
+            ]
+        ]
+    },
+    {
+        "id": "40d8904a8c7cc1e1",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 540,
+        "wires": [
+            [
+                "4164b9b603bd2275"
+            ]
+        ]
+    },
+    {
+        "id": "4164b9b603bd2275",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "object_poses",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 540,
+        "wires": [
+            [
+                "b69bf94cca558f50"
+            ]
+        ]
+    },
+    {
+        "id": "450ddcce0f83c34d",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "object_poses",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 880,
+        "wires": [
+            [
+                "130b3891c50494b3"
+            ]
+        ]
+    },
+    {
+        "id": "130b3891c50494b3",
+        "type": "split",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 770,
+        "y": 880,
+        "wires": [
+            [
+                "ba737c0db4f1f15f"
+            ]
+        ]
+    },
+    {
+        "id": "07f5c1e7ddfffa40",
+        "type": "link out",
+        "z": "58de6cfd0e1f91cf",
+        "name": "OBJECT_POSES_OUT",
+        "mode": "link",
+        "links": [
+            "0142dc90ad47b764"
+        ],
+        "x": 930,
+        "y": 400,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "2193b6b1aac86e70",
         "type": "global-config",
         "env": [],
         "modules": {
