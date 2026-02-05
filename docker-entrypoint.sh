@@ -11,11 +11,42 @@ WORKSPACE=/home/ubuntu/catkin_ws
 BASHRC=/home/ubuntu/.bashrc
 
 # Ensure ROS_DISTRO is set
-export ROS_DISTRO=${ROS_DISTRO:-humble}
+export ROS_DISTRO=${ROS_DISTRO:-noetic}
 
 # Wait until ubuntu user exists
 until id ubuntu &>/dev/null; do sleep 1; done
 echo "User ubuntu READY!"
+
+# Create .bashrc if it doesn't exist (copy from /etc/skel or create minimal one)
+if [ ! -f "$BASHRC" ]; then
+    echo "Creating .bashrc for ubuntu user..."
+    if [ -f /etc/skel/.bashrc ]; then
+        cp /etc/skel/.bashrc "$BASHRC"
+    else
+        # Create a minimal .bashrc
+        cat > "$BASHRC" << 'EOF'
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+EOF
+    fi
+    chown ubuntu:ubuntu "$BASHRC"
+fi
 
 # Create workspace if it doesn't exist
 if [ ! -d "$WORKSPACE/src" ]; then
@@ -28,9 +59,9 @@ chown -R ubuntu:ubuntu "$WORKSPACE"
 # Build the workspace as ubuntu
 su - ubuntu -c "source /opt/ros/$ROS_DISTRO/setup.bash && cd $WORKSPACE && catkin_make" || true
 
-# Append ROS2 + workspace setup to bashrc if not already present
-grep -qxF "source /opt/ros/$ROS_DISTRO/setup.bash" "$BASHRC" || echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> "$BASHRC"
-grep -qxF "source $WORKSPACE/devel/setup.bash" "$BASHRC" || echo "source $WORKSPACE/devel/setup.bash" >> "$BASHRC"
+# Append ROS + workspace setup to bashrc if not already present
+grep -qF "source /opt/ros/$ROS_DISTRO/setup.bash" "$BASHRC" || echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> "$BASHRC"
+grep -qF "source $WORKSPACE/devel/setup.bash" "$BASHRC" || echo "source $WORKSPACE/devel/setup.bash" >> "$BASHRC"
 
 # Optional: enable programmable completion features if not already
 #grep -qxF "# enable programmable completion features" "$BASHRC" || cat << 'EOF' >> "$BASHRC"

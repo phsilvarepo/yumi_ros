@@ -215,6 +215,15 @@
         "groupType": "default"
     },
     {
+        "id": "f782952bb3d11cd4",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-flowake-ros-nodes": "1.2.0",
+            "@flowfuse/node-red-dashboard": "1.30.2"
+        }
+    },
+    {
         "id": "8eb20c4e7f9cdb54",
         "type": "ros-subscribe",
         "z": "f6f2187d.f17ca8",
@@ -2407,9 +2416,7 @@
         "name": "PROCESS_OBJECT_OUT",
         "mode": "link",
         "links": [
-            "904a9a3144a05d83",
-            "9ff3fb9bbe964ac8",
-            "0142dc90ad47b764"
+            "904a9a3144a05d83"
         ],
         "x": 1680,
         "y": 3540,
@@ -2450,9 +2457,7 @@
         "name": "PROCESS_OBJECT_OUT",
         "mode": "link",
         "links": [
-            "904a9a3144a05d83",
-            "9ff3fb9bbe964ac8",
-            "0142dc90ad47b764"
+            "904a9a3144a05d83"
         ],
         "x": 1630,
         "y": 4340,
@@ -2493,9 +2498,7 @@
         "name": "PROCESS_OBJECT_OUT",
         "mode": "link",
         "links": [
-            "904a9a3144a05d83",
-            "9ff3fb9bbe964ac8",
-            "0142dc90ad47b764"
+            "904a9a3144a05d83"
         ],
         "x": 1630,
         "y": 4140,
@@ -2536,9 +2539,7 @@
         "name": "PROCESS_OBJECT_OUT",
         "mode": "link",
         "links": [
-            "904a9a3144a05d83",
-            "9ff3fb9bbe964ac8",
-            "0142dc90ad47b764"
+            "904a9a3144a05d83"
         ],
         "x": 1630,
         "y": 3940,
@@ -2579,9 +2580,7 @@
         "name": "PROCESS_OBJECT_OUT",
         "mode": "link",
         "links": [
-            "904a9a3144a05d83",
-            "9ff3fb9bbe964ac8",
-            "0142dc90ad47b764"
+            "904a9a3144a05d83"
         ],
         "x": 1630,
         "y": 3740,
@@ -2622,9 +2621,7 @@
         "name": "PROCESS_OBJECT_OUT",
         "mode": "link",
         "links": [
-            "904a9a3144a05d83",
-            "9ff3fb9bbe964ac8",
-            "0142dc90ad47b764"
+            "904a9a3144a05d83"
         ],
         "x": 1690,
         "y": 3340,
@@ -2731,14 +2728,26 @@
         "name": "PROCESS_OBJECT_OUT",
         "mode": "link",
         "links": [
-            "904a9a3144a05d83",
-            "9ff3fb9bbe964ac8",
-            "0142dc90ad47b764"
+            "904a9a3144a05d83"
         ],
         "x": 1630,
         "y": 4500,
         "wires": [],
         "l": true
+    },
+    {
+        "id": "5e0dc2d95f306046",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "98acc585bfe962b1",
+        "topicname": "/station/structure/static_objects/pose",
+        "x": 300,
+        "y": 4600,
+        "wires": [
+            [
+                "8bc6f2881bce7006"
+            ]
+        ]
     },
     {
         "id": "c4dd694478a65776",
@@ -3199,7 +3208,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: 0.0428,\n        y: 0.04,\n        z: 0.12 + 0.05\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados \n        y: 0.01,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: 0.0428,\n        y: 0.04,\n        z: 0.12 + 0.05 + 0.05\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: -0.15,\n        z: 0.08\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 1, 6]\n});",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -3351,9 +3360,11 @@
             "d9453bb3a0f459b8",
             "0d7268fb3b726e84",
             "98bab3db94280312",
-            "f1eb1c6364412642"
+            "f1eb1c6364412642",
+            "a449df471e95ccf4",
+            "e8a95db0da5cab3c"
         ],
-        "x": 470,
+        "x": 440,
         "y": 120,
         "wires": [],
         "l": true
@@ -3622,8 +3633,7 @@
                 "74b2a7b9754d7cf1",
                 "1e77c70ef8341a9d",
                 "2b8af0112d880289",
-                "fbbdd6be418de96a",
-                "e9ce65dc56e23e1e"
+                "fbbdd6be418de96a"
             ]
         ],
         "l": true
@@ -3808,34 +3818,14 @@
         ]
     },
     {
-        "id": "e9ce65dc56e23e1e",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "name": "Convert Pose to Stamped",
-        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = flow.get(\"goal_pose\");\n\n\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : {\n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n  }\n}\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 3140,
-        "wires": [
-            [
-                "4e628a077ede50ad"
-            ]
-        ]
-    },
-    {
         "id": "4e628a077ede50ad",
         "type": "ros-publish",
         "z": "c68dc494590553a0",
         "server": "4bf02018241b669e",
         "topicname": "/yumi_commander/goal_pose",
         "msgtype": "geometry_msgs/PoseStamped",
-        "x": 1190,
-        "y": 3180,
+        "x": 1810,
+        "y": 3140,
         "wires": []
     },
     {
@@ -6195,7 +6185,6 @@
         "y": 3140,
         "wires": [
             [
-                "e9ce65dc56e23e1e",
                 "fda85bbb51362440"
             ]
         ]
@@ -6207,15 +6196,15 @@
         "server": "4bf02018241b669e",
         "topicname": "/pose_command",
         "msgtype": "geometry_msgs/Pose",
-        "x": 1140,
-        "y": 3260,
+        "x": 1470,
+        "y": 3220,
         "wires": []
     },
     {
         "id": "2e9ffceebb048a17",
         "type": "debug",
         "z": "c68dc494590553a0",
-        "name": "debug 3",
+        "name": "GOAL POSE STAMPED Position",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -6224,8 +6213,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1220,
-        "y": 3540,
+        "x": 1810,
+        "y": 3100,
         "wires": []
     },
     {
@@ -6240,12 +6229,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 3200,
+        "x": 560,
+        "y": 3140,
         "wires": [
             [
-                "614095fe8b8c842c",
-                "2e9ffceebb048a17"
+                "29b4ec8d2a43709e"
             ]
         ]
     },
@@ -6281,7 +6269,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 350,
-        "y": 3400,
+        "y": 3380,
         "wires": [
             [
                 "6e7d164510f08093"
@@ -6300,13 +6288,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 840,
-        "y": 3400,
+        "x": 860,
+        "y": 3380,
         "wires": [
             [
-                "2e9ffceebb048a17",
-                "3628cb819edd3b70",
-                "614095fe8b8c842c"
+                "8ebb580cc2585ec8"
             ]
         ]
     },
@@ -6330,60 +6316,10 @@
         "to": "",
         "reg": false,
         "x": 620,
-        "y": 3400,
+        "y": 3380,
         "wires": [
             [
                 "c7652eb8a569e83e"
-            ]
-        ]
-    },
-    {
-        "id": "fb14e0e3c7a39baa",
-        "type": "inject",
-        "z": "c68dc494590553a0",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 320,
-        "y": 3480,
-        "wires": [
-            [
-                "6e7d164510f08093"
-            ]
-        ]
-    },
-    {
-        "id": "3628cb819edd3b70",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "name": "Convert Pose to Stamped",
-        "func": "\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : msg.payload\n}\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 850,
-        "y": 3260,
-        "wires": [
-            [
-                "4e628a077ede50ad",
-                "8ebb580cc2585ec8"
             ]
         ]
     },
@@ -6523,7 +6459,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 370,
-        "y": 3540,
+        "y": 3440,
         "wires": [
             [
                 "747c684e73ee42e2"
@@ -6542,13 +6478,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 740,
-        "y": 3620,
+        "x": 900,
+        "y": 3440,
         "wires": [
             [
-                "9f559d31f0a26b79",
-                "614095fe8b8c842c",
-                "2e9ffceebb048a17"
+                "8ebb580cc2585ec8"
             ]
         ]
     },
@@ -6571,62 +6505,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 520,
-        "y": 3620,
+        "x": 660,
+        "y": 3440,
         "wires": [
             [
                 "53b5bb26fbe18f1f"
-            ]
-        ]
-    },
-    {
-        "id": "d4ea1fa4103bb786",
-        "type": "inject",
-        "z": "c68dc494590553a0",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 300,
-        "y": 3700,
-        "wires": [
-            [
-                "747c684e73ee42e2"
-            ]
-        ]
-    },
-    {
-        "id": "9f559d31f0a26b79",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "name": "Convert Pose to Stamped",
-        "func": "\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : msg.payload\n}\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 770,
-        "y": 3480,
-        "wires": [
-            [
-                "4e628a077ede50ad",
-                "2e9ffceebb048a17",
-                "8ebb580cc2585ec8"
             ]
         ]
     },
@@ -6657,8 +6540,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 980,
-        "y": 4040,
+        "x": 920,
+        "y": 3540,
         "wires": [
             [
                 "56c4f2ec49e7816d"
@@ -6692,8 +6575,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 960,
-        "y": 4140,
+        "x": 900,
+        "y": 3600,
         "wires": [
             [
                 "d4d1d70c2ab329a9"
@@ -6719,8 +6602,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1300,
-        "y": 4040,
+        "x": 1240,
+        "y": 3540,
         "wires": [
             []
         ]
@@ -6744,8 +6627,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1270,
-        "y": 4140,
+        "x": 1210,
+        "y": 3600,
         "wires": [
             []
         ]
@@ -6759,8 +6642,8 @@
             "33d2be3aab688dd7",
             "8ebb580cc2585ec8"
         ],
-        "x": 360,
-        "y": 4040,
+        "x": 370,
+        "y": 3540,
         "wires": [
             [
                 "21246896419d80f3"
@@ -6777,8 +6660,8 @@
             "33d2be3aab688dd7",
             "8ebb580cc2585ec8"
         ],
-        "x": 360,
-        "y": 4140,
+        "x": 370,
+        "y": 3600,
         "wires": [
             [
                 "9d28bd48520caa14"
@@ -6806,7 +6689,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 4040,
+        "y": 3540,
         "wires": [
             [
                 "9e37c2a9b0ba5c05"
@@ -6833,7 +6716,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 4140,
+        "y": 3600,
         "wires": [
             [
                 "6f55175c906e2c56"
@@ -6848,10 +6731,11 @@
         "mode": "link",
         "links": [
             "98bab3db94280312",
-            "f1eb1c6364412642"
+            "f1eb1c6364412642",
+            "04d95265e2ebf6bd"
         ],
-        "x": 1360,
-        "y": 3780,
+        "x": 1140,
+        "y": 3400,
         "wires": [],
         "l": true
     },
@@ -6862,7 +6746,7 @@
         "group": "e2828d41d9660087",
         "name": "",
         "label": "PRODUCTION PATH NEXT",
-        "order": 2,
+        "order": 6,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -6887,57 +6771,31 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 360,
-        "y": 3800,
+        "y": 3840,
         "wires": [
-            []
+            [
+                "3df82e76dd7be938"
+            ]
         ]
     },
     {
         "id": "cb98cc1972974fda",
         "type": "function",
         "z": "c68dc494590553a0",
-        "name": "Convert Pose",
-        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar poses = [];\nvar object_poses = JSON.parse(JSON.stringify(flow.get(\"object_poses\")));\nvar offset_eurocontainer_slot = flow.get(\"offset_eurocontainer_slot\");\nvar offset_redboard = flow.get(\"offset_redboard\");\n\nvar spl_container_path_index = JSON.parse(JSON.stringify(flow.get(\"spl_container_path_index\")));\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"position/readboard_0\"+ msg.payload.slots[0] )) {\n          poses.push({\n            name : element,\n            pose: {}\n          })\n      }\n    });\n    object_poses.forEach(function(element) {\n      if (element.name == (\"position/readboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n    poses[0].pose.position.x = \n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
+        "name": "Get Start and End Poses",
+        "func": "var poses = [];\nvar object_poses = JSON.parse(JSON.stringify(flow.get(\"object_poses\")));\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[0] )) {\n          poses.push(element)\n      }\n    });\n\n    object_poses.forEach(function(element) {\n      if (element.name == (\"position/readboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
-        "noerr": 4,
+        "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 740,
-        "y": 3880,
+        "x": 930,
+        "y": 4000,
         "wires": [
             [
-                "2163e056d1211a2b"
-            ]
-        ]
-    },
-    {
-        "id": "9f371ac712997981",
-        "type": "inject",
-        "z": "c68dc494590553a0",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 300,
-        "y": 3960,
-        "wires": [
-            [
-                "6d5fa49867d3b05d"
+                "2163e056d1211a2b",
+                "d8d33aa5a3247056"
             ]
         ]
     },
@@ -6946,19 +6804,17 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Convert Pose to Stamped",
-        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_pose = flow.get(\"goal_pose\");\n\n\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : {\n    position : goal_pose.position,\n    orientation: rpyToQuaternion(goal_pose.orientation)\n  }\n}\nreturn msg;",
+        "func": "var goal_pose = msg.payload\n\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : goal_pose\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 790,
-        "y": 3740,
+        "x": 970,
+        "y": 3840,
         "wires": [
-            [
-                "4e628a077ede50ad"
-            ]
+            []
         ]
     },
     {
@@ -6967,17 +6823,10 @@
         "z": "c68dc494590553a0",
         "name": "PROCESS OBJECT ROS",
         "links": [
-            "018013521726872c",
-            "20fd3909d23e268d",
-            "a2d921d655104a71",
-            "0cd58b0c32f0ea81",
-            "d9268c761ac22e7e",
-            "16484e1890c799eb",
-            "e74fee85d6a38bf6",
             "07f5c1e7ddfffa40"
         ],
         "x": 350,
-        "y": 4240,
+        "y": 3760,
         "wires": [
             [
                 "d2b310a6bb0fdc3f"
@@ -7004,30 +6853,10 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
-        "y": 4240,
+        "x": 640,
+        "y": 3760,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "6d5fa49867d3b05d",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "name": "Inject",
-        "func": "var action = 1;\n\nvar slots = [0,0,0]\n\nmsg.payload = {action:action, slots:slots}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 3960,
-        "wires": [
-            [
-                "cb98cc1972974fda"
-            ]
         ]
     },
     {
@@ -7042,9 +6871,310 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1040,
-        "y": 3880,
+        "x": 1180,
+        "y": 3960,
         "wires": []
+    },
+    {
+        "id": "d8d33aa5a3247056",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Create Production Path",
+        "func": "var offset_eurocontainer_slot = flow.get(\"offset_eurocontainer_slot\")\nvar offset_redboard = flow.get(\"offset_redboard\")\nvar approach_container = flow.get(\"container_approach\")\nvar approach_redboard = flow.get(\"redboard_approach\")\n\nvar action = msg.payload.action\nvar final_poses = []\n\nswitch (action) {\n  case 1: {\n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose))\n    node.warn(JSON.stringify(temp_pose))\n    temp_pose.pose.position.x += offset_eurocontainer_slot.position.x;\n    temp_pose.pose.position.y +=  offset_eurocontainer_slot.position.y;\n    temp_pose.pose.position.z += (offset_eurocontainer_slot.position.z + approach_container.position.z);\n    temp_pose.pose.orientation = approach_container.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(temp_pose)\n\n    temp_pose.pose.position.z -= approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose.pose.position.z += approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose))\n    temp_pose.pose.position.x += offset_redboard.position.x;\n    temp_pose.pose.position.y += offset_redboard.position.y;\n    temp_pose.pose.position.z += (offset_redboard.position.z + approach_redboard.position.z);\n    temp_pose.pose.orientation = approach_redboard.orientation\n    node.warn(temp_pose.pose.position.z)\n    \n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z -= approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z += approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n  }    \n}\nmsg.payload=final_poses\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 4000,
+        "wires": [
+            [
+                "73a1d3393af99a3e"
+            ]
+        ]
+    },
+    {
+        "id": "73a1d3393af99a3e",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "path",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1490,
+        "y": 4000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d07a98edfc85c2d",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "Pose Path",
+        "tooltip": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "0",
+        "max": "5",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 870,
+        "y": 3920,
+        "wires": [
+            [
+                "c8fd1dfa944e466a"
+            ]
+        ]
+    },
+    {
+        "id": "3df82e76dd7be938",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nvar goal_poses = JSON.parse(JSON.stringify(flow.get(\"path\")));\n\nvar spl_container_path_index = JSON.parse(JSON.stringify(flow.get(\"spl_production_path_index\")));\n\nflow.set(\"spl_production_path_index\", spl_container_path_index + 1);\n\nnode.warn(goal_poses[spl_container_path_index].pose.position);\n\nnode.warn(goal_poses[spl_container_path_index].pose.orientation);\n\nmsg.payload = {\n  position: goal_poses[spl_container_path_index].pose.position,\n  orientation: rpyToQuaternion(goal_poses[spl_container_path_index].pose.orientation)\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 3840,
+        "wires": [
+            [
+                "a983b7340f96021a",
+                "45fb4e09e9a33b1e"
+            ]
+        ]
+    },
+    {
+        "id": "c8fd1dfa944e466a",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "spl_production_path_index",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1160,
+        "y": 3920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3dc0a1448336a11b",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "spl_production_path_index",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 3920,
+        "wires": [
+            [
+                "0d07a98edfc85c2d"
+            ]
+        ]
+    },
+    {
+        "id": "8d9d113e86554409",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "GOAL POSE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1450,
+        "y": 3180,
+        "wires": []
+    },
+    {
+        "id": "a449df471e95ccf4",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH PATH POSE STARTUP",
+        "links": [
+            "33d2be3aab688dd7",
+            "45fb4e09e9a33b1e"
+        ],
+        "x": 360,
+        "y": 3920,
+        "wires": [
+            [
+                "3dc0a1448336a11b"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "45fb4e09e9a33b1e",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH PATH POSE OUT",
+        "mode": "link",
+        "links": [
+            "a449df471e95ccf4"
+        ],
+        "x": 970,
+        "y": 3880,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "c3daa7ea792b9811",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose to Stamped",
+        "func": "\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : msg.payload\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1490,
+        "y": 3140,
+        "wires": [
+            [
+                "4e628a077ede50ad",
+                "2e9ffceebb048a17"
+            ]
+        ]
+    },
+    {
+        "id": "04d95265e2ebf6bd",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "PUBLISH GOAL POSE",
+        "links": [
+            "8ebb580cc2585ec8",
+            "29b4ec8d2a43709e"
+        ],
+        "x": 1200,
+        "y": 3140,
+        "wires": [
+            [
+                "c3daa7ea792b9811",
+                "614095fe8b8c842c",
+                "8d9d113e86554409"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "29b4ec8d2a43709e",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "PUBLISH POSE OUT",
+        "mode": "link",
+        "links": [
+            "04d95265e2ebf6bd"
+        ],
+        "x": 820,
+        "y": 3140,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "d2e465a612c595ce",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "current_task",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 4000,
+        "wires": [
+            [
+                "cb98cc1972974fda"
+            ]
+        ]
+    },
+    {
+        "id": "e8a95db0da5cab3c",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "RESTART PRODUCTION PATH",
+        "links": [
+            "33d2be3aab688dd7"
+        ],
+        "x": 370,
+        "y": 4000,
+        "wires": [
+            [
+                "d2e465a612c595ce"
+            ]
+        ],
+        "l": true
     },
     {
         "id": "16511e0e2b0e6eaf",
@@ -7059,8 +7189,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 930,
-        "y": 320,
+        "x": 870,
+        "y": 260,
         "wires": []
     },
     {
@@ -7075,8 +7205,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1200,
-        "y": 480,
+        "x": 1020,
+        "y": 500,
         "wires": []
     },
     {
@@ -7091,7 +7221,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1000,
+        "x": 820,
         "y": 540,
         "wires": [
             [
@@ -7107,7 +7237,7 @@
         "server": "4bf02018241b669e",
         "topicname": "/tf",
         "msgtype": "tf2_msgs/TFMessage",
-        "x": 1190,
+        "x": 1010,
         "y": 540,
         "wires": []
     },
@@ -7116,18 +7246,19 @@
         "type": "function",
         "z": "58de6cfd0e1f91cf",
         "name": "CreateCollisionObject",
-        "func": "// Configuration\nconst boxId = msg.payload.name + \"_box\";\nconst linkName = global.get(\"ros_world_frame\");          // Robot link to attach to\nconst collisionFrame = msg.payload.name; // TF frame you published\nconst boxSize = { x: 0.05, y: 0.05, z: 0.05 }; // meters\n\nmsg.payload = {\n    link_name: linkName,\n    object: {\n        id: boxId,\n        operation: 0, // ADD\n        header: {\n            frame_id: collisionFrame\n        },\n        primitives: [\n            {\n                type: 1, // BOX\n                dimensions: [\n                    boxSize.x,\n                    boxSize.y,\n                    boxSize.z\n                ]\n            }\n        ],\n        primitive_poses: [\n            {\n                position: { x: 0, y: 0, z: 0 },\n                orientation: { x: 0, y: 0, z: 0, w: 1 }\n            }\n        ]\n    }\n};\n\nreturn msg;\n",
+        "func": "// Configuration\nconst boxId = msg.payload.name + \"_box\";\nconst linkName = global.get(\"ros_world_frame\");          // Robot link to attach to\nconst collisionFrame = msg.payload.name; // TF frame you published\n\nvar colision_objects = flow.get(\"colision_objects\");\nif (!colision_objects || !Array.isArray(colision_objects)) {\n    node.error(\"Collision colision_objects not available\");\n    return null;\n}\n\nif (!msg.payload || !msg.payload.name) {\n    node.warn(\"Incoming message has no name\");\n    return null;\n}\n\nvar name = msg.payload.name.toLowerCase();\nnode.warn(\"NAME \" + name + \" Will Include ...\");\nvar collision_object = colision_objects.find(entry =>\n    name.includes(entry.type.toLowerCase())\n);\n\nnode.warn(collision_object.type + \" : \" + JSON.stringify(collision_object.box));\n\nif (!collision_object) {\n    node.warn(`No collision object match for name: ${msg.payload.name}`);\n    return null;\n}\n\nmsg.payload = {\n    link_name: linkName,\n    object: {\n        id: boxId,\n        operation: 0, // ADD\n        header: {\n            frame_id: collisionFrame\n        },\n        primitives: [\n            {\n                type: 1, // BOX\n                dimensions: [\n                    collision_object.box.x,\n                    collision_object.box.y,\n                    collision_object.box.z\n                ]\n            }\n        ],\n        primitive_poses: [\n            {\n                position: { x: 0, y: 0, z: 0 },\n                orientation: { x: 0, y: 0, z: 0, w: 1 }\n            }\n        ]\n    }\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1020,
-        "y": 880,
+        "x": 860,
+        "y": 680,
         "wires": [
             [
-                "02ac8f4741247104"
+                "02ac8f4741247104",
+                "ce0802886eed961f"
             ]
         ]
     },
@@ -7138,8 +7269,8 @@
         "server": "4bf02018241b669e",
         "topicname": "/attached_collision_object",
         "msgtype": "moveit_msgs/AttachedCollisionObject",
-        "x": 1310,
-        "y": 880,
+        "x": 1150,
+        "y": 680,
         "wires": []
     },
     {
@@ -7163,8 +7294,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 220,
-        "y": 880,
+        "x": 180,
+        "y": 680,
         "wires": [
             [
                 "450ddcce0f83c34d"
@@ -7185,8 +7316,8 @@
             "16484e1890c799eb",
             "e74fee85d6a38bf6"
         ],
-        "x": 310,
-        "y": 320,
+        "x": 270,
+        "y": 300,
         "wires": [
             [
                 "39aed324555ec7b7"
@@ -7206,8 +7337,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 630,
-        "y": 320,
+        "x": 590,
+        "y": 300,
         "wires": [
             [
                 "16511e0e2b0e6eaf",
@@ -7227,7 +7358,7 @@
         "stream": false,
         "addname": "",
         "property": "payload",
-        "x": 650,
+        "x": 630,
         "y": 540,
         "wires": [
             [
@@ -7283,7 +7414,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
+        "x": 420,
         "y": 540,
         "wires": [
             [
@@ -7310,8 +7441,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
-        "y": 880,
+        "x": 420,
+        "y": 680,
         "wires": [
             [
                 "130b3891c50494b3"
@@ -7330,8 +7461,8 @@
         "stream": false,
         "addname": "",
         "property": "payload",
-        "x": 770,
-        "y": 880,
+        "x": 630,
+        "y": 680,
         "wires": [
             [
                 "ba737c0db4f1f15f"
@@ -7347,18 +7478,43 @@
         "links": [
             "0142dc90ad47b764"
         ],
-        "x": 930,
-        "y": 400,
+        "x": 880,
+        "y": 300,
         "wires": [],
         "l": true
     },
     {
-        "id": "2193b6b1aac86e70",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-contrib-flowake-ros-nodes": "1.2.0",
-            "@flowfuse/node-red-dashboard": "1.30.2"
-        }
+        "id": "049e558a03e86f1e",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "STARTUP",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "flow.set(\"colision_objects\", [\n    {\n        model: \"Intel Realsense D435\",\n        type: \"camera\",\n        box: {\n            x: 0.090,\n            y: 0.025,\n            z: 0.025\n        }\n    },\n    {\n        model: \"UNP SPL Redboard\",\n        type: \"readboard\",\n        box: {\n            x: 0.13,\n            y: 0.15,\n            z: 0.03\n        }\n    },\n    {\n        model: \"EuroContainer AUER EG 21512 HG\",\n        type: \"container\",\n        box: {\n            x: 0.200,\n            y: 0.150,\n            z: 0.120\n        }\n    }\n]);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce0802886eed961f",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 640,
+        "wires": []
     }
 ]

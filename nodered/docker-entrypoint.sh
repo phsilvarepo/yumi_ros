@@ -11,5 +11,11 @@ if [ -f /data/package.json ]; then
     fi
 fi
 
+# Copy initial flows if flows.json doesn't exist
+if [ ! -f /data/flows.json ] && [ -f /data/flows.json.template ]; then
+    echo "Initializing flows from template..."
+    cp /data/flows.json.template /data/flows.json
+fi
+
 # Start Node-RED with settings file
 exec node-red --userDir /data --settings /data/settings.js

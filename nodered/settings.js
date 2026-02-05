@@ -16,6 +16,8 @@ module.exports = {
             audit: false
         }
     },
+    flowFilePretty: true,
+
     
     // Function node settings
     functionGlobalContext: {
@@ -33,5 +35,8 @@ module.exports = {
     httpNodeCors: {
         origin: "*",
         methods: "GET,PUT,POST,DELETE"
+    },
+    editorTheme: {
+        projects: { enabled: false }
     }
 }
