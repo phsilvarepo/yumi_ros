@@ -25,7 +25,7 @@
     {
         "id": "98acc585bfe962b1",
         "type": "ros-server",
-        "url": "ws://host.docker.internal:9090"
+        "url": "ws://10.0.1.166:9090"
     },
     {
         "id": "4bf02018241b669e",
@@ -500,8 +500,8 @@
         "initialize": "flow.set(\"changed\", false);\n\nglobal.set(\"ros_world_frame\", \"world\");",
         "finalize": "",
         "libs": [],
-        "x": 400,
-        "y": 300,
+        "x": 180,
+        "y": 80,
         "wires": [
             []
         ]
@@ -1630,7 +1630,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1280,
+        "x": 1260,
         "y": 2800,
         "wires": []
     },
@@ -2741,8 +2741,8 @@
         "z": "f6f2187d.f17ca8",
         "server": "98acc585bfe962b1",
         "topicname": "/station/structure/static_objects/pose",
-        "x": 300,
-        "y": 4600,
+        "x": 310,
+        "y": 4560,
         "wires": [
             [
                 "8bc6f2881bce7006"
@@ -6209,7 +6209,7 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload.position",
+        "complete": "payload.pose.position",
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
@@ -6800,24 +6800,6 @@
         ]
     },
     {
-        "id": "a983b7340f96021a",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "name": "Convert Pose to Stamped",
-        "func": "var goal_pose = msg.payload\n\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : goal_pose\n}\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 3840,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "0142dc90ad47b764",
         "type": "link in",
         "z": "c68dc494590553a0",
@@ -6971,8 +6953,8 @@
         "y": 3840,
         "wires": [
             [
-                "a983b7340f96021a",
-                "45fb4e09e9a33b1e"
+                "45fb4e09e9a33b1e",
+                "a0067e464c1ea33e"
             ]
         ]
     },
@@ -7105,7 +7087,8 @@
         "name": "PUBLISH GOAL POSE",
         "links": [
             "8ebb580cc2585ec8",
-            "29b4ec8d2a43709e"
+            "29b4ec8d2a43709e",
+            "a0067e464c1ea33e"
         ],
         "x": 1200,
         "y": 3140,
@@ -7174,6 +7157,20 @@
                 "d2e465a612c595ce"
             ]
         ],
+        "l": true
+    },
+    {
+        "id": "a0067e464c1ea33e",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH POSE Update",
+        "mode": "link",
+        "links": [
+            "04d95265e2ebf6bd"
+        ],
+        "x": 960,
+        "y": 3840,
+        "wires": [],
         "l": true
     },
     {
