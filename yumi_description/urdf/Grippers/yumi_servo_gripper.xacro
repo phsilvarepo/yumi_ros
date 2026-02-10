@@ -120,6 +120,26 @@
       </collision>
     </link>
 
+    <link name="${name}_tcp">
+    <!-- NO visual, NO collision, NO inertial - it's purely virtual! -->
+    <!-- Or optionally add a tiny marker for visualization in RViz: -->
+    <visual>
+      <geometry>
+        <sphere radius="0.005"/>  <!-- 5mm sphere marker -->
+      </geometry>
+      <material name="tcp_marker">
+        <color rgba="1 0 0 1"/>  <!-- Red color -->
+      </material>
+    </visual>
+  </link>
+  <!-- Fixed joint connecting base to TCP at desired offset -->
+  <joint name="${name}_tcp_joint" type="fixed">
+    <parent link="${name}_base"/>
+    <child link="${name}_tcp"/>
+    <!-- Position TCP 65mm forward and centered between fingers -->
+    <origin xyz="0.0 0.05 0.13" rpy="0 0 0"/>
+  </joint>
+
      <!--Extensions -->
     <xacro:yumi_servo_gripper_gazebo name="${name}" />
     <xacro:yumi_servo_gripper_transmission name="${name}" hardware_interface="${hardware_interface}"/>

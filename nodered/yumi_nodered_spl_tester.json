@@ -74,7 +74,7 @@
     {
         "id": "82fc5575064a24b6",
         "type": "ui-page",
-        "name": "Page 1",
+        "name": "SPL YUMI SIM CONTROL",
         "ui": "4e125a295347f507",
         "path": "/page1",
         "icon": "home",
@@ -83,23 +83,23 @@
         "breakpoints": [
             {
                 "name": "Default",
-                "px": 0,
-                "cols": 3
+                "px": "0",
+                "cols": "3"
             },
             {
                 "name": "Tablet",
-                "px": 576,
-                "cols": 6
+                "px": "576",
+                "cols": "6"
             },
             {
                 "name": "Small Desktop",
-                "px": 768,
-                "cols": 9
+                "px": "768",
+                "cols": "9"
             },
             {
                 "name": "Desktop",
-                "px": 1024,
-                "cols": 12
+                "px": "1024",
+                "cols": "12"
             }
         ],
         "order": 1,
@@ -114,7 +114,7 @@
         "page": "82fc5575064a24b6",
         "width": 6,
         "height": 1,
-        "order": 5,
+        "order": 7,
         "showTitle": true,
         "className": "",
         "visible": true,
@@ -165,7 +165,7 @@
         "page": "82fc5575064a24b6",
         "width": 6,
         "height": 1,
-        "order": 4,
+        "order": 6,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -179,7 +179,7 @@
         "page": "82fc5575064a24b6",
         "width": 6,
         "height": 1,
-        "order": 3,
+        "order": 5,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -193,7 +193,7 @@
         "page": "82fc5575064a24b6",
         "width": 6,
         "height": 1,
-        "order": 2,
+        "order": 4,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -207,7 +207,7 @@
         "page": "82fc5575064a24b6",
         "width": 6,
         "height": 1,
-        "order": 1,
+        "order": 3,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -222,6 +222,34 @@
             "node-red-contrib-flowake-ros-nodes": "1.2.0",
             "@flowfuse/node-red-dashboard": "1.30.2"
         }
+    },
+    {
+        "id": "a9c613c8ecaed95c",
+        "type": "ui-group",
+        "name": "ISAAC SIM",
+        "page": "82fc5575064a24b6",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "70db46e8f99cb872",
+        "type": "ui-group",
+        "name": "MOVEIT!",
+        "page": "82fc5575064a24b6",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
     },
     {
         "id": "8eb20c4e7f9cdb54",
@@ -241,10 +269,11 @@
         "id": "4e527f8dc9160dc6",
         "type": "ros-publish",
         "z": "f6f2187d.f17ca8",
+        "d": true,
         "server": "98acc585bfe962b1",
         "topicname": "/joint_command",
         "msgtype": "sensor_msgs/JointState",
-        "x": 1300,
+        "x": 1400,
         "y": 600,
         "wires": []
     },
@@ -497,7 +526,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"changed\", false);\n\nglobal.set(\"ros_world_frame\", \"world\");",
+        "initialize": "flow.set(\"changed\", false);\n\nglobal.set(\"ros_world_frame\", \"world\");\n\nflow.set(\"grasping\", {\n    left_gripper: false,\n    right_gripper: false\n})",
         "finalize": "",
         "libs": [],
         "x": 180,
@@ -2750,6 +2779,348 @@
         ]
     },
     {
+        "id": "a06d2ed1367ad532",
+        "type": "ui-radio-group",
+        "z": "f6f2187d.f17ca8",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "LEFT GRIPPER GRASP",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "columns": 1,
+        "passthru": false,
+        "options": [
+            {
+                "label": "CLOSE",
+                "value": true,
+                "type": "bool"
+            },
+            {
+                "label": "OPEN",
+                "value": false,
+                "type": "bool"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "3e541a59e67e6138"
+            ]
+        ]
+    },
+    {
+        "id": "3e541a59e67e6138",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Update Grasping",
+        "func": "\nflow.set(\"grasping\", {\n    left_gripper: msg.payload,\n    right_gripper: false\n})\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "365237ce822da609",
+        "type": "ros-call-service",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "servicename": "/rosapi/get_param",
+        "srvtype": "rosapi/GetParam",
+        "x": 890,
+        "y": 4840,
+        "wires": [
+            [
+                "d68b7a30c084a531"
+            ]
+        ]
+    },
+    {
+        "id": "1c284b20a3330af5",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "name": "UPDATE ROBOT MODEL",
+        "links": [
+            "6d22b4ed06a7f335"
+        ],
+        "x": 270,
+        "y": 4840,
+        "wires": [
+            [
+                "79a9013073fa88b3"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "79a9013073fa88b3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "ROSAPI GET PARAM Request",
+        "func": "msg.payload = {\n  \"name\": \"/robot_description_semantic\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 4840,
+        "wires": [
+            [
+                "365237ce822da609"
+            ]
+        ]
+    },
+    {
+        "id": "8c8ded7fdb047a8d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "STORE MOVEIT GROUP NAMES",
+        "func": "// Parse SRDF XML to extract move groups\nlet xmlString = msg.payload.value;\n\nif (!xmlString) {\n    msg.payload = { error: \"No SRDF data received\" };\n    return msg;\n}\n\n// Unescape the XML string (handle \\n, \\t, etc.)\nxmlString = xmlString.replace(/\\\\n/g, '\\n').replace(/\\\\t/g, '\\t').replace(/\\\\\"/g, '\"');\n\n// Store in flow context for later use\nflow.set('robot_description_semantic', xmlString);\n\n// First, parse end effector definitions to build a map\nconst endEffectorMap = {}; // group_name -> parent_link\nconst endEffectorRegex = /<end_effector\\s+name=\"([^\"]+)\"\\s+parent_link=\"([^\"]+)\"\\s+group=\"([^\"]+)\"\\s*\\/>/g;\nlet eeMatch;\nwhile ((eeMatch = endEffectorRegex.exec(xmlString)) !== null) {\n    const groupName = eeMatch[3];\n    const parentLink = eeMatch[2];\n    endEffectorMap[groupName] = parentLink;\n}\n\n// Parse XML to extract groups\nconst groups = [];\n\n// Match all group definitions\nconst groupBlockRegex = /<group\\s+name=\"([^\"]+)\">([\\s\\S]*?)<\\/group>/g;\nlet match;\n\nwhile ((match = groupBlockRegex.exec(xmlString)) !== null) {\n    const groupName = match[1];\n    const groupContent = match[2];\n    \n    // Check for subgroups (composite groups like both_arms)\n    const subgroupRegex = /<group\\s+name=\"([^\"]+)\"\\s*\\/>/g;\n    const subgroups = [];\n    let subMatch;\n    while ((subMatch = subgroupRegex.exec(groupContent)) !== null) {\n        subgroups.push(subMatch[1]);\n    }\n    \n    // Check for joints (arm groups)\n    const jointRegex = /<joint\\s+name=\"([^\"]+)\"\\s*\\/>/g;\n    const joints = [];\n    let jointMatch;\n    while ((jointMatch = jointRegex.exec(groupContent)) !== null) {\n        joints.push(jointMatch[1]);\n    }\n    \n    // Check for links (gripper groups)\n    const linkRegex = /<link\\s+name=\"([^\"]+)\"\\s*\\/>/g;\n    const links = [];\n    let linkMatch;\n    while ((linkMatch = linkRegex.exec(groupContent)) !== null) {\n        links.push(linkMatch[1]);\n    }\n    \n    // Check for chains (if any)\n    const chainRegex = /<chain\\s+base_link=\"([^\"]+)\"\\s+tip_link=\"([^\"]+)\"\\s*\\/>/g;\n    const chains = [];\n    let chainMatch;\n    while ((chainMatch = chainRegex.exec(groupContent)) !== null) {\n        chains.push({\n            base: chainMatch[1],\n            tip: chainMatch[2]\n        });\n    }\n    \n    // Determine type\n    let type = 'unknown';\n    if (subgroups.length > 0) {\n        type = 'composite';\n    } else if (joints.length > 0) {\n        type = 'joints';\n    } else if (chains.length > 0) {\n        type = 'chain';\n    } else if (links.length > 0) {\n        type = 'links';\n    }\n    \n    // Determine end effector count\n    let endEffectorCount = 0;\n    let endEffectorLinks = [];\n    \n    if (type === 'composite') {\n        // For composite groups, count end effectors from subgroups\n        subgroups.forEach(sg => {\n            if (endEffectorMap[sg]) {\n                endEffectorCount++;\n                endEffectorLinks.push(endEffectorMap[sg]);\n            }\n        });\n    } else {\n        // For non-composite groups, check if this group IS an end effector\n        if (endEffectorMap[groupName]) {\n            endEffectorLinks.push(endEffectorMap[groupName]);\n        }\n        // But the group itself doesn't \"have\" an end effector, it IS one\n        // So endEffectorCount stays 0 for grippers\n        // For arms, we need to check if they have an associated end effector\n        // by looking at which end effector has a parent_link in this group's chain\n        endEffectorCount = endEffectorLinks.length;\n    }\n    \n    groups.push({\n        name: groupName,\n        type: type,\n        subgroups: subgroups,\n        joints: joints,\n        links: links,\n        chains: chains,\n        endEffectorCount: endEffectorCount,\n        endEffectorLinks: endEffectorLinks,\n        isEndEffector: endEffectorMap.hasOwnProperty(groupName)\n    });\n}\n\n// Store parsed groups in flow context\nglobal.set('move_groups', groups);\n\nmsg.payload = {\n    groups: groups,\n    groupNames: groups.map(g => g.name),\n    count: groups.length\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1500,
+        "y": 4840,
+        "wires": [
+            [
+                "f21157da9ff42c61",
+                "0e93388e45693e52"
+            ]
+        ]
+    },
+    {
+        "id": "d68b7a30c084a531",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1110,
+        "y": 4840,
+        "wires": [
+            [
+                "4490e6d0d350c532"
+            ]
+        ]
+    },
+    {
+        "id": "4490e6d0d350c532",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1230,
+        "y": 4840,
+        "wires": [
+            [
+                "8c8ded7fdb047a8d"
+            ]
+        ]
+    },
+    {
+        "id": "f21157da9ff42c61",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "MOVE GROUPS",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1800,
+        "y": 4880,
+        "wires": []
+    },
+    {
+        "id": "3f8493e5c9912833",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "STARTUP",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "6d22b4ed06a7f335"
+            ]
+        ]
+    },
+    {
+        "id": "6d22b4ed06a7f335",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "STARTUP_OUT",
+        "mode": "link",
+        "links": [
+            "1c284b20a3330af5"
+        ],
+        "x": 420,
+        "y": 120,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "0e93388e45693e52",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "UPDATED MOVEIT GROUPS",
+        "mode": "link",
+        "links": [
+            "04a572f3a873fd27"
+        ],
+        "x": 1840,
+        "y": 4840,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "d5c772764a197584",
+        "type": "link in",
+        "z": "f6f2187d.f17ca8",
+        "name": "SWITCH_MOVE_GROUP_IN",
+        "links": [],
+        "x": 280,
+        "y": 4980,
+        "wires": [
+            [
+                "dd10b15a644332bc"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "7a2bec39d669a805",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "SWITCH_MOVE_GROUP_OUT",
+        "mode": "return",
+        "links": [],
+        "x": 1590,
+        "y": 4980,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "00157fa0953b0aab",
+        "type": "ros-call-service",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "servicename": "/switch_group",
+        "srvtype": "moveit_commander/SwitchGroup",
+        "x": 1000,
+        "y": 4980,
+        "wires": [
+            [
+                "78de507566b3ffc1",
+                "b35a7596ae1c5b31"
+            ]
+        ]
+    },
+    {
+        "id": "78de507566b3ffc1",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1210,
+        "y": 4980,
+        "wires": [
+            [
+                "d0cc0324ef341294"
+            ]
+        ]
+    },
+    {
+        "id": "d0cc0324ef341294",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1330,
+        "y": 4980,
+        "wires": [
+            [
+                "7a2bec39d669a805"
+            ]
+        ]
+    },
+    {
+        "id": "b35a7596ae1c5b31",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "SWITCH GROUP REQUEST",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 4940,
+        "wires": []
+    },
+    {
+        "id": "dd10b15a644332bc",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Setup MoveitCommander SwitchGroup Request",
+        "func": "\nreturn {\n    payload : {\n        group_name: msg.payload\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 4980,
+        "wires": [
+            [
+                "00157fa0953b0aab",
+                "b35a7596ae1c5b31"
+            ]
+        ]
+    },
+    {
         "id": "c4dd694478a65776",
         "type": "http request",
         "z": "c68dc494590553a0",
@@ -3208,7 +3579,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: 0.0428,\n        y: 0.04,\n        z: 0.12 + 0.05 + 0.05\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: -0.15,\n        z: 0.08\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 1, 6]\n});",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: 0.07,\n        z: 0.12 + 0.05\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 180.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 180.0,\n        yaw: 180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 0,\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -3362,7 +3733,8 @@
             "98bab3db94280312",
             "f1eb1c6364412642",
             "a449df471e95ccf4",
-            "e8a95db0da5cab3c"
+            "e8a95db0da5cab3c",
+            "3e2bf9309f31a5c4"
         ],
         "x": 440,
         "y": 120,
@@ -6241,10 +6613,11 @@
         "id": "4d85b8f63bb502f8",
         "type": "ui-button",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "e2828d41d9660087",
         "name": "",
         "label": "REDBOARD PATH NEXT",
-        "order": 4,
+        "order": 8,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -6431,10 +6804,11 @@
         "id": "f2baabc5826db83b",
         "type": "ui-button",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "e2828d41d9660087",
         "name": "",
         "label": "EUROCONTAINER PATH NEXT",
-        "order": 2,
+        "order": 6,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -6517,11 +6891,12 @@
         "id": "9e37c2a9b0ba5c05",
         "type": "ui-slider",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "e2828d41d9660087",
         "name": "",
         "label": "Eurocontainer steps",
         "tooltip": "",
-        "order": 1,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -6552,11 +6927,12 @@
         "id": "6f55175c906e2c56",
         "type": "ui-slider",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "e2828d41d9660087",
         "name": "",
         "label": "Redboard steps",
         "tooltip": "",
-        "order": 3,
+        "order": 7,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -6746,7 +7122,7 @@
         "group": "e2828d41d9660087",
         "name": "",
         "label": "PRODUCTION PATH NEXT",
-        "order": 6,
+        "order": 9,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -6783,7 +7159,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Get Start and End Poses",
-        "func": "var poses = [];\nvar object_poses = JSON.parse(JSON.stringify(flow.get(\"object_poses\")));\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[0] )) {\n          poses.push(element)\n      }\n    });\n\n    object_poses.forEach(function(element) {\n      if (element.name == (\"position/readboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
+        "func": "var poses = [];\nvar object_poses = JSON.parse(JSON.stringify(flow.get(\"object_poses\")));\n\nvar offset_eurocontainer_spl_slot = flow.get(\"offset_eurocontainer_spl_slot\");\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[0] )) {\n          poses.push(element)\n          //poses.at(-1).x += (offset_eurocontainer_spl_slot)\n      }\n    });\n\n    object_poses.forEach(function(element) {\n      if (element.name == (\"leftarm/position/redboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n  }\n  break;\n  case 2: {\n\n    object_poses.forEach(function (element) {\n      if (element.name == (\"leftarm/position/redboard_0\" + msg.payload.slots[0])) {\n        poses.push(element)\n      }\n    });\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[1] )) {\n          poses.push(element)\n      }\n    });\n\n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6862,7 +7238,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Create Production Path",
-        "func": "var offset_eurocontainer_slot = flow.get(\"offset_eurocontainer_slot\")\nvar offset_redboard = flow.get(\"offset_redboard\")\nvar approach_container = flow.get(\"container_approach\")\nvar approach_redboard = flow.get(\"redboard_approach\")\n\nvar action = msg.payload.action\nvar final_poses = []\n\nswitch (action) {\n  case 1: {\n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose))\n    node.warn(JSON.stringify(temp_pose))\n    temp_pose.pose.position.x += offset_eurocontainer_slot.position.x;\n    temp_pose.pose.position.y +=  offset_eurocontainer_slot.position.y;\n    temp_pose.pose.position.z += (offset_eurocontainer_slot.position.z + approach_container.position.z);\n    temp_pose.pose.orientation = approach_container.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(temp_pose)\n\n    temp_pose.pose.position.z -= approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose.pose.position.z += approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose))\n    temp_pose.pose.position.x += offset_redboard.position.x;\n    temp_pose.pose.position.y += offset_redboard.position.y;\n    temp_pose.pose.position.z += (offset_redboard.position.z + approach_redboard.position.z);\n    temp_pose.pose.orientation = approach_redboard.orientation\n    node.warn(temp_pose.pose.position.z)\n    \n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z -= approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z += approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n  }    \n}\nmsg.payload=final_poses\nreturn msg;",
+        "func": "var offset_eurocontainer_slot = flow.get(\"offset_eurocontainer_slot\")\nvar offset_redboard = flow.get(\"offset_redboard\")\nvar approach_container = flow.get(\"container_approach\")\nvar approach_redboard = flow.get(\"redboard_approach\")\n\nvar action = msg.payload.action\nvar final_poses = []\n\nswitch (action) {\n  case 1: {\n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose))\n    node.warn(JSON.stringify(temp_pose))\n    temp_pose.pose.position.x += offset_eurocontainer_slot.position.x;\n    temp_pose.pose.position.y +=  offset_eurocontainer_slot.position.y;\n    temp_pose.pose.position.z += (offset_eurocontainer_slot.position.z + approach_container.position.z);\n    temp_pose.pose.orientation = approach_container.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(temp_pose)\n\n    temp_pose.pose.position.z -= approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose.pose.position.z += approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose))\n    temp_pose.pose.position.x += offset_redboard.position.x;\n    temp_pose.pose.position.y += offset_redboard.position.y;\n    temp_pose.pose.position.z += (offset_redboard.position.z + approach_redboard.position.z);\n    temp_pose.pose.orientation = approach_redboard.orientation\n    node.warn(temp_pose.pose.position.z)\n    \n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z -= approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z += approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n  }    \n\n\n  case 2: {\n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose))\n    node.warn(JSON.stringify(temp_pose))\n    temp_pose.pose.position.x += offset_redboard.position.x;\n    temp_pose.pose.position.y += offset_redboard.position.y;\n    temp_pose.pose.position.z += (offset_redboard.position.z + approach_redboard.position.z);\n    temp_pose.pose.orientation = approach_redboard.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(temp_pose)\n\n    temp_pose.pose.position.z -= approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose.pose.position.z += approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose))\n    temp_pose.pose.position.x += offset_eurocontainer_slot.position.x;\n    temp_pose.pose.position.y += offset_eurocontainer_slot.position.y;\n    temp_pose.pose.position.z += (offset_eurocontainer_slot.position.z + approach_container.position.z);\n    temp_pose.pose.orientation = approach_container.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z -= approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z += approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n  }\n}\nmsg.payload=final_poses\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -6910,7 +7286,7 @@
         "name": "",
         "label": "Pose Path",
         "tooltip": "",
-        "order": 5,
+        "order": 10,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -7146,11 +7522,12 @@
         "id": "e8a95db0da5cab3c",
         "type": "link in",
         "z": "c68dc494590553a0",
-        "name": "RESTART PRODUCTION PATH",
+        "name": "UPDATE PRODUCTION PATH",
         "links": [
-            "33d2be3aab688dd7"
+            "33d2be3aab688dd7",
+            "795202df0f86045a"
         ],
-        "x": 370,
+        "x": 360,
         "y": 4000,
         "wires": [
             [
@@ -7172,6 +7549,629 @@
         "y": 3840,
         "wires": [],
         "l": true
+    },
+    {
+        "id": "0db52634c0eb8034",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "EuroContainer Slot",
+        "tooltip": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "0",
+        "max": "1",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 1010,
+        "y": 4180,
+        "wires": [
+            [
+                "4270be29875cad51"
+            ]
+        ]
+    },
+    {
+        "id": "cc13a0edfdeb3da2",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "EuroContainer SPL Slot",
+        "tooltip": "",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "0",
+        "max": "9",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 1030,
+        "y": 4220,
+        "wires": [
+            [
+                "8eaf639b572317c3"
+            ]
+        ]
+    },
+    {
+        "id": "792e6e9b332fd68c",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "RedBoard SPL Slot",
+        "tooltip": "",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "0",
+        "max": "7",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 1010,
+        "y": 4260,
+        "wires": [
+            [
+                "e17f3977a35840bd"
+            ]
+        ]
+    },
+    {
+        "id": "2768df4053df10c2",
+        "type": "ui-dropdown",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "ACTION",
+        "tooltip": "",
+        "order": 1,
+        "width": "2",
+        "height": "1",
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [
+            {
+                "label": "NONE",
+                "value": "0",
+                "type": "str"
+            },
+            {
+                "label": "MOVE_CONT_RED",
+                "value": 1,
+                "type": "num"
+            },
+            {
+                "label": "MOVE_RED_CONT",
+                "value": 2,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 980,
+        "y": 4120,
+        "wires": [
+            [
+                "cdf3a315461071e4"
+            ]
+        ]
+    },
+    {
+        "id": "cdf3a315461071e4",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Change Current Action",
+        "func": "/*\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 1, 6]\n});\n*/\nvar current_task = flow.get(\"current_task\");\n\nif(current_task.action !== msg.payload)\n{\n    current_task.action = msg.payload;\n    return msg;\n};\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1460,
+        "y": 4120,
+        "wires": [
+            [
+                "11131cdb3929ab9a"
+            ]
+        ]
+    },
+    {
+        "id": "11131cdb3929ab9a",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update CurrrentTask Slots",
+        "func": "/*\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 1, 6]\n});\n*/\nvar current_task = flow.get(\"current_task\");\nswitch (current_task.action)\n{\n    case 1:\n    {\n        current_task.slots = [\n            flow.get(\"current_eurocontainer_slot\"),\n            flow.get(\"current_eurocontainer_spl_slot\"),\n            flow.get(\"current_redboard_spl_slot\")\n        ]\n        break;\n    }\n\n    case 2:\n    {\n        current_task.slots = [\n            flow.get(\"current_redboard_spl_slot\"),\n            flow.get(\"current_eurocontainer_slot\"),\n            flow.get(\"current_eurocontainer_spl_slot\")\n        ]\n        break;\n    }\n    default:\n\n        node.warn(\"INVALID ACTION\");\n        return null;\n}\n\nflow.set(\"current_task\", current_task);\nmsg.payload = current_task\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1780,
+        "y": 4200,
+        "wires": [
+            [
+                "795202df0f86045a"
+            ]
+        ]
+    },
+    {
+        "id": "4270be29875cad51",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "current_eurocontainer_slot",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 4180,
+        "wires": [
+            [
+                "11131cdb3929ab9a"
+            ]
+        ]
+    },
+    {
+        "id": "8eaf639b572317c3",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "current_eurocontainer_spl_slot",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1400,
+        "y": 4220,
+        "wires": [
+            [
+                "11131cdb3929ab9a"
+            ]
+        ]
+    },
+    {
+        "id": "e17f3977a35840bd",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "current_redboard_spl_slot",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 4260,
+        "wires": [
+            [
+                "11131cdb3929ab9a"
+            ]
+        ]
+    },
+    {
+        "id": "795202df0f86045a",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "UPDATE PRODUCTION PATH",
+        "mode": "link",
+        "links": [
+            "e8a95db0da5cab3c",
+            "3e2bf9309f31a5c4"
+        ],
+        "x": 2110,
+        "y": 4200,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "c1a89deb80318fe6",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Change Current Action",
+        "func": "\nmsg.payload = flow.get(\"current_task\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 4120,
+        "wires": [
+            [
+                "2768df4053df10c2"
+            ]
+        ]
+    },
+    {
+        "id": "75bb341d70c1479d",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "current_eurocontainer_slot",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 4180,
+        "wires": [
+            [
+                "0db52634c0eb8034"
+            ]
+        ]
+    },
+    {
+        "id": "e3b6f1a4f8dad8d0",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "current_eurocontainer_spl_slot",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 4220,
+        "wires": [
+            [
+                "cc13a0edfdeb3da2"
+            ]
+        ]
+    },
+    {
+        "id": "dea919b30ca836d0",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "current_redboard_spl_slot",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 4260,
+        "wires": [
+            [
+                "792e6e9b332fd68c"
+            ]
+        ]
+    },
+    {
+        "id": "3e2bf9309f31a5c4",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH UPDATE TASK",
+        "links": [
+            "33d2be3aab688dd7",
+            "795202df0f86045a"
+        ],
+        "x": 340,
+        "y": 4200,
+        "wires": [
+            [
+                "75bb341d70c1479d",
+                "c1a89deb80318fe6",
+                "e3b6f1a4f8dad8d0",
+                "dea919b30ca836d0"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "2ecb79cc6bf6014b",
+        "type": "ui-dropdown",
+        "z": "c68dc494590553a0",
+        "group": "70db46e8f99cb872",
+        "name": "",
+        "label": "MOVE GROUP",
+        "tooltip": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "chips": false,
+        "clearable": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "typeIsComboBox": true,
+        "msgTrigger": "onChange",
+        "x": 1100,
+        "y": 4420,
+        "wires": [
+            [
+                "4c33a50fc3893a39"
+            ]
+        ]
+    },
+    {
+        "id": "a691079c575b9810",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "DASH SETUP MOVE GROUP Options",
+        "func": "const groups = global.get('move_groups') || [];\n\nmsg.options = groups.map(g => ({\n    label: g.name,\n    value: g.name\n}));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 4420,
+        "wires": [
+            [
+                "2ecb79cc6bf6014b"
+            ]
+        ]
+    },
+    {
+        "id": "04a572f3a873fd27",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH UPDATE MOVEGROUP OPTIONS",
+        "links": [
+            "0e93388e45693e52"
+        ],
+        "x": 400,
+        "y": 4420,
+        "wires": [
+            [
+                "a691079c575b9810"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "7a8da5ea37dc2523",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "OpenGrippers",
+        "func": "msg.payload = {\n  \"header\": {\n    \"seq\": 5060,\n    \"stamp\": {\n      \"secs\": 1769686986,\n      \"nsecs\": 354053258\n    },\n    \"frame_id\": \"\"\n  },\n  \"name\": [\n    \"gripper_l_joint\",\n    \"gripper_l_joint_m\"\n  ],\n  \"position\": [\n    0, 0\n  ],\n  \"velocity\": [],\n  \"effort\": []\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 1980,
+        "wires": [
+            [
+                "be30d4fc45be1938"
+            ]
+        ]
+    },
+    {
+        "id": "9cf24bcef48ef282",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 580,
+        "y": 1980,
+        "wires": [
+            [
+                "7a8da5ea37dc2523"
+            ]
+        ]
+    },
+    {
+        "id": "4d2beb3a3d33bc6c",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 580,
+        "y": 2040,
+        "wires": [
+            [
+                "f233616f9ca90523"
+            ]
+        ]
+    },
+    {
+        "id": "f233616f9ca90523",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "CloseGrippers",
+        "func": "msg.payload = {\n  \"header\": {\n    \"seq\": 5060,\n    \"stamp\": {\n      \"secs\": 1769686986,\n      \"nsecs\": 354053258\n    },\n    \"frame_id\": \"\"\n  },\n  \"name\": [\n    \"gripper_l_joint\",\n    \"gripper_l_joint_m\"\n  ],\n  \"position\": [\n    0.25, 0.25\n  ],\n  \"velocity\": [],\n  \"effort\": []\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 2040,
+        "wires": [
+            [
+                "be30d4fc45be1938"
+            ]
+        ]
+    },
+    {
+        "id": "4c33a50fc3893a39",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selected_move_group",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1390,
+        "y": 4420,
+        "wires": [
+            [
+                "97cc69cdb73b4f68"
+            ]
+        ]
+    },
+    {
+        "id": "97cc69cdb73b4f68",
+        "type": "link call",
+        "z": "c68dc494590553a0",
+        "name": "SWITCH_MOVE_GROUP",
+        "links": [
+            "d5c772764a197584"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1710,
+        "y": 4420,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "16511e0e2b0e6eaf",
@@ -7250,7 +8250,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
+        "x": 940,
         "y": 680,
         "wires": [
             [
@@ -7266,7 +8266,7 @@
         "server": "4bf02018241b669e",
         "topicname": "/attached_collision_object",
         "msgtype": "moveit_msgs/AttachedCollisionObject",
-        "x": 1150,
+        "x": 1230,
         "y": 680,
         "wires": []
     },
@@ -7292,7 +8292,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 180,
-        "y": 680,
+        "y": 740,
         "wires": [
             [
                 "450ddcce0f83c34d"
@@ -7327,7 +8327,7 @@
         "type": "function",
         "z": "58de6cfd0e1f91cf",
         "name": "SaveObjectPose",
-        "func": "// Incoming data\nconst name = msg.name;\nconst pose = msg.payload;\n\nif (!name || !pose) {\n    node.warn(\"Missing name or pose\");\n    return null;\n}\n\n// Get existing array (or init)\nlet poses = flow.get(\"object_poses\");\nif (!Array.isArray(poses)) {\n    poses = [];\n}\n\n// Find existing entry\nconst index = poses.findIndex(p => p.name === name);\n\nif (index === -1) {\n    // New name → push\n    poses.push({\n        name: name,\n        pose: pose\n    });\n    node.log(`Added new pose: ${name}`);\n} else {\n    // Existing name → update (optional behavior)\n    poses[index].pose = pose;\n    node.log(`Updated pose: ${name}`);\n}\n\n// Save back to context\nflow.set(\"object_poses\", poses);\n\n// Optional outputs\nmsg.payload = poses;\nmsg.count = poses.length;\n\nreturn msg;\n",
+        "func": "// Incoming data\nconst name = msg.name;\nconst pose = msg.payload;\n\nif (!name || !pose) {\n    node.warn(\"Missing name or pose\");\n    return null;\n}\n\n// Get existing array (or init)\nlet poses = flow.get(\"object_poses\");\nif (!Array.isArray(poses)) {\n    poses = [];\n}\n\n// Find existing entry\nconst index = poses.findIndex(p => p.name === name);\n\nif (index === -1) {\n    // New name → push\n    poses.push({\n        name: name,\n        pose: pose\n    });\n    node.log(`Added new pose: ${name}`);\n} else {\n    // Existing name → update (optional behavior)\n    poses[index].pose = pose;\n    node.log(`Updated pose: ${name}`);\n}\n\nposes.sort((a, b) =>\n    a.name.toLowerCase().localeCompare(b.name.toLowerCase())\n);\n\n// Save back to context\nflow.set(\"object_poses\", poses);\n\n// Optional outputs\nmsg.payload = poses;\nmsg.count = poses.length;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7438,7 +8438,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 420,
+        "x": 520,
         "y": 680,
         "wires": [
             [
@@ -7458,7 +8458,7 @@
         "stream": false,
         "addname": "",
         "property": "payload",
-        "x": 630,
+        "x": 710,
         "y": 680,
         "wires": [
             [
@@ -7473,7 +8473,9 @@
         "name": "OBJECT_POSES_OUT",
         "mode": "link",
         "links": [
-            "0142dc90ad47b764"
+            "0142dc90ad47b764",
+            "dc4e8d83ce1b9c28",
+            "7e667bf0becc6820"
         ],
         "x": 880,
         "y": 300,
@@ -7489,7 +8491,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"colision_objects\", [\n    {\n        model: \"Intel Realsense D435\",\n        type: \"camera\",\n        box: {\n            x: 0.090,\n            y: 0.025,\n            z: 0.025\n        }\n    },\n    {\n        model: \"UNP SPL Redboard\",\n        type: \"readboard\",\n        box: {\n            x: 0.13,\n            y: 0.15,\n            z: 0.03\n        }\n    },\n    {\n        model: \"EuroContainer AUER EG 21512 HG\",\n        type: \"container\",\n        box: {\n            x: 0.200,\n            y: 0.150,\n            z: 0.120\n        }\n    }\n]);\n",
+        "initialize": "flow.set(\"colision_objects\", [\n    {\n        model: \"Intel Realsense D435\",\n        type: \"camera\",\n        box: {\n            x: 0.090,\n            y: 0.025,\n            z: 0.025\n        }\n    },\n    {\n        model: \"UNP SPL Redboard\",\n        type: \"redboard\",\n        box: {\n            x: 0.12,\n            y: 0.14,\n            z: 0.03\n        }\n    },\n    {\n        model: \"EuroContainer AUER EG 21512 HG\",\n        type: \"container\",\n        box: {\n            x: 0.200,\n            y: 0.150,\n            z: 0.120\n        }\n    }\n]);\n",
         "finalize": "",
         "libs": [],
         "x": 220,
@@ -7510,8 +8512,169 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1100,
+        "x": 1180,
         "y": 640,
         "wires": []
+    },
+    {
+        "id": "61e7aff71ceacd19",
+        "type": "ui-table",
+        "z": "58de6cfd0e1f91cf",
+        "group": "a9c613c8ecaed95c",
+        "name": "",
+        "label": "OBJECTS",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "maxrows": "8",
+        "passthru": false,
+        "autocols": false,
+        "showSearch": true,
+        "deselect": true,
+        "selectionType": "none",
+        "columns": [
+            {
+                "title": "NAME",
+                "key": "name",
+                "keyType": "key",
+                "type": "text",
+                "width": "50",
+                "align": "start"
+            },
+            {
+                "title": "X",
+                "key": "pose.pose.position.x",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Y",
+                "key": "pose.pose.position.y",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            },
+            {
+                "title": "Z",
+                "key": "pose.pose.position.z",
+                "keyType": "key",
+                "type": "text",
+                "width": "",
+                "align": "start"
+            }
+        ],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 840,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "74e7bfe63790d1c5",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "STARTUP",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 220,
+        "y": 160,
+        "wires": [
+            [
+                "4cb6061aa22b7057"
+            ]
+        ]
+    },
+    {
+        "id": "4cb6061aa22b7057",
+        "type": "link out",
+        "z": "58de6cfd0e1f91cf",
+        "name": "STARTUP",
+        "mode": "link",
+        "links": [
+            "dc4e8d83ce1b9c28"
+        ],
+        "x": 470,
+        "y": 160,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "66cd66c924d249df",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "object_poses",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 360,
+        "wires": [
+            [
+                "61e7aff71ceacd19"
+            ]
+        ]
+    },
+    {
+        "id": "dc4e8d83ce1b9c28",
+        "type": "link in",
+        "z": "58de6cfd0e1f91cf",
+        "name": "DASH UPDATE OBJECTS TABLE",
+        "links": [
+            "4cb6061aa22b7057",
+            "07f5c1e7ddfffa40"
+        ],
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "66cd66c924d249df"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "7e667bf0becc6820",
+        "type": "link in",
+        "z": "58de6cfd0e1f91cf",
+        "name": "UPDATE COLLISION OBJECTS",
+        "links": [
+            "07f5c1e7ddfffa40"
+        ],
+        "x": 230,
+        "y": 680,
+        "wires": [
+            [
+                "450ddcce0f83c34d"
+            ]
+        ],
+        "l": true
     }
 ]

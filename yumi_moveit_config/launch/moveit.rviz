@@ -1,12 +1,14 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 84
+    Help Height: 78
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /MotionPlanning1
+        - /MotionPlanning1/Planning Request1
+        - /TF1/Frames1
+        - /LeftArm_Gripper1
       Splitter Ratio: 0.5
-    Tree Height: 621
+    Tree Height: 325
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -86,6 +88,11 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          gripper_l_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           gripper_r_base:
             Alpha: 1
             Show Axes: false
@@ -97,6 +104,11 @@ Visualization Manager:
             Show Trail: false
             Value: true
           gripper_r_finger_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_tcp:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -245,6 +257,11 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          gripper_l_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           gripper_r_base:
             Alpha: 1
             Show Axes: false
@@ -256,6 +273,11 @@ Visualization Manager:
             Show Trail: false
             Value: true
           gripper_r_finger_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_tcp:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -344,8 +366,8 @@ Visualization Manager:
             Show Trail: false
             Value: true
         Robot Alpha: 1
-        Show Robot Collision: false
-        Show Robot Visual: true
+        Show Robot Collision: true
+        Show Robot Visual: false
       Value: true
       Velocity_Scaling_Factor: 0.1
     - Class: rviz/TF
@@ -361,11 +383,81 @@ Visualization Manager:
           Value: true
         gripper_l_finger_r:
           Value: true
+        gripper_l_tcp:
+          Value: true
         gripper_r_base:
           Value: true
         gripper_r_finger_l:
           Value: true
         gripper_r_finger_r:
+          Value: true
+        gripper_r_tcp:
+          Value: true
+        leftarm/position/redboard_00:
+          Value: true
+        leftarm/position/redboard_01:
+          Value: true
+        leftarm/position/redboard_02:
+          Value: true
+        leftarm/position/redboard_03:
+          Value: true
+        leftarm/position/redboard_04:
+          Value: true
+        leftarm/position/redboard_05:
+          Value: true
+        leftarm/position/redboard_07:
+          Value: true
+        panel_station_camera_spl_qr:
+          Value: true
+        rightarm/position/redboard_00:
+          Value: true
+        rightarm/position/redboard_01:
+          Value: true
+        rightarm/position/redboard_02:
+          Value: true
+        rightarm/position/redboard_03:
+          Value: true
+        rightarm/position/redboard_04:
+          Value: true
+        rightarm/position/redboard_05:
+          Value: true
+        rightarm/position/redboard_06:
+          Value: true
+        rightarm/position/redboard_07:
+          Value: true
+        spl_00:
+          Value: true
+        spl_01:
+          Value: true
+        station/leftarm/position/eurocontainer00:
+          Value: true
+        station/leftarm/position/eurocontainer01:
+          Value: true
+        station/position/spl_00:
+          Value: true
+        station/position/spl_01:
+          Value: true
+        station/position/spl_02:
+          Value: true
+        station/position/spl_03:
+          Value: true
+        station/position/spl_04:
+          Value: true
+        station/rightarm/position/eurocontainer00:
+          Value: true
+        station/rightarm/position/eurocontainer01:
+          Value: true
+        station/rightarm/position/spl00:
+          Value: true
+        station_camera_left_object_detection:
+          Value: true
+        station_camera_left_spl_qr:
+          Value: true
+        station_camera_people:
+          Value: true
+        station_camera_right_object_detection:
+          Value: true
+        station_camera_right_spl_qr:
           Value: true
         world:
           Value: true
@@ -409,6 +501,72 @@ Visualization Manager:
       Show Names: true
       Tree:
         world:
+          leftarm/position/redboard_00:
+            {}
+          leftarm/position/redboard_01:
+            {}
+          leftarm/position/redboard_02:
+            {}
+          leftarm/position/redboard_03:
+            {}
+          leftarm/position/redboard_04:
+            {}
+          leftarm/position/redboard_05:
+            {}
+          leftarm/position/redboard_07:
+            {}
+          panel_station_camera_spl_qr:
+            {}
+          rightarm/position/redboard_00:
+            {}
+          rightarm/position/redboard_01:
+            {}
+          rightarm/position/redboard_02:
+            {}
+          rightarm/position/redboard_03:
+            {}
+          rightarm/position/redboard_04:
+            {}
+          rightarm/position/redboard_05:
+            {}
+          rightarm/position/redboard_06:
+            {}
+          rightarm/position/redboard_07:
+            {}
+          spl_00:
+            {}
+          spl_01:
+            {}
+          station/leftarm/position/eurocontainer00:
+            {}
+          station/leftarm/position/eurocontainer01:
+            {}
+          station/position/spl_00:
+            {}
+          station/position/spl_01:
+            {}
+          station/position/spl_02:
+            {}
+          station/position/spl_03:
+            {}
+          station/position/spl_04:
+            {}
+          station/rightarm/position/eurocontainer00:
+            {}
+          station/rightarm/position/eurocontainer01:
+            {}
+          station/rightarm/position/spl00:
+            {}
+          station_camera_left_object_detection:
+            {}
+          station_camera_left_spl_qr:
+            {}
+          station_camera_people:
+            {}
+          station_camera_right_object_detection:
+            {}
+          station_camera_right_spl_qr:
+            {}
           yumi_base_link:
             yumi_body:
               yumi_link_1_l:
@@ -423,6 +581,8 @@ Visualization Manager:
                                 {}
                               gripper_l_finger_r:
                                 {}
+                              gripper_l_tcp:
+                                {}
               yumi_link_1_r:
                 yumi_link_2_r:
                   yumi_link_3_r:
@@ -435,11 +595,13 @@ Visualization Manager:
                                 {}
                               gripper_r_finger_r:
                                 {}
+                              gripper_r_tcp:
+                                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
-      Axes Length: 0.20000000298023224
-      Axes Radius: 0.20000000298023224
+      Axes Length: 0.019999999552965164
+      Axes Radius: 0.10000000149011612
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: true
@@ -468,12 +630,12 @@ Visualization Manager:
       Length: 0.10000000149011612
       Name: LeftArm_Gripper
       Radius: 0.009999999776482582
-      Reference Frame: gripper_l_base
+      Reference Frame: gripper_l_tcp
       Show Trail: false
       Value: true
     - Class: rviz/Image
-      Enabled: true
-      Image Topic: /station/sensors/camera/left_spl_qr/rgb
+      Enabled: false
+      Image Topic: /station/sensors/camera/right_spl_qr/rgb
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -482,7 +644,7 @@ Visualization Manager:
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -499,43 +661,43 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.8872642517089844
+      Distance: 2.383021354675293
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Field of View: 0.75
+      Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.10000000149011612
-        Y: 0.25
-        Z: 0.30000001192092896
-      Focal Shape Fixed Size: true
+        X: -0.19965794682502747
+        Y: -0.2040448784828186
+        Z: 0.020434396341443062
+      Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3100000321865082
+      Pitch: 0.4897966980934143
       Target Frame: world
-      Yaw: 1.0667643547058105
+      Yaw: 0.2253977507352829
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1931
+  Height: 1080
   Help:
     collapsed: false
   Hide Left Dock: false
-  Hide Right Dock: false
+  Hide Right Dock: true
   LeftSPLQR_Image:
     collapsed: false
   MotionPlanning:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000001f300000731fc0200000008fb000000100044006900730070006c006100790073010000003d000002fe000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a00560069006500770073000000010c000000a4000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000341000003280000017d00fffffffb0000001e004c00650066007400530050004c00510052005f0049006d006100670065010000066f000000ff0000001600ffffff00000d070000073100000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000002000000000000021e000003defc0200000007fb000000100044006900730070006c006100790073010000003d000001d0000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000213000002080000017d00fffffffb0000001e004c00650066007400530050004c00510052005f0049006d006100670065000000031a000001020000001600ffffff0000000100000158000003defc0200000001fb0000000a00560069006500770073000000003d000003de000000a400ffffff000005ac000003de00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
-    collapsed: false
-  Width: 3840
+    collapsed: true
+  Width: 2000
   X: 0
   Y: 28

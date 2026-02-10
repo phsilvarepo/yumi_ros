@@ -16,7 +16,7 @@ services:
       - "6080:80"
       - "9091:9091"
     #volumes:
-    #  - ./ros2_ws:/home/ubuntu/ros2_ws
+    #  - ../moveit_commander:/home/ubuntu/catkin_ws/src/moveit_commander
     shm_size: '512mb'
     logging:
       driver: "json-file"

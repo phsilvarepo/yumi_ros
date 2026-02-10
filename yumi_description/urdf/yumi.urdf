@@ -722,6 +722,51 @@
       <material name="Blue"/>
     </collision>
   </link>
+
+  <!-- VIRTUAL LINK: Tool Center Point (TCP) between the fingers -->
+  <link name="gripper_l_tcp">
+    <!-- NO visual, NO collision, NO inertial - it's purely virtual! -->
+    <!-- Or optionally add a tiny marker for visualization in RViz: -->
+    <visual>
+      <geometry>
+        <sphere radius="0.005"/>  <!-- 5mm sphere marker -->
+      </geometry>
+      <material name="tcp_marker">
+        <color rgba="1 0 0 1"/>  <!-- Red color -->
+      </material>
+    </visual>
+  </link>
+  <!-- Fixed joint connecting base to TCP at desired offset -->
+  <joint name="gripper_l_tcp_joint" type="fixed">
+    <parent link="gripper_l_base"/>
+    <child link="gripper_l_tcp"/>
+    <!-- Position TCP 65mm forward and centered between fingers -->
+    <origin xyz="0.0 0.05 0.13" rpy="0 0 0"/>
+  </joint>
+
+    <!-- VIRTUAL LINK: Tool Center Point (TCP) between the fingers -->
+  <link name="gripper_r_tcp">
+    <!-- NO visual, NO collision, NO inertial - it's purely virtual! -->
+    <!-- Or optionally add a tiny marker for visualization in RViz: -->
+    <visual>
+      <geometry>
+        <sphere radius="0.005"/>  <!-- 5mm sphere marker -->
+      </geometry>
+      <material name="tcp_marker">
+        <color rgba="0 1 0 1"/>  <!-- Green color (to differentiate from left) -->
+      </material>
+    </visual>
+  </link>
+
+  <!-- Fixed joint connecting base to TCP at desired offset -->
+  <joint name="gripper_r_tcp_joint" type="fixed">
+    <parent link="gripper_r_base"/>
+    <child link="gripper_r_tcp"/>
+    <!-- Position TCP 65mm forward and centered between fingers -->
+    <origin xyz="0.0 0.05 0.13" rpy="0 0 0"/>
+  </joint>
+
+
   <!-- Plugin for the mimic o/c joint - AFAIK, that shouldn't be necessary any more starting with Gazebo 3.0 -->
   <gazebo>
     <plugin filename="libgazebo_mimic_plugin.so" name="mimic_plugin">

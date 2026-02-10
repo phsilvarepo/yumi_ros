@@ -17,6 +17,7 @@
         <joint name="yumi_joint_4_l"/>
         <joint name="yumi_joint_5_l"/>
         <joint name="yumi_joint_6_l"/>
+        <link name="gripper_l_tcp"/>
     </group>
     <group name="left_gripper">
         <link name="gripper_l_base"/>
@@ -31,15 +32,20 @@
         <joint name="yumi_joint_4_r"/>
         <joint name="yumi_joint_5_r"/>
         <joint name="yumi_joint_6_r"/>
+        <link name="gripper_r_tcp"/>
     </group>
     <group name="right_gripper">
         <link name="gripper_r_base"/>
         <link name="gripper_r_finger_r"/>
         <link name="gripper_r_finger_l"/>
     </group>
+    <group name="both_arms">
+        <group name="left_arm"/>
+        <group name="right_arm"/>
+    </group>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="left_gripper" parent_link="yumi_link_7_l" group="left_gripper"/>
-    <end_effector name="right_gripper" parent_link="yumi_link_7_r" group="right_gripper"/>
+    <end_effector name="left_gripper" parent_link="gripper_l_tcp" group="left_gripper"/>
+    <end_effector name="right_gripper" parent_link="gripper_r_tcp" group="right_gripper"/>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="yumi_base_link"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
