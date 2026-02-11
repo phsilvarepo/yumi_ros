@@ -23,6 +23,14 @@
         "env": []
     },
     {
+        "id": "a88af1e1e73ea3b9",
+        "type": "tab",
+        "label": "COMMON",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "98acc585bfe962b1",
         "type": "ros-server",
         "url": "ws://10.0.1.166:9090"
@@ -35,7 +43,7 @@
     {
         "id": "4e125a295347f507",
         "type": "ui-base",
-        "name": "My Dashboard",
+        "name": "YUMI Dashboard",
         "path": "/dashboard",
         "appIcon": "",
         "includeClientData": true,
@@ -58,7 +66,7 @@
         "name": "Default Theme",
         "colors": {
             "surface": "#ffffff",
-            "primary": "#0094CE",
+            "primary": "#464c4e",
             "bgPage": "#eeeeee",
             "groupBg": "#ffffff",
             "groupOutline": "#cccccc"
@@ -74,9 +82,9 @@
     {
         "id": "82fc5575064a24b6",
         "type": "ui-page",
-        "name": "SPL YUMI SIM CONTROL",
+        "name": "SPL YUMI DASHBOARD",
         "ui": "4e125a295347f507",
-        "path": "/page1",
+        "path": "/spl_yumi_dashboard",
         "icon": "home",
         "layout": "grid",
         "theme": "43d152f59436dab1",
@@ -203,11 +211,11 @@
     {
         "id": "e2828d41d9660087",
         "type": "ui-group",
-        "name": "SPL Poses",
+        "name": "SPL ACTIONS",
         "page": "82fc5575064a24b6",
         "width": 6,
         "height": 1,
-        "order": 3,
+        "order": 2,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -230,7 +238,7 @@
         "page": "82fc5575064a24b6",
         "width": 6,
         "height": 1,
-        "order": 2,
+        "order": 3,
         "showTitle": true,
         "className": "",
         "visible": "true",
@@ -2782,10 +2790,11 @@
         "id": "a06d2ed1367ad532",
         "type": "ui-radio-group",
         "z": "f6f2187d.f17ca8",
+        "d": true,
         "group": "e2828d41d9660087",
         "name": "",
         "label": "LEFT GRIPPER GRASP",
-        "order": 11,
+        "order": 13,
         "width": 0,
         "height": 0,
         "columns": 1,
@@ -2942,7 +2951,7 @@
         "type": "debug",
         "z": "f6f2187d.f17ca8",
         "name": "MOVE GROUPS",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3029,7 +3038,7 @@
         "name": "SWITCH_MOVE_GROUP_OUT",
         "mode": "return",
         "links": [],
-        "x": 1590,
+        "x": 1850,
         "y": 4980,
         "wires": [],
         "l": true
@@ -3045,8 +3054,7 @@
         "y": 4980,
         "wires": [
             [
-                "78de507566b3ffc1",
-                "b35a7596ae1c5b31"
+                "78de507566b3ffc1"
             ]
         ]
     },
@@ -3078,7 +3086,7 @@
         "y": 4980,
         "wires": [
             [
-                "7a2bec39d669a805"
+                "084b314bd9ec42e4"
             ]
         ]
     },
@@ -3087,7 +3095,7 @@
         "type": "debug",
         "z": "f6f2187d.f17ca8",
         "name": "SWITCH GROUP REQUEST",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3104,7 +3112,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "Setup MoveitCommander SwitchGroup Request",
-        "func": "\nreturn {\n    payload : {\n        group_name: msg.payload\n    }\n}",
+        "func": "flow.set(\"original_switch_msg\", msg);\nreturn {\n    payload : {\n        group_name: msg.payload\n    }\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -3119,6 +3127,203 @@
                 "b35a7596ae1c5b31"
             ]
         ]
+    },
+    {
+        "id": "084b314bd9ec42e4",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Restore SwitchMsg",
+        "func": "var r_msg = flow.get(\"original_switch_msg\");\nr_msg.payload = msg.payload\nreturn r_msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1550,
+        "y": 4980,
+        "wires": [
+            [
+                "7a2bec39d669a805"
+            ]
+        ]
+    },
+    {
+        "id": "b563ff68a44849d6",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/move_group/status",
+        "x": 250,
+        "y": 4700,
+        "wires": [
+            [
+                "7176981f72bc8f8b"
+            ]
+        ]
+    },
+    {
+        "id": "7176981f72bc8f8b",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 4700,
+        "wires": [
+            [
+                "21ad13371366ee5a"
+            ]
+        ]
+    },
+    {
+        "id": "21ad13371366ee5a",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 610,
+        "y": 4700,
+        "wires": [
+            [
+                "c0a5e71a8aff839e"
+            ]
+        ]
+    },
+    {
+        "id": "c0d6decf543ee0ca",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "MOVE GROUP STATUS",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 4660,
+        "wires": []
+    },
+    {
+        "id": "c0a5e71a8aff839e",
+        "type": "rbe",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload.status_list",
+        "topi": "topic",
+        "x": 790,
+        "y": 4700,
+        "wires": [
+            [
+                "c0d6decf543ee0ca",
+                "e69a7357686b106a"
+            ]
+        ]
+    },
+    {
+        "id": "e69a7357686b106a",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "d": true,
+        "name": "UPDATE MOVE GROUP STATUS",
+        "mode": "link",
+        "links": [
+            "0faaaa4654a18d50"
+        ],
+        "x": 1060,
+        "y": 4700,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "45dcc4a5f4ee63a8",
+        "type": "ros-subscribe",
+        "z": "f6f2187d.f17ca8",
+        "server": "4bf02018241b669e",
+        "topicname": "/execute_trajectory/result",
+        "x": 270,
+        "y": 5120,
+        "wires": [
+            [
+                "034302197c85b162"
+            ]
+        ]
+    },
+    {
+        "id": "034302197c85b162",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 510,
+        "y": 5120,
+        "wires": [
+            [
+                "b1bb9cacd0974cce"
+            ]
+        ]
+    },
+    {
+        "id": "b1bb9cacd0974cce",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 670,
+        "y": 5120,
+        "wires": [
+            [
+                "5b28060bb902bf1e",
+                "f34033d998ddea92"
+            ]
+        ]
+    },
+    {
+        "id": "f34033d998ddea92",
+        "type": "link out",
+        "z": "f6f2187d.f17ca8",
+        "name": "UPDATE MOVE GROUP TRAJECTORY_RESULT",
+        "mode": "link",
+        "links": [
+            "0faaaa4654a18d50"
+        ],
+        "x": 1160,
+        "y": 5120,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "5b28060bb902bf1e",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "MOVE GROUP ExecuteTrajectory Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 5080,
+        "wires": []
     },
     {
         "id": "c4dd694478a65776",
@@ -3579,7 +3784,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: 0.07,\n        z: 0.12 + 0.05\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 180.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 180.0,\n        yaw: 180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 0,\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\n/***\n * FINAL SPL PATH BASED ON OBJECTS\n */\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: -0.04,\n        z: 0.12/2 + 0.05 // EC Center + SPL Mount Offset\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 0.0,\n        yaw: 0//180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\n\nglobal.set(\"sumPositionOffset\", function (base, offset) {\n    return {\n        header: base.header,\n        pose:\n        {\n            position: {\n                x: base.pose.position.x + offset.position.x,\n                y: base.pose.position.y + offset.position.y,\n                z: base.pose.position.z + offset.position.z\n            },\n            orientation: base.pose.orientation\n        }\n    };\n});\n\nflow.set(\"leftarm_home_joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n    ],\n    \"position\": [ -0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n    \"velocity\": [],\n    \"effort\": []\n});\n\n/**\n * TASK PATH-DECOMPOSITION INDEX\n */\n\nflow.set(\"spl_production_task_index\", 0)\n",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -3627,6 +3832,7 @@
         "id": "bad86e164202e117",
         "type": "function",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "Get Joint Position",
         "func": "var joint_states = flow.get(\"joint_states\");\n\nif (!joint_states || !joint_states.position || !joint_states.name) {\n    return null;\n}\n\nvar outputs = [];\n\nfor (let i = 0; i < joint_states.name.length; i++) {\n    if (i > 13) {\n        outputs[i] = {\n            payload: joint_states.position[i],\n            //ui_update: {label: joint_states.name[i]}\n        };\n    }\n    else {\n        outputs[i] = {\n        payload: (joint_states.position[i] / (Math.PI / 180)).toFixed(0),\n        //ui_update: {label: joint_states.name[i]}\n        };\n    }\n    \n}\n\nreturn outputs;",
         "outputs": 18,
@@ -3992,6 +4198,7 @@
         "id": "30f644c1779fd79e",
         "type": "link in",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "DASH POSE Update",
         "links": [
             "5c9f679e0bdd5e8a"
@@ -4204,6 +4411,7 @@
         "id": "e89c23473a06a274",
         "type": "function",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "Get GOAL Pose Position X",
         "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.x\nreturn msg;",
         "outputs": 1,
@@ -4224,6 +4432,7 @@
         "id": "682cedbedccf9e74",
         "type": "function",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "Get GOAL Pose Position Y",
         "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.y\nreturn msg;",
         "outputs": 1,
@@ -4244,6 +4453,7 @@
         "id": "74b2a7b9754d7cf1",
         "type": "function",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "Get GOAL Pose Position Z",
         "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.z\nreturn msg;",
         "outputs": 1,
@@ -4264,6 +4474,7 @@
         "id": "1e77c70ef8341a9d",
         "type": "function",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "Get GOAL Pose Orientation R",
         "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.roll\nreturn msg;",
         "outputs": 1,
@@ -4284,6 +4495,7 @@
         "id": "2b8af0112d880289",
         "type": "function",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "Get GOAL Pose Orientation P",
         "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.pitch\nreturn msg;",
         "outputs": 1,
@@ -4304,6 +4516,7 @@
         "id": "fbbdd6be418de96a",
         "type": "function",
         "z": "c68dc494590553a0",
+        "d": true,
         "name": "Get GOAL Pose Orientation Y",
         "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.yaw\nreturn msg;",
         "outputs": 1,
@@ -4891,8 +5104,8 @@
         "label": "gripper_r_joint",
         "tooltip": "",
         "order": 29,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -4908,7 +5121,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 880,
         "wires": [
@@ -5000,8 +5213,8 @@
         "label": "yumi_l_1_joint",
         "tooltip": "",
         "order": 15,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5017,7 +5230,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 580,
         "wires": [
@@ -5035,8 +5248,8 @@
         "label": "yumi_l_7_joint",
         "tooltip": "",
         "order": 27,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5052,7 +5265,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 660,
         "wires": [
@@ -5070,8 +5283,8 @@
         "label": "yumi_l_4_joint",
         "tooltip": "",
         "order": 21,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5087,7 +5300,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 740,
         "wires": [
@@ -5105,8 +5318,8 @@
         "label": "yumi_l_6_joint",
         "tooltip": "",
         "order": 25,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5122,7 +5335,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 820,
         "wires": [
@@ -5140,8 +5353,8 @@
         "label": "yumi_l_3_joint",
         "tooltip": "",
         "order": 19,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5157,7 +5370,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 700,
         "wires": [
@@ -5175,8 +5388,8 @@
         "label": "yumi_l_2_joint",
         "tooltip": "",
         "order": 17,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5192,7 +5405,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 620,
         "wires": [
@@ -5210,8 +5423,8 @@
         "label": "yumi_l_5_joint",
         "tooltip": "",
         "order": 23,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5227,7 +5440,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 780,
         "wires": [
@@ -5245,8 +5458,8 @@
         "label": "yumi_r_1_joint",
         "tooltip": "",
         "order": 1,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5262,7 +5475,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 280,
         "wires": [
@@ -5280,8 +5493,8 @@
         "label": "yumi_r_7_joint",
         "tooltip": "",
         "order": 13,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5297,7 +5510,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 360,
         "wires": [
@@ -5315,8 +5528,8 @@
         "label": "yumi_r_4_joint",
         "tooltip": "",
         "order": 7,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5332,7 +5545,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 440,
         "wires": [
@@ -5350,8 +5563,8 @@
         "label": "yumi_r_6_joint",
         "tooltip": "",
         "order": 11,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5367,7 +5580,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 520,
         "wires": [
@@ -5385,8 +5598,8 @@
         "label": "yumi_r_3_joint",
         "tooltip": "",
         "order": 5,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5402,7 +5615,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 400,
         "wires": [
@@ -5420,8 +5633,8 @@
         "label": "yumi_r_2_joint",
         "tooltip": "",
         "order": 3,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5437,7 +5650,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 320,
         "wires": [
@@ -5455,8 +5668,8 @@
         "label": "yumi_r_5_joint",
         "tooltip": "",
         "order": 9,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -5472,7 +5685,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 480,
         "wires": [
@@ -5485,6 +5698,7 @@
         "id": "0ac449ef8a83a973",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 2,
         "width": "2",
@@ -5509,6 +5723,7 @@
         "id": "30c1ee7033abc55c",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 4,
         "width": "2",
@@ -5533,6 +5748,7 @@
         "id": "2e3faac0f6c3d1fb",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 14,
         "width": "2",
@@ -5557,6 +5773,7 @@
         "id": "49486f8d9c118f63",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 6,
         "width": "2",
@@ -5581,6 +5798,7 @@
         "id": "0f72401b33a98140",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 10,
         "width": "2",
@@ -5605,6 +5823,7 @@
         "id": "9d17dee7b493e6bc",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 8,
         "width": "2",
@@ -5629,6 +5848,7 @@
         "id": "d83b799dd25eba09",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 12,
         "width": "2",
@@ -5653,6 +5873,7 @@
         "id": "d8b192f473e1dc74",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 18,
         "width": "2",
@@ -5677,6 +5898,7 @@
         "id": "c022e85d4b4849bf",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 16,
         "width": "2",
@@ -5701,6 +5923,7 @@
         "id": "8aedf2e7c52c3723",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 28,
         "width": "2",
@@ -5725,6 +5948,7 @@
         "id": "8febb970973e74f3",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 20,
         "width": "2",
@@ -5749,6 +5973,7 @@
         "id": "ea4d378dde18397d",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 22,
         "width": "2",
@@ -5773,6 +5998,7 @@
         "id": "15b77b9ff2bb9e89",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 24,
         "width": "2",
@@ -5797,6 +6023,7 @@
         "id": "ef54df41b753b2a0",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 26,
         "width": "2",
@@ -5821,6 +6048,7 @@
         "id": "d1eea1d0b2fe15af",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 30,
         "width": "2",
@@ -5870,6 +6098,7 @@
         "id": "de43208e455a3a9d",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "24c4815848824551",
         "order": 34,
         "width": "2",
@@ -6022,8 +6251,8 @@
         "label": "Position X",
         "tooltip": "",
         "order": 1,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -6039,7 +6268,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 1100,
         "y": 2560,
         "wires": [
@@ -6052,6 +6281,7 @@
         "id": "f67fb5b2b1e7ad95",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "753f34d0c1ed001e",
         "order": 2,
         "width": "2",
@@ -6076,6 +6306,7 @@
         "id": "6e24f6f034bbdc56",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "753f34d0c1ed001e",
         "order": 4,
         "width": "2",
@@ -6100,6 +6331,7 @@
         "id": "1e8dae35250601a3",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "753f34d0c1ed001e",
         "order": 10,
         "width": 0,
@@ -6129,7 +6361,7 @@
         "label": "Position Y",
         "tooltip": "",
         "order": 3,
-        "width": "4",
+        "width": "6",
         "height": "1",
         "passthru": false,
         "outs": "all",
@@ -6146,7 +6378,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 1100,
         "y": 2600,
         "wires": [
@@ -6181,7 +6413,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 1100,
         "y": 2640,
         "wires": [
@@ -6216,7 +6448,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 1090,
         "y": 2680,
         "wires": [
@@ -6251,7 +6483,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 1080,
         "y": 2720,
         "wires": [
@@ -6286,7 +6518,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 1090,
         "y": 2760,
         "wires": [
@@ -6299,6 +6531,7 @@
         "id": "e7baf6bf8f9c99c5",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "753f34d0c1ed001e",
         "order": 11,
         "width": 0,
@@ -6323,6 +6556,7 @@
         "id": "0da2b452b694597c",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "753f34d0c1ed001e",
         "order": 12,
         "width": 0,
@@ -6347,6 +6581,7 @@
         "id": "892c7604324b14cf",
         "type": "ui-text",
         "z": "c68dc494590553a0",
+        "d": true,
         "group": "753f34d0c1ed001e",
         "order": 13,
         "width": 0,
@@ -6706,8 +6941,8 @@
         "label": "gripper_r_joint_m",
         "tooltip": "",
         "order": 31,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -6723,7 +6958,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 870,
         "y": 920,
         "wires": [
@@ -6740,8 +6975,8 @@
         "label": "gripper_l_joint_m",
         "tooltip": "",
         "order": 35,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -6757,7 +6992,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 870,
         "y": 1000,
         "wires": [
@@ -6773,8 +7008,8 @@
         "label": "gripper_l_joint",
         "tooltip": "",
         "order": 33,
-        "width": "4",
-        "height": "1",
+        "width": "0",
+        "height": "0",
         "passthru": false,
         "outs": "all",
         "topic": "topic",
@@ -6790,7 +7025,7 @@
         "color": "",
         "colorTrack": "",
         "colorThumb": "",
-        "showTextField": false,
+        "showTextField": true,
         "x": 860,
         "y": 960,
         "wires": [
@@ -7159,7 +7394,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Get Start and End Poses",
-        "func": "var poses = [];\nvar object_poses = JSON.parse(JSON.stringify(flow.get(\"object_poses\")));\n\nvar offset_eurocontainer_spl_slot = flow.get(\"offset_eurocontainer_spl_slot\");\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[0] )) {\n          poses.push(element)\n          //poses.at(-1).x += (offset_eurocontainer_spl_slot)\n      }\n    });\n\n    object_poses.forEach(function(element) {\n      if (element.name == (\"leftarm/position/redboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n  }\n  break;\n  case 2: {\n\n    object_poses.forEach(function (element) {\n      if (element.name == (\"leftarm/position/redboard_0\" + msg.payload.slots[0])) {\n        poses.push(element)\n      }\n    });\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[1] )) {\n          poses.push(element)\n      }\n    });\n\n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
+        "func": "var poses = [];\nvar object_poses = JSON.parse(JSON.stringify(flow.get(\"object_poses\")));\n\nvar offset_eurocontainer_spl_slot = flow.get(\"offset_eurocontainer_spl_slot\");\n\nvar sumPositionOffset = global.get(\"sumPositionOffset\");\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[0] )) {\n          poses.push(element);\n          //node.warn(\"BEFORE ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n          poses.at(-1).pose.pose.position.x += (offset_eurocontainer_spl_slot.position.x * ((Math.floor(msg.payload.slots[1] / 5)) % 2));\n          poses.at(-1).pose.pose.position.y += (offset_eurocontainer_spl_slot.position.y * (msg.payload.slots[1] % 5));\n          //node.warn(\"AFTER ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n      }\n    });\n\n    object_poses.forEach(function(element) {\n      if (element.name == (\"leftarm/position/redboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n  }\n  break;\n  case 2: {\n\n    object_poses.forEach(function (element) {\n      if (element.name == (\"leftarm/position/redboard_0\" + msg.payload.slots[0])) {\n        poses.push(element)\n      }\n    });\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[1] )) {\n          poses.push(element);\n          //node.warn(\"BEFORE ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n          poses.at(-1).pose.pose.position.x += (offset_eurocontainer_spl_slot.position.x * ((Math.floor(msg.payload.slots[2] / 5)) % 2));\n          poses.at(-1).pose.pose.position.y += (offset_eurocontainer_spl_slot.position.y * (msg.payload.slots[2] % 5));\n          //node.warn(\"AFTER ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n      }\n    });\n\n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7226,7 +7461,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 1180,
@@ -7238,7 +7474,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Create Production Path",
-        "func": "var offset_eurocontainer_slot = flow.get(\"offset_eurocontainer_slot\")\nvar offset_redboard = flow.get(\"offset_redboard\")\nvar approach_container = flow.get(\"container_approach\")\nvar approach_redboard = flow.get(\"redboard_approach\")\n\nvar action = msg.payload.action\nvar final_poses = []\n\nswitch (action) {\n  case 1: {\n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose))\n    node.warn(JSON.stringify(temp_pose))\n    temp_pose.pose.position.x += offset_eurocontainer_slot.position.x;\n    temp_pose.pose.position.y +=  offset_eurocontainer_slot.position.y;\n    temp_pose.pose.position.z += (offset_eurocontainer_slot.position.z + approach_container.position.z);\n    temp_pose.pose.orientation = approach_container.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(temp_pose)\n\n    temp_pose.pose.position.z -= approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose.pose.position.z += approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose))\n    temp_pose.pose.position.x += offset_redboard.position.x;\n    temp_pose.pose.position.y += offset_redboard.position.y;\n    temp_pose.pose.position.z += (offset_redboard.position.z + approach_redboard.position.z);\n    temp_pose.pose.orientation = approach_redboard.orientation\n    node.warn(temp_pose.pose.position.z)\n    \n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z -= approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z += approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n  }    \n\n\n  case 2: {\n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose))\n    node.warn(JSON.stringify(temp_pose))\n    temp_pose.pose.position.x += offset_redboard.position.x;\n    temp_pose.pose.position.y += offset_redboard.position.y;\n    temp_pose.pose.position.z += (offset_redboard.position.z + approach_redboard.position.z);\n    temp_pose.pose.orientation = approach_redboard.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(temp_pose)\n\n    temp_pose.pose.position.z -= approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose.pose.position.z += approach_redboard.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    node.warn(temp_pose.pose.position.z)\n\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose))\n    temp_pose.pose.position.x += offset_eurocontainer_slot.position.x;\n    temp_pose.pose.position.y += offset_eurocontainer_slot.position.y;\n    temp_pose.pose.position.z += (offset_eurocontainer_slot.position.z + approach_container.position.z);\n    temp_pose.pose.orientation = approach_container.orientation\n    node.warn(temp_pose.pose.position.z)\n\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z -= approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n\n    temp_pose.pose.position.z += approach_container.position.z;\n    final_poses.push(JSON.parse(JSON.stringify(temp_pose)))\n  }\n}\nmsg.payload=final_poses\nreturn msg;",
+        "func": "var offset_eurocontainer_slot = flow.get(\"offset_eurocontainer_slot\");\nvar offset_redboard = flow.get(\"offset_redboard\");\nvar approach_container = flow.get(\"container_approach\");\nvar approach_redboard = flow.get(\"redboard_approach\");\n\nvar sumPositionOffset = global.get(\"sumPositionOffset\");\n\nvar final_poses = []\n\nswitch (msg.payload.action) {\n  case 1: {\n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose));\n    temp_pose.pose.orientation = JSON.parse(JSON.stringify(approach_container.orientation));\n    //node.warn(\"START POSE : \" + JSON.stringify(temp_pose.pose.orientation));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_eurocontainer_slot), approach_container));\n    final_poses.push(sumPositionOffset(temp_pose, offset_eurocontainer_slot));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_eurocontainer_slot), approach_container));\n\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose));\n    temp_pose.pose.orientation = JSON.parse(JSON.stringify(approach_redboard.orientation));\n    //node.warn(\"END POSE : \" + JSON.stringify(temp_pose.pose.orientation));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_redboard), approach_redboard));\n    final_poses.push(sumPositionOffset(temp_pose, offset_redboard));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_redboard), approach_redboard));\n  }\n  break;    \n\n\n  case 2: {\n    temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[0].pose));\n    temp_pose.pose.orientation = JSON.parse(JSON.stringify(approach_redboard.orientation));\n    //node.warn(\"START POSE : \" + JSON.stringify(temp_pose.pose.orientation));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_redboard), approach_redboard));\n    final_poses.push(sumPositionOffset(temp_pose, offset_redboard));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_redboard), approach_redboard));\n    \n    var temp_pose = JSON.parse(JSON.stringify(msg.payload.poses[1].pose));\n    temp_pose.pose.orientation = JSON.parse(JSON.stringify(approach_container.orientation));\n    //node.warn(\"END POSE : \" + JSON.stringify(temp_pose.pose.orientation));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_eurocontainer_slot), approach_container));\n    final_poses.push(sumPositionOffset(temp_pose, offset_eurocontainer_slot));\n    final_poses.push(sumPositionOffset(sumPositionOffset(temp_pose, offset_eurocontainer_slot), approach_container));\n  }\n  break;    \n}\nmsg.payload=final_poses\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7249,7 +7485,8 @@
         "y": 4000,
         "wires": [
             [
-                "73a1d3393af99a3e"
+                "73a1d3393af99a3e",
+                "c114e6e0c0dc83ca"
             ]
         ]
     },
@@ -7265,6 +7502,13 @@
                 "pt": "flow",
                 "to": "payload",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "spl_production_path_index",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
             }
         ],
         "action": "",
@@ -7272,10 +7516,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1490,
+        "x": 1500,
         "y": 4000,
         "wires": [
-            []
+            [
+                "296b1f32383ddca5"
+            ]
         ]
     },
     {
@@ -7286,7 +7532,7 @@
         "name": "",
         "label": "Pose Path",
         "tooltip": "",
-        "order": 10,
+        "order": 11,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -7440,7 +7686,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Convert Pose to Stamped",
-        "func": "\nmsg.payload = { \n  header : {\n    frame_id: \"world\"\n  },\n  pose : msg.payload\n}\nreturn msg;",
+        "func": "msg.payload = { \n  header : {\n    frame_id: global.get(\"ros_world_frame\")\n  },\n  pose : msg.payload\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7452,7 +7698,8 @@
         "wires": [
             [
                 "4e628a077ede50ad",
-                "2e9ffceebb048a17"
+                "2e9ffceebb048a17",
+                "071095c0cba6bbbb"
             ]
         ]
     },
@@ -7464,7 +7711,8 @@
         "links": [
             "8ebb580cc2585ec8",
             "29b4ec8d2a43709e",
-            "a0067e464c1ea33e"
+            "a0067e464c1ea33e",
+            "bc4545c76cdda841"
         ],
         "x": 1200,
         "y": 3140,
@@ -7577,7 +7825,7 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1010,
+        "x": 890,
         "y": 4180,
         "wires": [
             [
@@ -7612,7 +7860,7 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1030,
+        "x": 910,
         "y": 4220,
         "wires": [
             [
@@ -7647,7 +7895,7 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1010,
+        "x": 890,
         "y": 4260,
         "wires": [
             [
@@ -7693,7 +7941,7 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 980,
+        "x": 860,
         "y": 4120,
         "wires": [
             [
@@ -7713,7 +7961,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1460,
+        "x": 1320,
         "y": 4120,
         "wires": [
             [
@@ -7733,7 +7981,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1780,
+        "x": 1620,
         "y": 4200,
         "wires": [
             [
@@ -7760,7 +8008,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1420,
+        "x": 1280,
         "y": 4180,
         "wires": [
             [
@@ -7787,7 +8035,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1400,
+        "x": 1260,
         "y": 4220,
         "wires": [
             [
@@ -7814,7 +8062,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1420,
+        "x": 1280,
         "y": 4260,
         "wires": [
             [
@@ -7832,7 +8080,7 @@
             "e8a95db0da5cab3c",
             "3e2bf9309f31a5c4"
         ],
-        "x": 2110,
+        "x": 1950,
         "y": 4200,
         "wires": [],
         "l": true
@@ -7842,7 +8090,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Change Current Action",
-        "func": "\nmsg.payload = flow.get(\"current_task\");\nreturn msg;",
+        "func": "\nmsg.payload = flow.get(\"current_task\").action;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7967,7 +8215,7 @@
         "name": "",
         "label": "MOVE GROUP",
         "tooltip": "",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -8000,7 +8248,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "DASH SETUP MOVE GROUP Options",
-        "func": "const groups = global.get('move_groups') || [];\n\nmsg.options = groups.map(g => ({\n    label: g.name,\n    value: g.name\n}));\n\nreturn msg;",
+        "func": "const groups = global.get('move_groups') || [];\n\nmsg.options = groups.map(g => ({\n    label: g.name,\n    value: g.name\n}));\n\nmsg.payload = flow.get(\"selected_move_group\");\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8044,8 +8292,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 1980,
+        "x": 940,
+        "y": 2060,
         "wires": [
             [
                 "be30d4fc45be1938"
@@ -8073,8 +8321,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 580,
-        "y": 1980,
+        "x": 700,
+        "y": 2080,
         "wires": [
             [
                 "7a8da5ea37dc2523"
@@ -8102,8 +8350,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 580,
-        "y": 2040,
+        "x": 700,
+        "y": 2000,
         "wires": [
             [
                 "f233616f9ca90523"
@@ -8122,8 +8370,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 2040,
+        "x": 940,
+        "y": 2020,
         "wires": [
             [
                 "be30d4fc45be1938"
@@ -8174,11 +8422,846 @@
         ]
     },
     {
+        "id": "c114e6e0c0dc83ca",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1480,
+        "y": 3960,
+        "wires": []
+    },
+    {
+        "id": "f1b5fdbb775ecb1a",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH UPDATE GOAL POSE",
+        "links": [
+            "071095c0cba6bbbb"
+        ],
+        "x": 360,
+        "y": 4540,
+        "wires": [
+            [
+                "1db44d0249d3920d"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "3d739b6e2a82773b",
+        "type": "ui-table",
+        "z": "c68dc494590553a0",
+        "group": "70db46e8f99cb872",
+        "name": "",
+        "label": "POSE HISTORY",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "maxrows": "4",
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "deselect": true,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "replace",
+        "className": "",
+        "x": 1340,
+        "y": 4540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "071095c0cba6bbbb",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH UPDATE GOAL POSE",
+        "mode": "link",
+        "links": [
+            "f1b5fdbb775ecb1a"
+        ],
+        "x": 1800,
+        "y": 3220,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "c138119918eaeb52",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "70db46e8f99cb872",
+        "name": "",
+        "label": "CLEAR",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 300,
+        "y": 4620,
+        "wires": [
+            [
+                "8397dd8f5839ce69"
+            ]
+        ]
+    },
+    {
+        "id": "11ea258bdd9ed445",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "history",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 4540,
+        "wires": [
+            [
+                "3d739b6e2a82773b"
+            ]
+        ]
+    },
+    {
+        "id": "1db44d0249d3920d",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update History",
+        "func": "var history = flow.get(\"history\") || [];\n\nhistory.push(msg.payload);\n\nflow.set(\"history\", history);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 4540,
+        "wires": [
+            [
+                "11ea258bdd9ed445",
+                "42df599ecd14754e"
+            ]
+        ]
+    },
+    {
+        "id": "8397dd8f5839ce69",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "history",
+                "pt": "flow",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 4620,
+        "wires": [
+            [
+                "11ea258bdd9ed445"
+            ]
+        ]
+    },
+    {
+        "id": "0faaaa4654a18d50",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH UPDATE MOVEGROUP STATUS",
+        "links": [
+            "e69a7357686b106a",
+            "f34033d998ddea92"
+        ],
+        "x": 390,
+        "y": 4500,
+        "wires": [
+            [
+                "1db44d0249d3920d"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "42df599ecd14754e",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "HISTORY UPDATED",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 4620,
+        "wires": []
+    },
+    {
+        "id": "41b8b583ad1aa792",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "24c4815848824551",
+        "name": "",
+        "label": "LEFT ARM HOME Joint Command",
+        "order": 38,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 380,
+        "y": 1940,
+        "wires": [
+            [
+                "f5a5400a15f56d89"
+            ]
+        ]
+    },
+    {
+        "id": "f5a5400a15f56d89",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Setup joint_states ROS message",
+        "func": "msg.payload = flow.get( \"leftarm_home_joint_states\")\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 1940,
+        "wires": [
+            [
+                "be30d4fc45be1938"
+            ]
+        ]
+    },
+    {
+        "id": "c6191d2deea32706",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "LEFT ARM HOME Joint Command",
+        "links": [],
+        "x": 380,
+        "y": 1980,
+        "wires": [
+            [
+                "f5a5400a15f56d89"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "af231608f2ba1814",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "TASK INDEX",
+        "tooltip": "",
+        "order": 12,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "0",
+        "max": "20",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 930,
+        "y": 4800,
+        "wires": [
+            [
+                "d0c68cc9f53d22e8"
+            ]
+        ]
+    },
+    {
+        "id": "d0c68cc9f53d22e8",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "spl_production_task_index",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1220,
+        "y": 4800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f9512307f83d394",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH TASK PATH STARTUP",
+        "links": [
+            "4457b00cb5e7f136"
+        ],
+        "x": 360,
+        "y": 4800,
+        "wires": [
+            [
+                "a148612c1e549ece"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "5e047515a02fe002",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "UPDATE TASK PLAN",
+        "links": [
+            "296b1f32383ddca5"
+        ],
+        "x": 340,
+        "y": 4900,
+        "wires": [
+            [
+                "7c372f0c49e06a6e"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "296b1f32383ddca5",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "UPDATE TASK PLAN",
+        "mode": "link",
+        "links": [
+            "5e047515a02fe002"
+        ],
+        "x": 1760,
+        "y": 4000,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "7c372f0c49e06a6e",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Create Task Plan from Path/Task",
+        "func": "var RobotAction = global.get(\"RobotAction\");\n\nvar current_task = flow.get(\"current_task\");\nvar path = flow.get(\"path\");\n\nvar task_plan = []\n\nswitch(current_task.action)\n{\n    case RobotAction.MOVE_CONT_RED:\n    case RobotAction.MOVE_RED_CONT:\n    {\n        for (let index = 0; index < path.length; index++) {\n            task_plan.push({\n                action: RobotAction.MOVE,\n                robot_id: \"left_arm\",\n                pose: path[index]\n            });\n            if(index === 1)\n            {\n                task_plan.push({\n                    action: RobotAction.GRASP,\n                    robot_id: \"left_gripper\",\n                    pose: path[index]\n                });\n\n            }\n            if(index === 4)\n            {\n                task_plan.push({\n                    action: RobotAction.RELEASE,\n                    robot_id: \"left_gripper\",\n                    pose: path[index]\n                });\n            }\n        }\n        break;\n    }\n}\ntask_plan.push({\n    action: RobotAction.MOVE,\n    robot_id: \"left_arm\",\n    joint_state: \"HOME\"\n});\n\nflow.set(\"task_plan\", task_plan);\n\nmsg.payload = task_plan;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 4900,
+        "wires": [
+            [
+                "d91c1b32cef2f5f2",
+                "e665a0f81ce2392a"
+            ]
+        ]
+    },
+    {
+        "id": "d91c1b32cef2f5f2",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 4860,
+        "wires": []
+    },
+    {
+        "id": "d42c41ef76bda5e0",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "",
+        "label": "NEXT TASK",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 310,
+        "y": 5140,
+        "wires": [
+            [
+                "ba67e54c3806d122"
+            ]
+        ]
+    },
+    {
+        "id": "4457b00cb5e7f136",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH TASK Update",
+        "mode": "link",
+        "links": [
+            "6f9512307f83d394"
+        ],
+        "x": 1480,
+        "y": 4900,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "ba67e54c3806d122",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "GetNextTask",
+        "func": "msg.payload = flow.get(\"task_plan\")[flow.get(\"spl_production_task_index\")]\nflow.set(\"current_robot_task\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 5140,
+        "wires": [
+            [
+                "2ebbad6c21e2c3a6",
+                "f553134ce4225040"
+            ]
+        ]
+    },
+    {
+        "id": "e665a0f81ce2392a",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "spl_production_task_index",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1140,
+        "y": 4900,
+        "wires": [
+            [
+                "4457b00cb5e7f136"
+            ]
+        ]
+    },
+    {
+        "id": "a148612c1e549ece",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Dash Tash Index",
+        "func": "return {\n    payload: flow.get(\"spl_production_task_index\"),\n    ui_update: {\n        max: flow.get(\"task_plan\").length\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 4800,
+        "wires": [
+            [
+                "af231608f2ba1814"
+            ]
+        ]
+    },
+    {
+        "id": "2ebbad6c21e2c3a6",
+        "type": "switch",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "property": "payload.robot_id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "selected_move_group",
+                "vt": "flow"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 770,
+        "y": 5140,
+        "wires": [
+            [
+                "105a3876b3a3f3db"
+            ],
+            [
+                "fcdc1460bebd1af9",
+                "e28fa8e43b6b91cc"
+            ]
+        ]
+    },
+    {
+        "id": "105a3876b3a3f3db",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "selected_move_group",
+                "pt": "flow",
+                "to": "payload.robot_id",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 5120,
+        "wires": [
+            [
+                "0a3e98ee87f870cc"
+            ]
+        ]
+    },
+    {
+        "id": "0a3e98ee87f870cc",
+        "type": "link call",
+        "z": "c68dc494590553a0",
+        "name": "SWITCH_MOVE_GROUP",
+        "links": [
+            "d5c772764a197584"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1370,
+        "y": 5120,
+        "wires": [
+            [
+                "e28fa8e43b6b91cc"
+            ]
+        ]
+    },
+    {
+        "id": "f553134ce4225040",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "NEXT TASK",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 5100,
+        "wires": []
+    },
+    {
+        "id": "c9f8088c9d575e49",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "MOVE TASK",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1410,
+        "y": 5260,
+        "wires": []
+    },
+    {
+        "id": "71d94f5cbf9714e3",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "GRIPPER TASK",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 5360,
+        "wires": []
+    },
+    {
+        "id": "e28fa8e43b6b91cc",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "SWITCH RobotAction",
+        "func": "var current_robot_task = flow.get(\"current_robot_task\");\n\nvar RobotAction = global.get(\"RobotAction\");\n\n\nswitch(current_robot_task.action)\n{\n    case RobotAction.MOVE:\n    {\n        return [{ payload: current_robot_task.pose }, null];\n    }\n    case RobotAction.GRASP:\n    case RobotAction.RELEASE:\n    {\n        return [null, { payload: current_robot_task.action }];\n    }\n}\nnode.warn(\"INVALID ACTION\")\nreturn [null, null];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 5300,
+        "wires": [
+            [
+                "c9f8088c9d575e49",
+                "a467b0191f89132e"
+            ],
+            [
+                "71d94f5cbf9714e3",
+                "c4078a090a3ec8e8"
+            ]
+        ],
+        "outputLabels": [
+            "MOVE",
+            "GRASP/RELEASE"
+        ]
+    },
+    {
+        "id": "fcdc1460bebd1af9",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "SAME ROBOT ID",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.robot_id",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 5180,
+        "wires": []
+    },
+    {
+        "id": "bc4545c76cdda841",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "TASK POSE Update",
+        "mode": "link",
+        "links": [
+            "04d95265e2ebf6bd"
+        ],
+        "x": 1660,
+        "y": 5220,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "c4078a090a3ec8e8",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "GRIPPER Update",
+        "mode": "link",
+        "links": [
+            "73a67d730c990199"
+        ],
+        "x": 1430,
+        "y": 5320,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "73a67d730c990199",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "LEFT ARM GRIPPER Joint Command",
+        "links": [
+            "c4078a090a3ec8e8"
+        ],
+        "x": 390,
+        "y": 2040,
+        "wires": [
+            [
+                "225254cd4c37cfd8"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "225254cd4c37cfd8",
+        "type": "switch",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "11",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "12",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 2040,
+        "wires": [
+            [
+                "7a8da5ea37dc2523"
+            ],
+            [
+                "f233616f9ca90523"
+            ]
+        ]
+    },
+    {
+        "id": "a467b0191f89132e",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Convert Pose",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nmsg.payload = {\n  position: msg.payload.pose.position,\n  orientation: rpyToQuaternion(msg.payload.pose.orientation)\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 5220,
+        "wires": [
+            [
+                "bc4545c76cdda841"
+            ]
+        ]
+    },
+    {
         "id": "16511e0e2b0e6eaf",
         "type": "debug",
         "z": "58de6cfd0e1f91cf",
         "name": "OBJECT POSES",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8291,7 +9374,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
+        "x": 300,
         "y": 740,
         "wires": [
             [
@@ -8317,7 +9400,8 @@
         "y": 300,
         "wires": [
             [
-                "39aed324555ec7b7"
+                "39aed324555ec7b7",
+                "16511e0e2b0e6eaf"
             ]
         ],
         "l": true
@@ -8676,5 +9760,41 @@
             ]
         ],
         "l": true
+    },
+    {
+        "id": "39423a72af92de80",
+        "type": "function",
+        "z": "a88af1e1e73ea3b9",
+        "name": "ROS Handle Functions",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "/**\n * \n * ROS Handle Functions\n * \n */\nglobal.set(\"ROSStampToDate\", function (stamp) {\n\n    if (!stamp || stamp.secs === undefined || stamp.nsecs === undefined) {\n        node.error(\"No valid ROS stamp found\", msg);\n        return null;\n    }\n\n    // Convert to milliseconds\n    const ms = (stamp.secs * 1000) + Math.floor(stamp.nsecs / 1e6);\n\n    // Create JS Date\n    return new Date(ms);\n});\n\nglobal.set(\"dateToROSStamp\", function (date) {\n\n    if (!(date instanceof Date)) {\n        date = new Date(date);\n    }\n\n    if (isNaN(date.getTime())) {\n        node.error(\"Invalid Date\", msg);\n        return null;\n    }\n\n    // Convert\n    const ms = date.getTime();\n\n    return {\n        secs: Math.floor(ms / 1000),\n        nsecs: (ms % 1000) * 1e6\n    }\n});\n",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "084b4c0567bcb683",
+        "type": "function",
+        "z": "a88af1e1e73ea3b9",
+        "name": "RobotAction",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// ==========================================\n// GLOBAL ENUMS AND HELPERS - Initialize on Node-RED start\n// ==========================================\n\n// Robot Action ENUM\nconst RobotAction = Object.freeze({\n    NONE: 0,\n    MOVE_CONT_RED: 1,\n    MOVE_RED_CONT: 2,\n    MOVE: 10,\n    GRASP: 11,\n    RELEASE: 12\n});\n\n// Create reverse lookup map\nconst RobotActionName = Object.freeze(\n    Object.fromEntries(\n        Object.entries(RobotAction).map(([k, v]) => [v, k])\n    )\n);\n\n// Function: Convert ENUM value to string\nfunction actionToString(actionValue) {\n    return RobotActionName[actionValue] || \"UNKNOWN\";\n}\n\n// Function: Convert string to ENUM value (case-insensitive)\nfunction stringToAction(actionString) {\n    if (typeof actionString !== 'string') return null;\n    const normalized = actionString.toUpperCase();\n    return RobotAction.hasOwnProperty(normalized) ? RobotAction[normalized] : null;\n}\n\n// Store in GLOBAL context (accessible across all flows)\nglobal.set('RobotAction', RobotAction);\nglobal.set('RobotActionName', RobotActionName);\nglobal.set('actionToString', actionToString);\nglobal.set('stringToAction', stringToAction);\n\n// Log initialization\nnode.warn(\"✅ Global ENUMS initialized:\");\nnode.warn(\"  - RobotAction: \" + JSON.stringify(RobotAction));",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 180,
+        "wires": [
+            []
+        ]
     }
 ]
