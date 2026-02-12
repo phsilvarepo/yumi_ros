@@ -2794,7 +2794,7 @@
         "group": "e2828d41d9660087",
         "name": "",
         "label": "LEFT GRIPPER GRASP",
-        "order": 13,
+        "order": 14,
         "width": 0,
         "height": 0,
         "columns": 1,
@@ -3301,7 +3301,8 @@
         "name": "UPDATE MOVE GROUP TRAJECTORY_RESULT",
         "mode": "link",
         "links": [
-            "0faaaa4654a18d50"
+            "0faaaa4654a18d50",
+            "72562df5d682e47b"
         ],
         "x": 1160,
         "y": 5120,
@@ -3348,8 +3349,8 @@
                 "valueValue": ""
             }
         ],
-        "x": 1170,
-        "y": 2240,
+        "x": 1150,
+        "y": 1540,
         "wires": [
             [
                 "add78d267fcb4482"
@@ -3368,8 +3369,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 830,
-        "y": 2240,
+        "x": 810,
+        "y": 1540,
         "wires": [
             [
                 "c4dd694478a65776",
@@ -3390,8 +3391,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1660,
-        "y": 2240,
+        "x": 1640,
+        "y": 1540,
         "wires": []
     },
     {
@@ -3402,8 +3403,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1430,
-        "y": 2240,
+        "x": 1410,
+        "y": 1540,
         "wires": [
             [
                 "3bf62250f0904a1b"
@@ -3423,8 +3424,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 850,
-        "y": 2360,
+        "x": 830,
+        "y": 1660,
         "wires": [
             [
                 "710842bdf0013399",
@@ -3445,8 +3446,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1740,
-        "y": 2320,
+        "x": 1720,
+        "y": 1620,
         "wires": []
     },
     {
@@ -3472,8 +3473,8 @@
                 "valueValue": ""
             }
         ],
-        "x": 1190,
-        "y": 2440,
+        "x": 1170,
+        "y": 1740,
         "wires": [
             [
                 "c282a1fbebb48185"
@@ -3492,8 +3493,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 830,
-        "y": 2440,
+        "x": 810,
+        "y": 1740,
         "wires": [
             [
                 "e7fbbca17af1c37c"
@@ -3513,8 +3514,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1680,
-        "y": 2440,
+        "x": 1660,
+        "y": 1740,
         "wires": []
     },
     {
@@ -3525,8 +3526,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1430,
-        "y": 2440,
+        "x": 1410,
+        "y": 1740,
         "wires": [
             [
                 "f758daeff3d13085"
@@ -3546,8 +3547,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1150,
-        "y": 2200,
+        "x": 1130,
+        "y": 1500,
         "wires": []
     },
     {
@@ -3569,8 +3570,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1640,
-        "y": 2360,
+        "x": 1620,
+        "y": 1660,
         "wires": [
             [
                 "991a7d32af47feea"
@@ -3585,8 +3586,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1850,
-        "y": 2360,
+        "x": 1830,
+        "y": 1660,
         "wires": [
             [
                 "aa42246c23fae64e"
@@ -3784,7 +3785,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\n/***\n * FINAL SPL PATH BASED ON OBJECTS\n */\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: -0.04,\n        z: 0.12/2 + 0.05 // EC Center + SPL Mount Offset\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 0.0,\n        yaw: 0//180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\n\nglobal.set(\"sumPositionOffset\", function (base, offset) {\n    return {\n        header: base.header,\n        pose:\n        {\n            position: {\n                x: base.pose.position.x + offset.position.x,\n                y: base.pose.position.y + offset.position.y,\n                z: base.pose.position.z + offset.position.z\n            },\n            orientation: base.pose.orientation\n        }\n    };\n});\n\nflow.set(\"leftarm_home_joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n    ],\n    \"position\": [ -0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n    \"velocity\": [],\n    \"effort\": []\n});\n\n/**\n * TASK PATH-DECOMPOSITION INDEX\n */\n\nflow.set(\"spl_production_task_index\", 0)\n",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\n/***\n * FINAL SPL PATH BASED ON OBJECTS\n */\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: -0.04,\n        z: 0.12/2 + 0.05 // EC Center + SPL Mount Offset\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 0.0,\n        yaw: 0//180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\n\nglobal.set(\"sumPositionOffset\", function (base, offset) {\n    return {\n        header: base.header,\n        pose:\n        {\n            position: {\n                x: base.pose.position.x + offset.position.x,\n                y: base.pose.position.y + offset.position.y,\n                z: base.pose.position.z + offset.position.z\n            },\n            orientation: base.pose.orientation\n        }\n    };\n});\n\nflow.set(\"leftarm_home_joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n    ],\n    \"position\": [ -0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n    \"velocity\": [],\n    \"effort\": []\n});\n\n/**\n * TASK PATH-DECOMPOSITION INDEX\n */\n\nflow.set(\"spl_production_task_index\", 0);\nflow.set(\"task_plan_playmode\", \"OFF\");\n\n",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -3792,25 +3793,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "0d7268fb3b726e84",
-        "type": "link in",
-        "z": "c68dc494590553a0",
-        "name": "DASH JOINTS Update",
-        "links": [
-            "f3a4112ec0666191",
-            "33d2be3aab688dd7"
-        ],
-        "x": 220,
-        "y": 1440,
-        "wires": [
-            [
-                "bad86e164202e117",
-                "90513b0bc18327e4"
-            ]
-        ],
-        "l": true
     },
     {
         "id": "f3a4112ec0666191",
@@ -3827,78 +3809,6 @@
         "y": 620,
         "wires": [],
         "l": true
-    },
-    {
-        "id": "bad86e164202e117",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Get Joint Position",
-        "func": "var joint_states = flow.get(\"joint_states\");\n\nif (!joint_states || !joint_states.position || !joint_states.name) {\n    return null;\n}\n\nvar outputs = [];\n\nfor (let i = 0; i < joint_states.name.length; i++) {\n    if (i > 13) {\n        outputs[i] = {\n            payload: joint_states.position[i],\n            //ui_update: {label: joint_states.name[i]}\n        };\n    }\n    else {\n        outputs[i] = {\n        payload: (joint_states.position[i] / (Math.PI / 180)).toFixed(0),\n        //ui_update: {label: joint_states.name[i]}\n        };\n    }\n    \n}\n\nreturn outputs;",
-        "outputs": 18,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 530,
-        "y": 1440,
-        "wires": [
-            [
-                "0ac449ef8a83a973"
-            ],
-            [
-                "30c1ee7033abc55c"
-            ],
-            [
-                "2e3faac0f6c3d1fb"
-            ],
-            [
-                "49486f8d9c118f63"
-            ],
-            [
-                "9d17dee7b493e6bc"
-            ],
-            [
-                "0f72401b33a98140"
-            ],
-            [
-                "d83b799dd25eba09"
-            ],
-            [
-                "c022e85d4b4849bf"
-            ],
-            [
-                "d8b192f473e1dc74"
-            ],
-            [
-                "8aedf2e7c52c3723"
-            ],
-            [
-                "8febb970973e74f3"
-            ],
-            [
-                "ea4d378dde18397d"
-            ],
-            [
-                "15b77b9ff2bb9e89"
-            ],
-            [
-                "ef54df41b753b2a0"
-            ],
-            [
-                "d1eea1d0b2fe15af"
-            ],
-            [
-                "8af72d50ca4226d3"
-            ],
-            [
-                "de43208e455a3a9d"
-            ],
-            [
-                "7da35fe640b2e13b"
-            ]
-        ]
     },
     {
         "id": "6f2a7f198a99e5cb",
@@ -3940,7 +3850,8 @@
             "f1eb1c6364412642",
             "a449df471e95ccf4",
             "e8a95db0da5cab3c",
-            "3e2bf9309f31a5c4"
+            "3e2bf9309f31a5c4",
+            "49c42d39eb12f8b6"
         ],
         "x": 440,
         "y": 120,
@@ -4103,27 +4014,6 @@
         ]
     },
     {
-        "id": "90513b0bc18327e4",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Use as JointStatePublisher",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 340,
-        "y": 1780,
-        "wires": [
-            [
-                "84d841b6d940edc9"
-            ]
-        ]
-    },
-    {
         "id": "7a8592945dd146ac",
         "type": "change",
         "z": "c68dc494590553a0",
@@ -4142,8 +4032,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1120,
-        "y": 2140,
+        "x": 1100,
+        "y": 1440,
         "wires": [
             []
         ]
@@ -4167,8 +4057,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 2140,
+        "x": 680,
+        "y": 1440,
         "wires": [
             [
                 "5c3fda63d6aa6dc0"
@@ -4185,34 +4075,11 @@
             "5c9f679e0bdd5e8a",
             "f3a4112ec0666191"
         ],
-        "x": 340,
-        "y": 2140,
+        "x": 320,
+        "y": 1440,
         "wires": [
             [
                 "7a09aa71f16675fc"
-            ]
-        ],
-        "l": true
-    },
-    {
-        "id": "30f644c1779fd79e",
-        "type": "link in",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "DASH POSE Update",
-        "links": [
-            "5c9f679e0bdd5e8a"
-        ],
-        "x": 320,
-        "y": 2960,
-        "wires": [
-            [
-                "e89c23473a06a274",
-                "682cedbedccf9e74",
-                "74b2a7b9754d7cf1",
-                "1e77c70ef8341a9d",
-                "2b8af0112d880289",
-                "fbbdd6be418de96a"
             ]
         ],
         "l": true
@@ -4228,8 +4095,8 @@
             "d9453bb3a0f459b8",
             "fb7303edc0e890d8"
         ],
-        "x": 1740,
-        "y": 2660,
+        "x": 1720,
+        "y": 1960,
         "wires": [],
         "l": true
     },
@@ -4242,8 +4109,8 @@
             "33d2be3aab688dd7",
             "5c9f679e0bdd5e8a"
         ],
-        "x": 340,
-        "y": 2660,
+        "x": 320,
+        "y": 1960,
         "wires": [
             [
                 "b765ee084324119c",
@@ -4268,8 +4135,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
-        "y": 2560,
+        "x": 680,
+        "y": 1860,
         "wires": [
             [
                 "7ca11e996120efce"
@@ -4288,8 +4155,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
-        "y": 2600,
+        "x": 680,
+        "y": 1900,
         "wires": [
             [
                 "57e1817e73d66529"
@@ -4308,8 +4175,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
-        "y": 2640,
+        "x": 680,
+        "y": 1940,
         "wires": [
             [
                 "95a6b14da7c7e65a"
@@ -4328,8 +4195,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 2680,
+        "x": 690,
+        "y": 1980,
         "wires": [
             [
                 "79def986eaabc751"
@@ -4348,8 +4215,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 2720,
+        "x": 690,
+        "y": 2020,
         "wires": [
             [
                 "a0d01cd6bcb2580d"
@@ -4368,8 +4235,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 2760,
+        "x": 690,
+        "y": 2060,
         "wires": [
             [
                 "54f5743d3a3d5aab"
@@ -4388,8 +4255,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 2240,
+        "x": 540,
+        "y": 1540,
         "wires": [
             [
                 "d341b21395c0b91a"
@@ -4403,135 +4270,9 @@
         "server": "4bf02018241b669e",
         "topicname": "/yumi_commander/goal_pose",
         "msgtype": "geometry_msgs/PoseStamped",
-        "x": 1810,
-        "y": 3140,
+        "x": 1790,
+        "y": 2240,
         "wires": []
-    },
-    {
-        "id": "e89c23473a06a274",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Get GOAL Pose Position X",
-        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.x\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 700,
-        "y": 2840,
-        "wires": [
-            [
-                "f67fb5b2b1e7ad95"
-            ]
-        ]
-    },
-    {
-        "id": "682cedbedccf9e74",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Get GOAL Pose Position Y",
-        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.y\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 700,
-        "y": 2880,
-        "wires": [
-            [
-                "6e24f6f034bbdc56"
-            ]
-        ]
-    },
-    {
-        "id": "74b2a7b9754d7cf1",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Get GOAL Pose Position Z",
-        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.position.z\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 700,
-        "y": 2920,
-        "wires": [
-            [
-                "1e8dae35250601a3"
-            ]
-        ]
-    },
-    {
-        "id": "1e77c70ef8341a9d",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Get GOAL Pose Orientation R",
-        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.roll\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 2960,
-        "wires": [
-            [
-                "e7baf6bf8f9c99c5"
-            ]
-        ]
-    },
-    {
-        "id": "2b8af0112d880289",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Get GOAL Pose Orientation P",
-        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.pitch\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 3000,
-        "wires": [
-            [
-                "0da2b452b694597c"
-            ]
-        ]
-    },
-    {
-        "id": "fbbdd6be418de96a",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "name": "Get GOAL Pose Orientation Y",
-        "func": "var goal_pose = flow.get(\"goal_pose\");\nmsg.payload = goal_pose.orientation.yaw\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 710,
-        "y": 3040,
-        "wires": [
-            [
-                "892c7604324b14cf"
-            ]
-        ]
     },
     {
         "id": "7d55917215424d97",
@@ -5103,7 +4844,7 @@
         "name": "",
         "label": "gripper_r_joint",
         "tooltip": "",
-        "order": 29,
+        "order": 15,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5138,7 +4879,7 @@
         "group": "24c4815848824551",
         "name": "",
         "label": "Joint Command",
-        "order": 37,
+        "order": 19,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -5162,8 +4903,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 320,
-        "y": 1880,
+        "x": 300,
+        "y": 1180,
         "wires": [
             [
                 "84d841b6d940edc9"
@@ -5196,8 +4937,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 910,
-        "y": 2140,
+        "x": 890,
+        "y": 1440,
         "wires": [
             [
                 "7a8592945dd146ac"
@@ -5212,7 +4953,7 @@
         "name": "yumi_l_1_joint",
         "label": "yumi_l_1_joint",
         "tooltip": "",
-        "order": 15,
+        "order": 8,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5247,7 +4988,7 @@
         "name": "yumi_l_7_joint",
         "label": "yumi_l_7_joint",
         "tooltip": "",
-        "order": 27,
+        "order": 14,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5282,7 +5023,7 @@
         "name": "yumi_l_4_joint",
         "label": "yumi_l_4_joint",
         "tooltip": "",
-        "order": 21,
+        "order": 11,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5317,7 +5058,7 @@
         "name": "yumi_l_6_joint",
         "label": "yumi_l_6_joint",
         "tooltip": "",
-        "order": 25,
+        "order": 13,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5352,7 +5093,7 @@
         "name": "yumi_l_3_joint",
         "label": "yumi_l_3_joint",
         "tooltip": "",
-        "order": 19,
+        "order": 10,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5387,7 +5128,7 @@
         "name": "yumi_l_2_joint",
         "label": "yumi_l_2_joint",
         "tooltip": "",
-        "order": 17,
+        "order": 9,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5422,7 +5163,7 @@
         "name": "yumi_l_5_joint",
         "label": "yumi_l_5_joint",
         "tooltip": "",
-        "order": 23,
+        "order": 12,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5492,7 +5233,7 @@
         "name": "yumi_r_7_joint",
         "label": "yumi_r_7_joint",
         "tooltip": "",
-        "order": 13,
+        "order": 7,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5527,7 +5268,7 @@
         "name": "yumi_r_4_joint",
         "label": "yumi_r_4_joint",
         "tooltip": "",
-        "order": 7,
+        "order": 4,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5562,7 +5303,7 @@
         "name": "yumi_r_6_joint",
         "label": "yumi_r_6_joint",
         "tooltip": "",
-        "order": 11,
+        "order": 6,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5597,7 +5338,7 @@
         "name": "yumi_r_3_joint",
         "label": "yumi_r_3_joint",
         "tooltip": "",
-        "order": 5,
+        "order": 3,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5632,7 +5373,7 @@
         "name": "yumi_r_2_joint",
         "label": "yumi_r_2_joint",
         "tooltip": "",
-        "order": 3,
+        "order": 2,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5667,7 +5408,7 @@
         "name": "yumi_r_5_joint",
         "label": "yumi_r_5_joint",
         "tooltip": "",
-        "order": 9,
+        "order": 5,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -5695,456 +5436,6 @@
         ]
     },
     {
-        "id": "0ac449ef8a83a973",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 2,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_r_1_joint",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1100,
-        "wires": []
-    },
-    {
-        "id": "30c1ee7033abc55c",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 4,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_r_2_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1140,
-        "wires": []
-    },
-    {
-        "id": "2e3faac0f6c3d1fb",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 14,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_r_7_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1180,
-        "wires": []
-    },
-    {
-        "id": "49486f8d9c118f63",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 6,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_r_3_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1220,
-        "wires": []
-    },
-    {
-        "id": "0f72401b33a98140",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 10,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_r_5_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1300,
-        "wires": []
-    },
-    {
-        "id": "9d17dee7b493e6bc",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 8,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_r_4_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1260,
-        "wires": []
-    },
-    {
-        "id": "d83b799dd25eba09",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 12,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_r_6_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1340,
-        "wires": []
-    },
-    {
-        "id": "d8b192f473e1dc74",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 18,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_l_2_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1420,
-        "wires": []
-    },
-    {
-        "id": "c022e85d4b4849bf",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 16,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_l_1_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1380,
-        "wires": []
-    },
-    {
-        "id": "8aedf2e7c52c3723",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 28,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_l_7_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1480,
-        "wires": []
-    },
-    {
-        "id": "8febb970973e74f3",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 20,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_l_3_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1520,
-        "wires": []
-    },
-    {
-        "id": "ea4d378dde18397d",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 22,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_l_4_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1560,
-        "wires": []
-    },
-    {
-        "id": "15b77b9ff2bb9e89",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 24,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_l_5_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1600,
-        "wires": []
-    },
-    {
-        "id": "ef54df41b753b2a0",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 26,
-        "width": "2",
-        "height": "1",
-        "name": "yumi_l_6_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1640,
-        "wires": []
-    },
-    {
-        "id": "d1eea1d0b2fe15af",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 30,
-        "width": "2",
-        "height": "1",
-        "name": "gripper_r_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1700,
-        "wires": []
-    },
-    {
-        "id": "8af72d50ca4226d3",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 32,
-        "width": "2",
-        "height": "1",
-        "name": "gripper_r_joint_m",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 790,
-        "y": 1740,
-        "wires": []
-    },
-    {
-        "id": "de43208e455a3a9d",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 34,
-        "width": "2",
-        "height": "1",
-        "name": "gripper_l_joint",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 780,
-        "y": 1780,
-        "wires": []
-    },
-    {
-        "id": "7da35fe640b2e13b",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "24c4815848824551",
-        "order": 36,
-        "width": "2",
-        "height": "1",
-        "name": "gripper_l_joint_m",
-        "label": "text",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 790,
-        "y": 1820,
-        "wires": []
-    },
-    {
         "id": "84d841b6d940edc9",
         "type": "function",
         "z": "c68dc494590553a0",
@@ -6156,8 +5447,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 1880,
+        "x": 780,
+        "y": 1180,
         "wires": [
             [
                 "be30d4fc45be1938"
@@ -6195,8 +5486,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 340,
-        "y": 2240,
+        "x": 320,
+        "y": 1540,
         "wires": [
             [
                 "360bbf993cca772e"
@@ -6234,8 +5525,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 340,
-        "y": 2440,
+        "x": 320,
+        "y": 1740,
         "wires": [
             [
                 "cb950b5381b5d208"
@@ -6269,88 +5560,13 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1100,
-        "y": 2560,
+        "x": 1080,
+        "y": 1860,
         "wires": [
             [
                 "22131226336eafe0"
             ]
         ]
-    },
-    {
-        "id": "f67fb5b2b1e7ad95",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "753f34d0c1ed001e",
-        "order": 2,
-        "width": "2",
-        "height": "1",
-        "name": "Position X",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 1120,
-        "y": 2840,
-        "wires": []
-    },
-    {
-        "id": "6e24f6f034bbdc56",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "753f34d0c1ed001e",
-        "order": 4,
-        "width": "2",
-        "height": "1",
-        "name": "Position Y",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 1120,
-        "y": 2880,
-        "wires": []
-    },
-    {
-        "id": "1e8dae35250601a3",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "753f34d0c1ed001e",
-        "order": 10,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Position Z",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 1120,
-        "y": 2920,
-        "wires": []
     },
     {
         "id": "57e1817e73d66529",
@@ -6360,7 +5576,7 @@
         "name": "",
         "label": "Position Y",
         "tooltip": "",
-        "order": 3,
+        "order": 2,
         "width": "6",
         "height": "1",
         "passthru": false,
@@ -6379,8 +5595,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1100,
-        "y": 2600,
+        "x": 1080,
+        "y": 1900,
         "wires": [
             [
                 "5f25d729c4402639"
@@ -6395,7 +5611,7 @@
         "name": "",
         "label": "Position Z",
         "tooltip": "",
-        "order": 5,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -6414,8 +5630,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1100,
-        "y": 2640,
+        "x": 1080,
+        "y": 1940,
         "wires": [
             [
                 "2ffa480819d25e73"
@@ -6429,6 +5645,76 @@
         "group": "753f34d0c1ed001e",
         "name": "",
         "label": "Position Roll",
+        "tooltip": "",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-180",
+        "max": "180",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 1070,
+        "y": 1980,
+        "wires": [
+            [
+                "58c63ddbd05e5d01"
+            ]
+        ]
+    },
+    {
+        "id": "a0d01cd6bcb2580d",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position Pitch",
+        "tooltip": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "-180",
+        "max": "180",
+        "step": "1",
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": true,
+        "x": 1060,
+        "y": 2020,
+        "wires": [
+            [
+                "51460c9bb2298661"
+            ]
+        ]
+    },
+    {
+        "id": "54f5743d3a3d5aab",
+        "type": "ui-slider",
+        "z": "c68dc494590553a0",
+        "group": "753f34d0c1ed001e",
+        "name": "",
+        "label": "Position Yaw",
         "tooltip": "",
         "order": 6,
         "width": 0,
@@ -6449,158 +5735,13 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 1090,
-        "y": 2680,
-        "wires": [
-            [
-                "58c63ddbd05e5d01"
-            ]
-        ]
-    },
-    {
-        "id": "a0d01cd6bcb2580d",
-        "type": "ui-slider",
-        "z": "c68dc494590553a0",
-        "group": "753f34d0c1ed001e",
-        "name": "",
-        "label": "Position Pitch",
-        "tooltip": "",
-        "order": 7,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "outs": "all",
-        "topic": "topic",
-        "topicType": "msg",
-        "thumbLabel": "true",
-        "showTicks": "always",
-        "min": "-180",
-        "max": "180",
-        "step": "1",
-        "className": "",
-        "iconPrepend": "",
-        "iconAppend": "",
-        "color": "",
-        "colorTrack": "",
-        "colorThumb": "",
-        "showTextField": true,
-        "x": 1080,
-        "y": 2720,
-        "wires": [
-            [
-                "51460c9bb2298661"
-            ]
-        ]
-    },
-    {
-        "id": "54f5743d3a3d5aab",
-        "type": "ui-slider",
-        "z": "c68dc494590553a0",
-        "group": "753f34d0c1ed001e",
-        "name": "",
-        "label": "Position Yaw",
-        "tooltip": "",
-        "order": 8,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "outs": "all",
-        "topic": "topic",
-        "topicType": "msg",
-        "thumbLabel": "true",
-        "showTicks": "always",
-        "min": "-180",
-        "max": "180",
-        "step": "1",
-        "className": "",
-        "iconPrepend": "",
-        "iconAppend": "",
-        "color": "",
-        "colorTrack": "",
-        "colorThumb": "",
-        "showTextField": true,
-        "x": 1090,
-        "y": 2760,
+        "x": 1070,
+        "y": 2060,
         "wires": [
             [
                 "2f1cfac0197cd849"
             ]
         ]
-    },
-    {
-        "id": "e7baf6bf8f9c99c5",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "753f34d0c1ed001e",
-        "order": 11,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Position Roll",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 1110,
-        "y": 2960,
-        "wires": []
-    },
-    {
-        "id": "0da2b452b694597c",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "753f34d0c1ed001e",
-        "order": 12,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Position Pitch",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 1100,
-        "y": 3000,
-        "wires": []
-    },
-    {
-        "id": "892c7604324b14cf",
-        "type": "ui-text",
-        "z": "c68dc494590553a0",
-        "d": true,
-        "group": "753f34d0c1ed001e",
-        "order": 13,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Position Yaw",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#717171",
-        "wrapText": false,
-        "className": "",
-        "value": "payload",
-        "valueType": "msg",
-        "x": 1110,
-        "y": 3040,
-        "wires": []
     },
     {
         "id": "aa42246c23fae64e",
@@ -6622,8 +5763,8 @@
         "className": "",
         "value": "payload",
         "valueType": "msg",
-        "x": 2070,
-        "y": 2360,
+        "x": 2050,
+        "y": 1660,
         "wires": []
     },
     {
@@ -6638,8 +5779,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2560,
+        "x": 1430,
+        "y": 1860,
         "wires": [
             [
                 "5c9f679e0bdd5e8a"
@@ -6658,8 +5799,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2600,
+        "x": 1430,
+        "y": 1900,
         "wires": [
             [
                 "5c9f679e0bdd5e8a"
@@ -6678,8 +5819,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2640,
+        "x": 1430,
+        "y": 1940,
         "wires": [
             [
                 "5c9f679e0bdd5e8a"
@@ -6698,8 +5839,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2680,
+        "x": 1430,
+        "y": 1980,
         "wires": [
             [
                 "5c9f679e0bdd5e8a"
@@ -6718,8 +5859,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2720,
+        "x": 1430,
+        "y": 2020,
         "wires": [
             [
                 "5c9f679e0bdd5e8a"
@@ -6738,8 +5879,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 2760,
+        "x": 1430,
+        "y": 2060,
         "wires": [
             [
                 "5c9f679e0bdd5e8a"
@@ -6753,8 +5894,8 @@
         "server": "4bf02018241b669e",
         "topicname": "/joint_command",
         "msgtype": "sensor_msgs/JointState",
-        "x": 1200,
-        "y": 1880,
+        "x": 1180,
+        "y": 1180,
         "wires": []
     },
     {
@@ -6764,7 +5905,7 @@
         "group": "753f34d0c1ed001e",
         "name": "",
         "label": "Pose Command",
-        "order": 9,
+        "order": 7,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -6788,8 +5929,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 320,
-        "y": 3140,
+        "x": 300,
+        "y": 2240,
         "wires": [
             [
                 "fda85bbb51362440"
@@ -6803,8 +5944,8 @@
         "server": "4bf02018241b669e",
         "topicname": "/pose_command",
         "msgtype": "geometry_msgs/Pose",
-        "x": 1470,
-        "y": 3220,
+        "x": 1450,
+        "y": 2320,
         "wires": []
     },
     {
@@ -6820,8 +5961,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1810,
-        "y": 3100,
+        "x": 1790,
+        "y": 2200,
         "wires": []
     },
     {
@@ -6836,8 +5977,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 3140,
+        "x": 540,
+        "y": 2240,
         "wires": [
             [
                 "29b4ec8d2a43709e"
@@ -6876,8 +6017,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 350,
-        "y": 3380,
+        "x": 330,
+        "y": 2480,
         "wires": [
             [
                 "6e7d164510f08093"
@@ -6896,8 +6037,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 3380,
+        "x": 840,
+        "y": 2480,
         "wires": [
             [
                 "8ebb580cc2585ec8"
@@ -6923,8 +6064,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 620,
-        "y": 3380,
+        "x": 600,
+        "y": 2480,
         "wires": [
             [
                 "c7652eb8a569e83e"
@@ -6940,7 +6081,7 @@
         "name": "",
         "label": "gripper_r_joint_m",
         "tooltip": "",
-        "order": 31,
+        "order": 16,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -6974,7 +6115,7 @@
         "name": "",
         "label": "gripper_l_joint_m",
         "tooltip": "",
-        "order": 35,
+        "order": 18,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -7007,7 +6148,7 @@
         "name": "",
         "label": "gripper_l_joint",
         "tooltip": "",
-        "order": 33,
+        "order": 17,
         "width": "0",
         "height": "0",
         "passthru": false,
@@ -7067,8 +6208,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 370,
-        "y": 3440,
+        "x": 350,
+        "y": 2540,
         "wires": [
             [
                 "747c684e73ee42e2"
@@ -7087,8 +6228,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 900,
-        "y": 3440,
+        "x": 880,
+        "y": 2540,
         "wires": [
             [
                 "8ebb580cc2585ec8"
@@ -7114,8 +6255,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
-        "y": 3440,
+        "x": 640,
+        "y": 2540,
         "wires": [
             [
                 "53b5bb26fbe18f1f"
@@ -7150,8 +6291,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 920,
-        "y": 3540,
+        "x": 900,
+        "y": 2640,
         "wires": [
             [
                 "56c4f2ec49e7816d"
@@ -7186,8 +6327,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 900,
-        "y": 3600,
+        "x": 880,
+        "y": 2700,
         "wires": [
             [
                 "d4d1d70c2ab329a9"
@@ -7213,8 +6354,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1240,
-        "y": 3540,
+        "x": 1220,
+        "y": 2640,
         "wires": [
             []
         ]
@@ -7238,8 +6379,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1210,
-        "y": 3600,
+        "x": 1190,
+        "y": 2700,
         "wires": [
             []
         ]
@@ -7253,8 +6394,8 @@
             "33d2be3aab688dd7",
             "8ebb580cc2585ec8"
         ],
-        "x": 370,
-        "y": 3540,
+        "x": 350,
+        "y": 2640,
         "wires": [
             [
                 "21246896419d80f3"
@@ -7271,8 +6412,8 @@
             "33d2be3aab688dd7",
             "8ebb580cc2585ec8"
         ],
-        "x": 370,
-        "y": 3600,
+        "x": 350,
+        "y": 2700,
         "wires": [
             [
                 "9d28bd48520caa14"
@@ -7299,8 +6440,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
-        "y": 3540,
+        "x": 640,
+        "y": 2640,
         "wires": [
             [
                 "9e37c2a9b0ba5c05"
@@ -7326,8 +6467,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
-        "y": 3600,
+        "x": 640,
+        "y": 2700,
         "wires": [
             [
                 "6f55175c906e2c56"
@@ -7345,8 +6486,8 @@
             "f1eb1c6364412642",
             "04d95265e2ebf6bd"
         ],
-        "x": 1140,
-        "y": 3400,
+        "x": 1120,
+        "y": 2500,
         "wires": [],
         "l": true
     },
@@ -7381,8 +6522,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 360,
-        "y": 3840,
+        "x": 340,
+        "y": 2940,
         "wires": [
             [
                 "3df82e76dd7be938"
@@ -7401,8 +6542,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
-        "y": 4000,
+        "x": 910,
+        "y": 3100,
         "wires": [
             [
                 "2163e056d1211a2b",
@@ -7418,8 +6559,8 @@
         "links": [
             "07f5c1e7ddfffa40"
         ],
-        "x": 350,
-        "y": 3760,
+        "x": 330,
+        "y": 2860,
         "wires": [
             [
                 "d2b310a6bb0fdc3f"
@@ -7446,8 +6587,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 3760,
+        "x": 620,
+        "y": 2860,
         "wires": [
             []
         ]
@@ -7465,8 +6606,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1180,
-        "y": 3960,
+        "x": 1160,
+        "y": 3060,
         "wires": []
     },
     {
@@ -7481,8 +6622,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1230,
-        "y": 4000,
+        "x": 1210,
+        "y": 3100,
         "wires": [
             [
                 "73a1d3393af99a3e",
@@ -7516,8 +6657,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1500,
-        "y": 4000,
+        "x": 1480,
+        "y": 3100,
         "wires": [
             [
                 "296b1f32383ddca5"
@@ -7532,7 +6673,7 @@
         "name": "",
         "label": "Pose Path",
         "tooltip": "",
-        "order": 11,
+        "order": 10,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -7551,8 +6692,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": false,
-        "x": 870,
-        "y": 3920,
+        "x": 850,
+        "y": 3020,
         "wires": [
             [
                 "c8fd1dfa944e466a"
@@ -7571,8 +6712,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 3840,
+        "x": 640,
+        "y": 2940,
         "wires": [
             [
                 "45fb4e09e9a33b1e",
@@ -7599,8 +6740,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1160,
-        "y": 3920,
+        "x": 1140,
+        "y": 3020,
         "wires": [
             []
         ]
@@ -7624,8 +6765,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 3920,
+        "x": 620,
+        "y": 3020,
         "wires": [
             [
                 "0d07a98edfc85c2d"
@@ -7645,8 +6786,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1450,
-        "y": 3180,
+        "x": 1430,
+        "y": 2280,
         "wires": []
     },
     {
@@ -7658,8 +6799,8 @@
             "33d2be3aab688dd7",
             "45fb4e09e9a33b1e"
         ],
-        "x": 360,
-        "y": 3920,
+        "x": 340,
+        "y": 3020,
         "wires": [
             [
                 "3dc0a1448336a11b"
@@ -7676,8 +6817,8 @@
         "links": [
             "a449df471e95ccf4"
         ],
-        "x": 970,
-        "y": 3880,
+        "x": 950,
+        "y": 2980,
         "wires": [],
         "l": true
     },
@@ -7693,8 +6834,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1490,
-        "y": 3140,
+        "x": 1470,
+        "y": 2240,
         "wires": [
             [
                 "4e628a077ede50ad",
@@ -7712,10 +6853,11 @@
             "8ebb580cc2585ec8",
             "29b4ec8d2a43709e",
             "a0067e464c1ea33e",
-            "bc4545c76cdda841"
+            "bc4545c76cdda841",
+            "8785019a65189a79"
         ],
-        "x": 1200,
-        "y": 3140,
+        "x": 1180,
+        "y": 2240,
         "wires": [
             [
                 "c3daa7ea792b9811",
@@ -7734,8 +6876,8 @@
         "links": [
             "04d95265e2ebf6bd"
         ],
-        "x": 820,
-        "y": 3140,
+        "x": 800,
+        "y": 2240,
         "wires": [],
         "l": true
     },
@@ -7758,8 +6900,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
-        "y": 4000,
+        "x": 640,
+        "y": 3100,
         "wires": [
             [
                 "cb98cc1972974fda"
@@ -7775,8 +6917,8 @@
             "33d2be3aab688dd7",
             "795202df0f86045a"
         ],
-        "x": 360,
-        "y": 4000,
+        "x": 340,
+        "y": 3100,
         "wires": [
             [
                 "d2e465a612c595ce"
@@ -7793,8 +6935,8 @@
         "links": [
             "04d95265e2ebf6bd"
         ],
-        "x": 960,
-        "y": 3840,
+        "x": 940,
+        "y": 2940,
         "wires": [],
         "l": true
     },
@@ -7825,8 +6967,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 890,
-        "y": 4180,
+        "x": 870,
+        "y": 3280,
         "wires": [
             [
                 "4270be29875cad51"
@@ -7860,8 +7002,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 910,
-        "y": 4220,
+        "x": 890,
+        "y": 3320,
         "wires": [
             [
                 "8eaf639b572317c3"
@@ -7895,8 +7037,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 890,
-        "y": 4260,
+        "x": 870,
+        "y": 3360,
         "wires": [
             [
                 "e17f3977a35840bd"
@@ -7941,8 +7083,8 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 860,
-        "y": 4120,
+        "x": 840,
+        "y": 3220,
         "wires": [
             [
                 "cdf3a315461071e4"
@@ -7961,8 +7103,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1320,
-        "y": 4120,
+        "x": 1300,
+        "y": 3220,
         "wires": [
             [
                 "11131cdb3929ab9a"
@@ -7981,8 +7123,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1620,
-        "y": 4200,
+        "x": 1600,
+        "y": 3300,
         "wires": [
             [
                 "795202df0f86045a"
@@ -8008,8 +7150,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1280,
-        "y": 4180,
+        "x": 1260,
+        "y": 3280,
         "wires": [
             [
                 "11131cdb3929ab9a"
@@ -8035,8 +7177,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1260,
-        "y": 4220,
+        "x": 1240,
+        "y": 3320,
         "wires": [
             [
                 "11131cdb3929ab9a"
@@ -8062,8 +7204,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1280,
-        "y": 4260,
+        "x": 1260,
+        "y": 3360,
         "wires": [
             [
                 "11131cdb3929ab9a"
@@ -8080,8 +7222,8 @@
             "e8a95db0da5cab3c",
             "3e2bf9309f31a5c4"
         ],
-        "x": 1950,
-        "y": 4200,
+        "x": 1930,
+        "y": 3300,
         "wires": [],
         "l": true
     },
@@ -8097,8 +7239,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 4120,
+        "x": 600,
+        "y": 3220,
         "wires": [
             [
                 "2768df4053df10c2"
@@ -8124,8 +7266,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 600,
-        "y": 4180,
+        "x": 580,
+        "y": 3280,
         "wires": [
             [
                 "0db52634c0eb8034"
@@ -8151,8 +7293,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 600,
-        "y": 4220,
+        "x": 580,
+        "y": 3320,
         "wires": [
             [
                 "cc13a0edfdeb3da2"
@@ -8178,8 +7320,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 600,
-        "y": 4260,
+        "x": 580,
+        "y": 3360,
         "wires": [
             [
                 "792e6e9b332fd68c"
@@ -8195,8 +7337,8 @@
             "33d2be3aab688dd7",
             "795202df0f86045a"
         ],
-        "x": 340,
-        "y": 4200,
+        "x": 320,
+        "y": 3300,
         "wires": [
             [
                 "75bb341d70c1479d",
@@ -8235,8 +7377,8 @@
         "className": "",
         "typeIsComboBox": true,
         "msgTrigger": "onChange",
-        "x": 1100,
-        "y": 4420,
+        "x": 1080,
+        "y": 3520,
         "wires": [
             [
                 "4c33a50fc3893a39"
@@ -8255,8 +7397,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 790,
-        "y": 4420,
+        "x": 770,
+        "y": 3520,
         "wires": [
             [
                 "2ecb79cc6bf6014b"
@@ -8271,8 +7413,8 @@
         "links": [
             "0e93388e45693e52"
         ],
-        "x": 400,
-        "y": 4420,
+        "x": 380,
+        "y": 3520,
         "wires": [
             [
                 "a691079c575b9810"
@@ -8292,8 +7434,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 2060,
+        "x": 920,
+        "y": 1360,
         "wires": [
             [
                 "be30d4fc45be1938"
@@ -8321,8 +7463,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 700,
-        "y": 2080,
+        "x": 680,
+        "y": 1380,
         "wires": [
             [
                 "7a8da5ea37dc2523"
@@ -8350,8 +7492,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 700,
-        "y": 2000,
+        "x": 680,
+        "y": 1300,
         "wires": [
             [
                 "f233616f9ca90523"
@@ -8370,8 +7512,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 2020,
+        "x": 920,
+        "y": 1320,
         "wires": [
             [
                 "be30d4fc45be1938"
@@ -8397,8 +7539,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1390,
-        "y": 4420,
+        "x": 1370,
+        "y": 3520,
         "wires": [
             [
                 "97cc69cdb73b4f68"
@@ -8415,8 +7557,8 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1710,
-        "y": 4420,
+        "x": 1690,
+        "y": 3520,
         "wires": [
             []
         ]
@@ -8433,8 +7575,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1480,
-        "y": 3960,
+        "x": 1460,
+        "y": 3060,
         "wires": []
     },
     {
@@ -8445,8 +7587,8 @@
         "links": [
             "071095c0cba6bbbb"
         ],
-        "x": 360,
-        "y": 4540,
+        "x": 340,
+        "y": 3640,
         "wires": [
             [
                 "1db44d0249d3920d"
@@ -8475,8 +7617,8 @@
         "mobileBreakpointType": "defaults",
         "action": "replace",
         "className": "",
-        "x": 1340,
-        "y": 4540,
+        "x": 1320,
+        "y": 3640,
         "wires": [
             []
         ]
@@ -8490,8 +7632,8 @@
         "links": [
             "f1b5fdbb775ecb1a"
         ],
-        "x": 1800,
-        "y": 3220,
+        "x": 1780,
+        "y": 2320,
         "wires": [],
         "l": true
     },
@@ -8526,8 +7668,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 300,
-        "y": 4620,
+        "x": 280,
+        "y": 3720,
         "wires": [
             [
                 "8397dd8f5839ce69"
@@ -8553,8 +7695,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
-        "y": 4540,
+        "x": 1000,
+        "y": 3640,
         "wires": [
             [
                 "3d739b6e2a82773b"
@@ -8573,8 +7715,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 4540,
+        "x": 620,
+        "y": 3640,
         "wires": [
             [
                 "11ea258bdd9ed445",
@@ -8601,8 +7743,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 4620,
+        "x": 620,
+        "y": 3720,
         "wires": [
             [
                 "11ea258bdd9ed445"
@@ -8618,8 +7760,8 @@
             "e69a7357686b106a",
             "f34033d998ddea92"
         ],
-        "x": 390,
-        "y": 4500,
+        "x": 370,
+        "y": 3600,
         "wires": [
             [
                 "1db44d0249d3920d"
@@ -8640,8 +7782,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1040,
-        "y": 4620,
+        "x": 1020,
+        "y": 3720,
         "wires": []
     },
     {
@@ -8651,7 +7793,7 @@
         "group": "24c4815848824551",
         "name": "",
         "label": "LEFT ARM HOME Joint Command",
-        "order": 38,
+        "order": 20,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -8675,8 +7817,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 380,
-        "y": 1940,
+        "x": 360,
+        "y": 1240,
         "wires": [
             [
                 "f5a5400a15f56d89"
@@ -8695,8 +7837,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 1940,
+        "x": 780,
+        "y": 1240,
         "wires": [
             [
                 "be30d4fc45be1938"
@@ -8709,8 +7851,8 @@
         "z": "c68dc494590553a0",
         "name": "LEFT ARM HOME Joint Command",
         "links": [],
-        "x": 380,
-        "y": 1980,
+        "x": 360,
+        "y": 1280,
         "wires": [
             [
                 "f5a5400a15f56d89"
@@ -8726,7 +7868,7 @@
         "name": "",
         "label": "TASK INDEX",
         "tooltip": "",
-        "order": 12,
+        "order": 11,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -8745,8 +7887,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": true,
-        "x": 930,
-        "y": 4800,
+        "x": 910,
+        "y": 3900,
         "wires": [
             [
                 "d0c68cc9f53d22e8"
@@ -8772,8 +7914,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1220,
-        "y": 4800,
+        "x": 1200,
+        "y": 3900,
         "wires": [
             []
         ]
@@ -8784,10 +7926,11 @@
         "z": "c68dc494590553a0",
         "name": "DASH TASK PATH STARTUP",
         "links": [
-            "4457b00cb5e7f136"
+            "4457b00cb5e7f136",
+            "737383d95b78ce50"
         ],
-        "x": 360,
-        "y": 4800,
+        "x": 340,
+        "y": 3900,
         "wires": [
             [
                 "a148612c1e549ece"
@@ -8803,8 +7946,8 @@
         "links": [
             "296b1f32383ddca5"
         ],
-        "x": 340,
-        "y": 4900,
+        "x": 320,
+        "y": 4000,
         "wires": [
             [
                 "7c372f0c49e06a6e"
@@ -8821,8 +7964,8 @@
         "links": [
             "5e047515a02fe002"
         ],
-        "x": 1760,
-        "y": 4000,
+        "x": 1740,
+        "y": 3100,
         "wires": [],
         "l": true
     },
@@ -8838,8 +7981,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 690,
-        "y": 4900,
+        "x": 670,
+        "y": 4000,
         "wires": [
             [
                 "d91c1b32cef2f5f2",
@@ -8859,8 +8002,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1060,
-        "y": 4860,
+        "x": 1040,
+        "y": 3960,
         "wires": []
     },
     {
@@ -8868,17 +8011,17 @@
         "type": "ui-button",
         "z": "c68dc494590553a0",
         "group": "e2828d41d9660087",
-        "name": "",
-        "label": "NEXT TASK",
-        "order": 10,
-        "width": 0,
-        "height": 0,
+        "name": "TASK NEXT",
+        "label": "",
+        "order": 13,
+        "width": "1",
+        "height": "1",
         "emulateClick": false,
         "tooltip": "",
         "color": "",
         "bgcolor": "",
         "className": "",
-        "icon": "",
+        "icon": "skip-next",
         "iconPosition": "left",
         "payload": "",
         "payloadType": "str",
@@ -8894,8 +8037,8 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 310,
-        "y": 5140,
+        "x": 410,
+        "y": 4380,
         "wires": [
             [
                 "ba67e54c3806d122"
@@ -8909,10 +8052,12 @@
         "name": "DASH TASK Update",
         "mode": "link",
         "links": [
-            "6f9512307f83d394"
+            "6f9512307f83d394",
+            "49c42d39eb12f8b6",
+            "23015a46d759b6e2"
         ],
-        "x": 1480,
-        "y": 4900,
+        "x": 1460,
+        "y": 4000,
         "wires": [],
         "l": true
     },
@@ -8928,8 +8073,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 550,
-        "y": 5140,
+        "x": 650,
+        "y": 4400,
         "wires": [
             [
                 "2ebbad6c21e2c3a6",
@@ -8949,6 +8094,13 @@
                 "pt": "flow",
                 "to": "0",
                 "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "task_plan_playmode",
+                "pt": "flow",
+                "to": "OFF",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -8956,8 +8108,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1140,
-        "y": 4900,
+        "x": 1060,
+        "y": 4000,
         "wires": [
             [
                 "4457b00cb5e7f136"
@@ -8969,15 +8121,15 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Update Dash Tash Index",
-        "func": "return {\n    payload: flow.get(\"spl_production_task_index\"),\n    ui_update: {\n        max: flow.get(\"task_plan\").length\n    }\n};",
+        "func": "return {\n    payload: flow.get(\"spl_production_task_index\"),\n    ui_update: {\n        max: flow.get(\"task_plan\").length - 1\n    }\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 670,
-        "y": 4800,
+        "x": 650,
+        "y": 3900,
         "wires": [
             [
                 "af231608f2ba1814"
@@ -8988,7 +8140,7 @@
         "id": "2ebbad6c21e2c3a6",
         "type": "switch",
         "z": "c68dc494590553a0",
-        "name": "",
+        "name": "SWITCH ROBOT",
         "property": "payload.robot_id",
         "propertyType": "msg",
         "rules": [
@@ -9004,11 +8156,12 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 770,
-        "y": 5140,
+        "x": 890,
+        "y": 4400,
         "wires": [
             [
-                "105a3876b3a3f3db"
+                "105a3876b3a3f3db",
+                "f7bb382b0c1136d6"
             ],
             [
                 "fcdc1460bebd1af9",
@@ -9035,11 +8188,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1070,
-        "y": 5120,
+        "x": 1190,
+        "y": 4320,
         "wires": [
             [
-                "0a3e98ee87f870cc"
+                "74dc4fb35dddd565"
             ]
         ]
     },
@@ -9053,8 +8206,8 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1370,
-        "y": 5120,
+        "x": 1750,
+        "y": 4320,
         "wires": [
             [
                 "e28fa8e43b6b91cc"
@@ -9074,8 +8227,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 790,
-        "y": 5100,
+        "x": 870,
+        "y": 4360,
         "wires": []
     },
     {
@@ -9091,8 +8244,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1410,
-        "y": 5260,
+        "x": 1390,
+        "y": 4380,
         "wires": []
     },
     {
@@ -9108,8 +8261,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1420,
-        "y": 5360,
+        "x": 1400,
+        "y": 4580,
         "wires": []
     },
     {
@@ -9117,19 +8270,19 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "SWITCH RobotAction",
-        "func": "var current_robot_task = flow.get(\"current_robot_task\");\n\nvar RobotAction = global.get(\"RobotAction\");\n\n\nswitch(current_robot_task.action)\n{\n    case RobotAction.MOVE:\n    {\n        return [{ payload: current_robot_task.pose }, null];\n    }\n    case RobotAction.GRASP:\n    case RobotAction.RELEASE:\n    {\n        return [null, { payload: current_robot_task.action }];\n    }\n}\nnode.warn(\"INVALID ACTION\")\nreturn [null, null];",
+        "func": "var current_robot_task = flow.get(\"current_robot_task\");\n\nvar RobotAction = global.get(\"RobotAction\");\n\n\nswitch(current_robot_task.action)\n{\n    case RobotAction.MOVE:\n    {\n        return [{ payload: current_robot_task }, null];\n    }\n    case RobotAction.GRASP:\n    case RobotAction.RELEASE:\n    {\n        return [null, { payload: current_robot_task.action }];\n    }\n}\nnode.warn(\"INVALID ACTION\")\nreturn [null, null];",
         "outputs": 2,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1120,
-        "y": 5300,
+        "x": 1140,
+        "y": 4480,
         "wires": [
             [
                 "c9f8088c9d575e49",
-                "a467b0191f89132e"
+                "4c99b18f424e6a55"
             ],
             [
                 "71d94f5cbf9714e3",
@@ -9154,8 +8307,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 970,
-        "y": 5180,
+        "x": 1130,
+        "y": 4580,
         "wires": []
     },
     {
@@ -9167,8 +8320,8 @@
         "links": [
             "04d95265e2ebf6bd"
         ],
-        "x": 1660,
-        "y": 5220,
+        "x": 1980,
+        "y": 4420,
         "wires": [],
         "l": true
     },
@@ -9181,8 +8334,8 @@
         "links": [
             "73a67d730c990199"
         ],
-        "x": 1430,
-        "y": 5320,
+        "x": 1410,
+        "y": 4540,
         "wires": [],
         "l": true
     },
@@ -9194,8 +8347,8 @@
         "links": [
             "c4078a090a3ec8e8"
         ],
-        "x": 390,
-        "y": 2040,
+        "x": 370,
+        "y": 1340,
         "wires": [
             [
                 "225254cd4c37cfd8"
@@ -9225,8 +8378,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 690,
-        "y": 2040,
+        "x": 670,
+        "y": 1340,
         "wires": [
             [
                 "7a8da5ea37dc2523"
@@ -9241,20 +8394,451 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Convert Pose",
-        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nmsg.payload = {\n  position: msg.payload.pose.position,\n  orientation: rpyToQuaternion(msg.payload.pose.orientation)\n}\n\nreturn msg;",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nmsg.payload = {\n  position: msg.payload.pose.pose.position,\n  orientation: rpyToQuaternion(msg.payload.pose.pose.orientation)\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1420,
-        "y": 5220,
+        "x": 1680,
+        "y": 4420,
         "wires": [
             [
                 "bc4545c76cdda841"
             ]
         ]
+    },
+    {
+        "id": "f7bb382b0c1136d6",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "DIFF ROBOT ID",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.robot_id",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 4360,
+        "wires": []
+    },
+    {
+        "id": "62a069dd77e3e37b",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 420,
+        "y": 4440,
+        "wires": [
+            [
+                "ba67e54c3806d122"
+            ]
+        ]
+    },
+    {
+        "id": "74dc4fb35dddd565",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "selected_move_group",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1480,
+        "y": 4320,
+        "wires": [
+            [
+                "0a3e98ee87f870cc"
+            ]
+        ]
+    },
+    {
+        "id": "4c99b18f424e6a55",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "SWITCH MOVE Type",
+        "func": "const p = msg.payload;\n\nif (!p || typeof p !== \"object\") {\n    node.warn(\"Payload is not an object\");\n    return [null, null, null, null];\n}\n\n// ---- POSE ----\nif (\"pose\" in p) {\n\n    if (typeof p.pose === \"string\") {\n        return [msg, null, null, null];\n    } else {\n        return [null, msg, null, null];\n    }\n}\n\n// ---- JOINT STATES ----\nif (\"joint_state\" in p) {\n\n    if (typeof p.joint_state === \"string\") {\n        return [null, null, msg, null];\n    } else {\n        return [null, null, null, msg];\n    }\n}\n\nnode.warn(\"Payload has neither pose nor joint_state\");\nreturn [null, null, null, null];\n",
+        "outputs": 4,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 4440,
+        "wires": [
+            [],
+            [
+                "a467b0191f89132e"
+            ],
+            [
+                "87ad40345c03f8da"
+            ],
+            [
+                "4c3bb194f225a5f9"
+            ]
+        ],
+        "outputLabels": [
+            "Named Pose",
+            "PoseCommand",
+            "Named JointState",
+            "JointCommand"
+        ]
+    },
+    {
+        "id": "87ad40345c03f8da",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "GetNamedJointState",
+        "func": "var getNamedJointState = global.get(\"getNamedJointState\")\n\nmsg.payload = getNamedJointState({\n    robot_id : msg.payload.robot_id, \n    name: msg.payload.joint_state\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1700,
+        "y": 4460,
+        "wires": [
+            [
+                "45a938060e90095d"
+            ]
+        ]
+    },
+    {
+        "id": "45a938060e90095d",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "TASK JointState Update",
+        "mode": "link",
+        "links": [
+            "a8f7cb073a92a657"
+        ],
+        "x": 1990,
+        "y": 4460,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "a8f7cb073a92a657",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "Joint Command",
+        "links": [
+            "45a938060e90095d"
+        ],
+        "x": 720,
+        "y": 1120,
+        "wires": [
+            [
+                "be30d4fc45be1938"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "4c3bb194f225a5f9",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "SetJointState",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.joint_state",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1680,
+        "y": 4500,
+        "wires": [
+            [
+                "45a938060e90095d"
+            ]
+        ]
+    },
+    {
+        "id": "72562df5d682e47b",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "READY TO REPORT",
+        "links": [
+            "f34033d998ddea92"
+        ],
+        "x": 910,
+        "y": 4760,
+        "wires": [
+            [
+                "2042779a74b26e22"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "2042779a74b26e22",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Check Task Completion",
+        "func": "const task = flow.get(\"current_robot_task\");\n\nif (!task) {\n    node.warn(\"Execution result with no active current_robot_task\");\n    return null;\n}\n\n// Attach task info to result\nmsg.task = task;\n\n// Optionally clear (one-shot)\nflow.set(\"current_robot_task\", null);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 4760,
+        "wires": [
+            [
+                "86d61c9ccd2866ee"
+            ]
+        ]
+    },
+    {
+        "id": "737383d95b78ce50",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "DASH TASK Update",
+        "mode": "link",
+        "links": [
+            "6f9512307f83d394",
+            "23015a46d759b6e2"
+        ],
+        "x": 1800,
+        "y": 4760,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "86d61c9ccd2866ee",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "INCREMENT TASK INDEX",
+        "func": "var spl_production_task_index = flow.get(\"spl_production_task_index\");\n\nif(flow.get(\"task_plan\").length > ++spl_production_task_index)\n    flow.set(\"spl_production_task_index\", spl_production_task_index);\nelse\n    flow.set(\"spl_production_task_index\", 0);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1500,
+        "y": 4760,
+        "wires": [
+            [
+                "737383d95b78ce50"
+            ]
+        ]
+    },
+    {
+        "id": "e481dbae6cdf14c8",
+        "type": "ui-button",
+        "z": "c68dc494590553a0",
+        "group": "e2828d41d9660087",
+        "name": "TASK PLAY",
+        "label": "",
+        "order": 12,
+        "width": "1",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "play",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 810,
+        "y": 4100,
+        "wires": [
+            [
+                "950b4f4eeec128b4",
+                "39f051fef2ebfdcc"
+            ]
+        ]
+    },
+    {
+        "id": "a03f3074396060c0",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update PlayMode",
+        "func": "msg.ui_update = (flow.get(\"task_plan_playmode\") === \"ON\") ? \n{\n    icon: \"pause\"\n}:\n{\n    icon: \"play\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 4100,
+        "wires": [
+            [
+                "e481dbae6cdf14c8"
+            ]
+        ]
+    },
+    {
+        "id": "49c42d39eb12f8b6",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "DASH TASK PLAY",
+        "links": [
+            "33d2be3aab688dd7",
+            "4457b00cb5e7f136",
+            "8081469fa0d5ca97"
+        ],
+        "x": 310,
+        "y": 4100,
+        "wires": [
+            [
+                "a03f3074396060c0"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "d279399c01599476",
+        "type": "switch",
+        "z": "c68dc494590553a0",
+        "name": "IS PLAYMODE ON",
+        "property": "task_plan_playmode",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ON",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 4300,
+        "wires": [
+            [
+                "ba67e54c3806d122"
+            ]
+        ]
+    },
+    {
+        "id": "23015a46d759b6e2",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "TASK PLAN PLAY NEXT",
+        "links": [
+            "4457b00cb5e7f136",
+            "737383d95b78ce50",
+            "8081469fa0d5ca97"
+        ],
+        "x": 330,
+        "y": 4300,
+        "wires": [
+            [
+                "d279399c01599476"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "950b4f4eeec128b4",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Change PlayMode Flow",
+        "func": "var task_plan_playmode = flow.get(\"task_plan_playmode\");\n\nflow.set(\"task_plan_playmode\", (task_plan_playmode === \"ON\")? \"OFF\" : \"ON\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 4100,
+        "wires": [
+            [
+                "8081469fa0d5ca97"
+            ]
+        ]
+    },
+    {
+        "id": "39f051fef2ebfdcc",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 4060,
+        "wires": []
+    },
+    {
+        "id": "8081469fa0d5ca97",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "UPDATE TASK PLAY",
+        "mode": "link",
+        "links": [
+            "23015a46d759b6e2",
+            "49c42d39eb12f8b6"
+        ],
+        "x": 1360,
+        "y": 4100,
+        "wires": [],
+        "l": true
     },
     {
         "id": "16511e0e2b0e6eaf",
@@ -9793,6 +9377,24 @@
         "libs": [],
         "x": 290,
         "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fbecbb8d1907293c",
+        "type": "function",
+        "z": "a88af1e1e73ea3b9",
+        "name": "Named Targets",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "global.set(\"namedJointStates\", [\n    {\n        name: \"left_arm_HOME\",\n        joint_states: {\n            header: {\n                seq: 5060,\n                stamp: { secs: 1769686986, nsecs: 354053258 },\n                frame_id: \"\"\n            },\n            name: [\n                \"yumi_joint_1_l\",\n                \"yumi_joint_2_l\",\n                \"yumi_joint_7_l\",\n                \"yumi_joint_3_l\",\n                \"yumi_joint_4_l\",\n                \"yumi_joint_5_l\",\n                \"yumi_joint_6_l\"\n            ],\n            position: [-0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n            velocity: [],\n            effort: []\n        }\n    }\n]);\n\nglobal.set(\"getNamedJointState\", function (target){\n\n    const targetName = String(target.robot_id + \"_\" + target.name);\n    node.warn(targetName);\n\n    // Get array from flow context\n    const states = global.get(\"namedJointStates\");\n\n    if (!Array.isArray(states)) {\n        node.error(\"global.namedJointStates is not an array\", msg);\n        return null;\n    }\n\n    // Find matching entry\n    const entry = states.find(e => e.name === targetName);\n\n    if (!entry) {\n        node.warn(`JointState '${targetName}' not found`);\n        return null;\n    }\n\n    if (!entry.joint_states) {\n        node.error(`Entry '${targetName}' has no joint_states`, msg);\n        return null;\n    }\n\n    return entry.joint_states;\n\n});",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 240,
         "wires": [
             []
         ]
