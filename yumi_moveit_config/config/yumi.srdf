@@ -39,6 +39,14 @@
         <link name="gripper_r_finger_r"/>
         <link name="gripper_r_finger_l"/>
     </group>
+    <group name="left_whole_arm">
+        <group name="left_arm"/>
+        <group name="left_gripper"/>
+    </group>
+    <group name="right_whole_arm">
+        <group name="right_arm"/>
+        <group name="right_gripper"/>
+    </group>
     <group name="both_arms">
         <group name="left_arm"/>
         <group name="right_arm"/>
