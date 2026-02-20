@@ -39,6 +39,13 @@
         "env": []
     },
     {
+        "id": "flow_main",
+        "type": "tab",
+        "label": "RoboHub Stub API",
+        "disabled": false,
+        "info": "Stub endpoints for RoboHub development"
+    },
+    {
         "id": "6fe68aaf517885c5",
         "type": "subflow",
         "name": "Convert ROS CameraInfo",
@@ -329,7 +336,7 @@
         "y": 1080,
         "wires": [
             [
-                "988d5fd6ebde28ae"
+                "ae53f6d81c87eba3"
             ]
         ]
     },
@@ -344,6 +351,18 @@
                 "ce0802886eed961f",
                 "02ac8f4741247104",
                 "7229a1860a48fcfc"
+            ]
+        ]
+    },
+    {
+        "id": "9c03e23df1189824",
+        "type": "junction",
+        "z": "58de6cfd0e1f91cf",
+        "x": 1720,
+        "y": 1100,
+        "wires": [
+            [
+                "74d533f1b8be31f2"
             ]
         ]
     },
@@ -577,6 +596,37 @@
         "groupType": "default"
     },
     {
+        "id": "081f9e7c1510ca14",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.0.1.35",
+        "port": "1884",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
         "id": "1379ce31a2644c9d",
         "type": "function",
         "z": "6fe68aaf517885c5",
@@ -734,7 +784,8 @@
         "y": 440,
         "wires": [
             [
-                "4e527f8dc9160dc6"
+                "4e527f8dc9160dc6",
+                "16e9a86fca9632e5"
             ]
         ]
     },
@@ -817,7 +868,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"changed\", false);\n\nglobal.set(\"ros_world_frame\", \"world\");\n",
+        "initialize": "flow.set(\"changed\", false);\n\n//global.set(\"ros_world_frame\", \"modul4r_station_base_link\");\nglobal.set(\"ros_world_frame\", \"world\");\n",
         "finalize": "",
         "libs": [],
         "x": 180,
@@ -3015,6 +3066,24 @@
         ]
     },
     {
+        "id": "16e9a86fca9632e5",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "/station/joint_states",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "081f9e7c1510ca14",
+        "x": 1390,
+        "y": 520,
+        "wires": []
+    },
+    {
         "id": "365237ce822da609",
         "type": "ros-call-service",
         "z": "593c790c41e8182c",
@@ -3477,6 +3546,452 @@
         "x": 1570,
         "y": 400,
         "wires": []
+    },
+    {
+        "id": "b28024c6b3d5c164",
+        "type": "ros-call-service",
+        "z": "593c790c41e8182c",
+        "server": "4bf02018241b669e",
+        "servicename": "/rosapi/get_param",
+        "srvtype": "rosapi/GetParam",
+        "x": 890,
+        "y": 880,
+        "wires": [
+            [
+                "a8e15fd9d8166765"
+            ]
+        ]
+    },
+    {
+        "id": "5205c01f62f3751f",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "ROSAPI GET PARAM Request",
+        "func": "msg.payload = {\n  \"name\": \"/robot_description_semantic\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 880,
+        "wires": [
+            [
+                "b28024c6b3d5c164"
+            ]
+        ]
+    },
+    {
+        "id": "bf6164385acb6712",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "STORE MOVEIT GROUP NAMES",
+        "func": "// Parse SRDF XML to extract move groups\nlet xmlString = msg.payload.value;\n\nif (!xmlString) {\n    msg.payload = { error: \"No SRDF data received\" };\n    return msg;\n}\n\n// Unescape the XML string (handle \\n, \\t, etc.)\nxmlString = xmlString.replace(/\\\\n/g, '\\n').replace(/\\\\t/g, '\\t').replace(/\\\\\"/g, '\"');\n\n// Store in flow context for later use\nflow.set('robot_description_semantic', xmlString);\n\n// First, parse end effector definitions to build a map\nconst endEffectorMap = {}; // group_name -> parent_link\nconst endEffectorRegex = /<end_effector\\s+name=\"([^\"]+)\"\\s+parent_link=\"([^\"]+)\"\\s+group=\"([^\"]+)\"\\s*\\/>/g;\nlet eeMatch;\nwhile ((eeMatch = endEffectorRegex.exec(xmlString)) !== null) {\n    const groupName = eeMatch[3];\n    const parentLink = eeMatch[2];\n    endEffectorMap[groupName] = parentLink;\n}\n\n// Parse XML to extract groups\nconst groups = [];\n\n// Match all group definitions\nconst groupBlockRegex = /<group\\s+name=\"([^\"]+)\">([\\s\\S]*?)<\\/group>/g;\nlet match;\n\nwhile ((match = groupBlockRegex.exec(xmlString)) !== null) {\n    const groupName = match[1];\n    const groupContent = match[2];\n    \n    // Check for subgroups (composite groups like both_arms)\n    const subgroupRegex = /<group\\s+name=\"([^\"]+)\"\\s*\\/>/g;\n    const subgroups = [];\n    let subMatch;\n    while ((subMatch = subgroupRegex.exec(groupContent)) !== null) {\n        subgroups.push(subMatch[1]);\n    }\n    \n    // Check for joints (arm groups)\n    const jointRegex = /<joint\\s+name=\"([^\"]+)\"\\s*\\/>/g;\n    const joints = [];\n    let jointMatch;\n    while ((jointMatch = jointRegex.exec(groupContent)) !== null) {\n        joints.push(jointMatch[1]);\n    }\n    \n    // Check for links (gripper groups)\n    const linkRegex = /<link\\s+name=\"([^\"]+)\"\\s*\\/>/g;\n    const links = [];\n    let linkMatch;\n    while ((linkMatch = linkRegex.exec(groupContent)) !== null) {\n        links.push(linkMatch[1]);\n    }\n    \n    // Check for chains (if any)\n    const chainRegex = /<chain\\s+base_link=\"([^\"]+)\"\\s+tip_link=\"([^\"]+)\"\\s*\\/>/g;\n    const chains = [];\n    let chainMatch;\n    while ((chainMatch = chainRegex.exec(groupContent)) !== null) {\n        chains.push({\n            base: chainMatch[1],\n            tip: chainMatch[2]\n        });\n    }\n    \n    // Determine type\n    let type = 'unknown';\n    if (subgroups.length > 0) {\n        type = 'composite';\n    } else if (joints.length > 0) {\n        type = 'joints';\n    } else if (chains.length > 0) {\n        type = 'chain';\n    } else if (links.length > 0) {\n        type = 'links';\n    }\n    \n    // Determine end effector count\n    let endEffectorCount = 0;\n    let endEffectorLinks = [];\n    \n    if (type === 'composite') {\n        // For composite groups, count end effectors from subgroups\n        subgroups.forEach(sg => {\n            if (endEffectorMap[sg]) {\n                endEffectorCount++;\n                endEffectorLinks.push(endEffectorMap[sg]);\n            }\n        });\n    } else {\n        // For non-composite groups, check if this group IS an end effector\n        if (endEffectorMap[groupName]) {\n            endEffectorLinks.push(endEffectorMap[groupName]);\n        }\n        // But the group itself doesn't \"have\" an end effector, it IS one\n        // So endEffectorCount stays 0 for grippers\n        // For arms, we need to check if they have an associated end effector\n        // by looking at which end effector has a parent_link in this group's chain\n        endEffectorCount = endEffectorLinks.length;\n    }\n    \n    groups.push({\n        name: groupName,\n        type: type,\n        subgroups: subgroups,\n        joints: joints,\n        links: links,\n        chains: chains,\n        endEffectorCount: endEffectorCount,\n        endEffectorLinks: endEffectorLinks,\n        isEndEffector: endEffectorMap.hasOwnProperty(groupName)\n    });\n}\n\n// Store parsed groups in flow context\nglobal.set('move_groups', groups);\n\nmsg.payload = {\n    groups: groups,\n    groupNames: groups.map(g => g.name),\n    count: groups.length\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1500,
+        "y": 880,
+        "wires": [
+            [
+                "105ca7009816f8ad"
+            ]
+        ]
+    },
+    {
+        "id": "a8e15fd9d8166765",
+        "type": "json",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1110,
+        "y": 880,
+        "wires": [
+            [
+                "281964a582b01d54"
+            ]
+        ]
+    },
+    {
+        "id": "281964a582b01d54",
+        "type": "json",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1230,
+        "y": 880,
+        "wires": [
+            [
+                "bf6164385acb6712"
+            ]
+        ]
+    },
+    {
+        "id": "80932df5ac6eefe1",
+        "type": "http in",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "url": "/rosparam/get",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 290,
+        "y": 880,
+        "wires": [
+            [
+                "5205c01f62f3751f"
+            ]
+        ]
+    },
+    {
+        "id": "105ca7009816f8ad",
+        "type": "http response",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1770,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "fbc2d6b78112f6e7",
+        "type": "ros-call-service",
+        "z": "593c790c41e8182c",
+        "server": "4bf02018241b669e",
+        "servicename": "/rosapi/get_param",
+        "srvtype": "rosapi/GetParam",
+        "x": 950,
+        "y": 960,
+        "wires": [
+            [
+                "f4dcaf1755fbc11b"
+            ]
+        ]
+    },
+    {
+        "id": "94aba1b3d94acc32",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "ROSAPI GET PARAM Request",
+        "func": "msg.payload = {\n  \"name\": \"/robot_description\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 960,
+        "wires": [
+            [
+                "fbc2d6b78112f6e7"
+            ]
+        ]
+    },
+    {
+        "id": "f4dcaf1755fbc11b",
+        "type": "json",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1190,
+        "y": 960,
+        "wires": [
+            [
+                "2039fd64d17fee62"
+            ]
+        ]
+    },
+    {
+        "id": "2039fd64d17fee62",
+        "type": "json",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1390,
+        "y": 960,
+        "wires": [
+            [
+                "3b4ed1a0d204311e",
+                "79307a3f9494325e"
+            ]
+        ]
+    },
+    {
+        "id": "ebe2a50876612b31",
+        "type": "http in",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "url": "/rosparam/robot_description/get",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 330,
+        "y": 1220,
+        "wires": [
+            [
+                "55ef71e9f38fb897"
+            ]
+        ]
+    },
+    {
+        "id": "9c23280c413a10e4",
+        "type": "http response",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "application/xml"
+        },
+        "x": 1110,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "3b4ed1a0d204311e",
+        "type": "debug",
+        "z": "593c790c41e8182c",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "9ee5b542a6f2a036",
+        "type": "inject",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 420,
+        "y": 960,
+        "wires": [
+            [
+                "94aba1b3d94acc32"
+            ]
+        ]
+    },
+    {
+        "id": "79307a3f9494325e",
+        "type": "change",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "robot_description",
+                "pt": "global",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1660,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55ef71e9f38fb897",
+        "type": "change",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "robot_description",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 1220,
+        "wires": [
+            [
+                "31b203ab723830ae",
+                "0192727d1931e7ad"
+            ]
+        ]
+    },
+    {
+        "id": "31b203ab723830ae",
+        "type": "debug",
+        "z": "593c790c41e8182c",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "0192727d1931e7ad",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "function 1",
+        "func": "try {\n    // Parse the JSON string response\n    let xmlContent = msg.payload;\n    \n    // If it's a JSON string, parse it\n    if (typeof xmlContent === 'string' && xmlContent.startsWith('\"')) {\n        xmlContent = JSON.parse(xmlContent);\n    }\n    \n    // Set the XML as payload\n    msg.payload = xmlContent;\n    \n    // Set proper headers\n    msg.headers = {\n        'Content-Type': 'application/xml',\n        'Access-Control-Allow-Origin': '*'\n    };\n    \n    return msg;\n} catch (err) {\n    msg.statusCode = 500;\n    msg.payload = 'Error parsing URDF: ' + err.message;\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 1220,
+        "wires": [
+            [
+                "9c23280c413a10e4",
+                "31b203ab723830ae"
+            ]
+        ]
+    },
+    {
+        "id": "963257a330eda541",
+        "type": "http in",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "url": "/rosparam/robot_description_semantic/move_groups/get",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 400,
+        "y": 1340,
+        "wires": [
+            [
+                "fd605510f830534e"
+            ]
+        ]
+    },
+    {
+        "id": "7087b921167a645a",
+        "type": "http response",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "application/xml"
+        },
+        "x": 1110,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "fd605510f830534e",
+        "type": "change",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "move_groups",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 1340,
+        "wires": [
+            [
+                "928ee92b4b5d5173",
+                "a74703961729b285"
+            ]
+        ]
+    },
+    {
+        "id": "928ee92b4b5d5173",
+        "type": "debug",
+        "z": "593c790c41e8182c",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "a74703961729b285",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "function 3",
+        "func": "try {\n    // Parse the JSON string response\n    let xmlContent = msg.payload;\n    \n    // If it's a JSON string, parse it\n    if (typeof xmlContent === 'string' && xmlContent.startsWith('\"')) {\n        xmlContent = JSON.parse(xmlContent);\n    }\n    \n    // Set the XML as payload\n    msg.payload = xmlContent;\n    \n    // Set proper headers\n    msg.headers = {\n        'Content-Type': 'application/xml',\n        'Access-Control-Allow-Origin': '*'\n    };\n    \n    return msg;\n} catch (err) {\n    msg.statusCode = 500;\n    msg.payload = 'Error parsing URDF: ' + err.message;\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 1340,
+        "wires": [
+            [
+                "7087b921167a645a",
+                "928ee92b4b5d5173"
+            ]
+        ]
     },
     {
         "id": "c4dd694478a65776",
@@ -3950,7 +4465,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\n/***\n * FINAL SPL PATH BASED ON OBJECTS\n */\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: -0.04,\n        z: 0.12/2 + 0.05 // EC Center + SPL Mount Offset\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 0.0,\n        yaw: 0//180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\n\nglobal.set(\"sumPositionOffset\", function (base, offset) {\n    return {\n        header: base.header,\n        pose:\n        {\n            position: {\n                x: base.pose.position.x + offset.position.x,\n                y: base.pose.position.y + offset.position.y,\n                z: base.pose.position.z + offset.position.z\n            },\n            orientation: base.pose.orientation\n        }\n    };\n});\n\nflow.set(\"leftarm_home_joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n    ],\n    \"position\": [ -0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n    \"velocity\": [],\n    \"effort\": []\n});\n\n/**\n * TASK PATH-DECOMPOSITION INDEX\n */\n\nflow.set(\"spl_production_task_index\", 0);\nflow.set(\"task_plan_playmode\", \"OFF\");\n\n",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\n/***\n * FINAL SPL PATH BASED ON OBJECTS\n */\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: -0.04,\n        z: 0.12/2 + 0.05 // EC Center + SPL Mount Offset\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 0.0,\n        yaw: 0//180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 1,\n    robot_id : \"left_arm\",\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n});\n\nflow.set(\"target_object\", \"leftarm/position/redboard_01_box\");\n\n\nglobal.set(\"sumPositionOffset\", function (base, offset) {\n    return {\n        header: base.header,\n        pose:\n        {\n            position: {\n                x: base.pose.position.x + offset.position.x,\n                y: base.pose.position.y + offset.position.y,\n                z: base.pose.position.z + offset.position.z\n            },\n            orientation: base.pose.orientation\n        }\n    };\n});\n\nflow.set(\"leftarm_home_joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n    ],\n    \"position\": [ -0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n    \"velocity\": [],\n    \"effort\": []\n});\n\n/**\n * TASK PATH-DECOMPOSITION INDEX\n */\n\nflow.set(\"spl_production_task_index\", 0);\nflow.set(\"task_plan_playmode\", \"OFF\");\n\n",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -6306,7 +6821,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Get Start and End Poses",
-        "func": "var poses = [];\nvar object_poses = JSON.parse(JSON.stringify(global.get(\"isaac_sim/object_poses\")));\n\nvar offset_eurocontainer_spl_slot = flow.get(\"offset_eurocontainer_spl_slot\");\n\nvar sumPositionOffset = global.get(\"sumPositionOffset\");\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[0] )) {\n          poses.push(element);\n          //node.warn(\"BEFORE ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n          poses.at(-1).pose.pose.position.x += (offset_eurocontainer_spl_slot.position.x * ((Math.floor(msg.payload.slots[1] / 5)) % 2));\n          poses.at(-1).pose.pose.position.y += (offset_eurocontainer_spl_slot.position.y * (msg.payload.slots[1] % 5));\n          //node.warn(\"AFTER ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n      }\n    });\n\n    object_poses.forEach(function(element) {\n      if (element.name == (\"leftarm/position/redboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n  }\n  break;\n  case 2: {\n\n    object_poses.forEach(function (element) {\n      if (element.name == (\"leftarm/position/redboard_0\" + msg.payload.slots[0])) {\n        poses.push(element)\n      }\n    });\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/leftarm/position/eurocontainer0\"+ msg.payload.slots[1] )) {\n          poses.push(element);\n          //node.warn(\"BEFORE ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n          poses.at(-1).pose.pose.position.x += (offset_eurocontainer_spl_slot.position.x * ((Math.floor(msg.payload.slots[2] / 5)) % 2));\n          poses.at(-1).pose.pose.position.y += (offset_eurocontainer_spl_slot.position.y * (msg.payload.slots[2] % 5));\n          //node.warn(\"AFTER ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n      }\n    });\n\n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
+        "func": "var poses = [];\nvar object_poses = JSON.parse(JSON.stringify(global.get(\"isaac_sim/object_poses\")));\n\nvar offset_eurocontainer_spl_slot = flow.get(\"offset_eurocontainer_spl_slot\");\n\nvar sumPositionOffset = global.get(\"sumPositionOffset\");\n\nvar side = msg.payload.robot_id.includes(\"left\") ? \"left\" : \"right\";\nnode.warn(\"ROBOT ID : \" + msg.payload.robot_id + \" >> SIDE : \" + side);\n\nswitch (msg.payload.action) {\n  case 1: {\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/\" + side + \"arm/position/eurocontainer0\" + msg.payload.slots[0])) {\n          poses.push(element);\n          //node.warn(\"BEFORE ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n          poses.at(-1).pose.pose.position.x += (offset_eurocontainer_spl_slot.position.x * ((Math.floor(msg.payload.slots[1] / 5)) % 2));\n          poses.at(-1).pose.pose.position.y += (offset_eurocontainer_spl_slot.position.y * (msg.payload.slots[1] % 5));\n          //node.warn(\"AFTER ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n      }\n    });\n\n    object_poses.forEach(function(element) {\n      if (element.name == (side + \"arm/position/redboard_0\"+ msg.payload.slots[2] )) {\n          poses.push(element)\n      }\n    });\n  }\n  break;\n  case 2: {\n\n    object_poses.forEach(function (element) {\n      if (element.name == (side + \"arm/position/redboard_0\" + msg.payload.slots[0])) {\n        poses.push(element)\n      }\n    });\n    object_poses.forEach(function(element) {\n      if (element.name == (\"station/\" + side + \"arm/position/eurocontainer0\"+ msg.payload.slots[1] )) {\n          poses.push(element);\n          //node.warn(\"BEFORE ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n          poses.at(-1).pose.pose.position.x += (offset_eurocontainer_spl_slot.position.x * ((Math.floor(msg.payload.slots[2] / 5)) % 2));\n          poses.at(-1).pose.pose.position.y += (offset_eurocontainer_spl_slot.position.y * (msg.payload.slots[2] % 5));\n          //node.warn(\"AFTER ::: \" + JSON.stringify(poses.at(-1).pose.pose.position));\n      }\n    });\n\n  }\n  break;\n}\n\nmsg.payload.poses = poses;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7708,7 +8223,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Create Task Plan from Path/Task",
-        "func": "var RobotAction = global.get(\"RobotAction\");\n\nvar current_task = flow.get(\"current_task\");\nvar path = flow.get(\"path\");\n\nvar task_plan = []\n\n\ntask_plan.push({\n    action: RobotAction.MOVE,\n    robot_id: \"left_arm\",\n    joint_state: \"HOME\"\n});\ntask_plan.push({\n    action: RobotAction.RELEASE,\n    robot_id: \"left_gripper\",\n    pose: \"HOME\"\n});\n\nswitch(current_task.action)\n{\n    case RobotAction.MOVE_CONT_RED:\n    case RobotAction.MOVE_RED_CONT:\n    {\n        for (let index = 0; index < path.length; index++) {\n            task_plan.push({\n                action: RobotAction.MOVE,\n                robot_id: \"left_arm\",\n                pose: path[index]\n            });\n            if(index === 1)\n            {\n                task_plan.push({\n                    action: RobotAction.GRASP,\n                    robot_id: \"left_gripper\",\n                    pose: path[index]\n                });\n\n            }\n            if(index === 4)\n            {\n                task_plan.push({\n                    action: RobotAction.RELEASE,\n                    robot_id: \"left_gripper\",\n                    pose: path[index]\n                });\n            }\n        }\n        break;\n    }\n}\ntask_plan.push({\n    action: RobotAction.MOVE,\n    robot_id: \"left_arm\",\n    joint_state: \"HOME\"\n});\n\nflow.set(\"task_plan\", task_plan);\n\nmsg.payload = task_plan;\nreturn msg;",
+        "func": "var RobotAction = global.get(\"RobotAction\");\n\nvar current_task = flow.get(\"current_task\");\nvar path = flow.get(\"path\");\n\nvar task_plan = []\n\n\nvar side = current_task.robot_id.includes(\"left\") ? \"left\" : \"right\";\nnode.warn(\"ROBOT ID : \" + current_task.robot_id + \" >> SIDE : \" + side);\n\ntask_plan.push({\n    action: RobotAction.MOVE,\n    robot_id: (side + \"_arm\"),\n    joint_state: \"HOME\"\n});\ntask_plan.push({\n    action: RobotAction.RELEASE,\n    robot_id: (side + \"_gripper\"),\n    pose: \"HOME\"\n});\n\nswitch(current_task.action)\n{\n    case RobotAction.MOVE_CONT_RED:\n    case RobotAction.MOVE_RED_CONT:\n    {\n        for (let index = 0; index < path.length; index++) {\n            task_plan.push({\n                action: RobotAction.MOVE,\n                robot_id: (side + \"_arm\"),\n                pose: path[index]\n            });\n            if(index === 1)\n            {\n                task_plan.push({\n                    action: RobotAction.GRASP,\n                    robot_id: (side + \"_gripper\"),\n                    pose: path[index]\n                });\n\n            }\n            if(index === 4)\n            {\n                task_plan.push({\n                    action: RobotAction.RELEASE,\n                    robot_id: (side + \"_gripper\"),\n                    pose: path[index]\n                });\n            }\n        }\n        break;\n    }\n}\ntask_plan.push({\n    action: RobotAction.MOVE,\n    robot_id: (side + \"_arm\"),\n    joint_state: \"HOME\"\n});\n\nflow.set(\"task_plan\", task_plan);\n\nmsg.payload = task_plan;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -7846,7 +8361,8 @@
         "y": 3540,
         "wires": [
             [
-                "4457b00cb5e7f136"
+                "4457b00cb5e7f136",
+                "0fab4687ab9c421e"
             ]
         ]
     },
@@ -8725,7 +9241,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "AttachObject",
-        "func": "msg.payload = {\n  name: 'station/position/spl_02_box',\n  frame_id: 'gripper_l_tcp'\n}\nreturn msg;",
+        "func": "var current_task = flow.get(\"current_task\");\n\nvar side = current_task.robot_id.includes(\"left\") ? \"l\" : \"r\";\nnode.warn(\"ROBOT ID : \" + msg.payload.robot_id + \" >> SIDE : \" + side);\n\n\nmsg.payload = {\n  name: flow.get(\"target_object\"),\n  frame_id: \"gripper_\" + side + \"_tcp\"\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8835,7 +9351,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "DetachObject",
-        "func": "\nmsg.payload = {\n  name: 'station/position/spl_02_box'\n}\nreturn msg;",
+        "func": "\nmsg.payload = {\n  name: flow.get(\"target_object\")\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8914,6 +9430,231 @@
         "l": true
     },
     {
+        "id": "36a4150c23ec0c05",
+        "type": "http in",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "url": "/station/supervision/task_planner/plan",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 430,
+        "y": 5020,
+        "wires": [
+            [
+                "eaf3a9fe98d72859",
+                "9a4c6b3cab45e613"
+            ]
+        ]
+    },
+    {
+        "id": "3d79e925259510c5",
+        "type": "http response",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1050,
+        "y": 5020,
+        "wires": []
+    },
+    {
+        "id": "0fab4687ab9c421e",
+        "type": "mqtt out",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "topic": "/station/supervision/task_planner/plan_result",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "081f9e7c1510ca14",
+        "x": 1530,
+        "y": 3580,
+        "wires": []
+    },
+    {
+        "id": "b2cbe20401e43ab9",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "Update CurrentTask Slots",
+        "links": [
+            "474322bf8085792d"
+        ],
+        "x": 1310,
+        "y": 3460,
+        "wires": [
+            [
+                "11131cdb3929ab9a"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "eaf3a9fe98d72859",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Change CurrentTask Params",
+        "func": "/*\nflow.set(\"current_task\", {\n    action: 1,\n    slots: [0, 1, 6]\n});\n*/\n\nflow.set(\"current_eurocontainer_slot\", msg.payload.eurocontainer_slot);\nflow.set(\"current_eurocontainer_spl_slot\", msg.payload.eurocontainer_spl_slot);\nflow.set(\"current_redboard_spl_slot\", msg.payload.redboard_spl_slot);\n\nvar current_task = flow.get(\"current_task\");\nnode.warn(msg.payload.action_id);\ncurrent_task.action = msg.payload.action_id;\ncurrent_task.robot_id = msg.payload.robot_id;\n\nmsg.payload = {\n    result: {\n        error: {\n            id: 0,\n            message: \"SUCCESS\"\n        },\n        message: \"SUCCESS\"\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 5020,
+        "wires": [
+            [
+                "474322bf8085792d",
+                "3d79e925259510c5"
+            ]
+        ]
+    },
+    {
+        "id": "474322bf8085792d",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "Update CurrentTask Slots",
+        "mode": "link",
+        "links": [
+            "b2cbe20401e43ab9"
+        ],
+        "x": 1110,
+        "y": 4960,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "6d36e5ea1244030f",
+        "type": "inject",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 420,
+        "y": 5080,
+        "wires": [
+            [
+                "9a6a6d26f6fb1264"
+            ]
+        ]
+    },
+    {
+        "id": "9a6a6d26f6fb1264",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "RightArm RED_0 TO CONT_0_0",
+        "func": "return {  \n  payload : {\n    robot_id: 'right_arm',\n    action_id: 2,\n    eurocontainer_slot: 0,\n    eurocontainer_spl_slot: 0,\n    redboard_spl_slot: 3\n  }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 5080,
+        "wires": [
+            [
+                "5d61e7a5e3d81ee8",
+                "545270490ee292a0"
+            ]
+        ]
+    },
+    {
+        "id": "5d61e7a5e3d81ee8",
+        "type": "http request",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://10.0.1.35:1880/station/supervision/task_planner/plan",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 990,
+        "y": 5080,
+        "wires": [
+            [
+                "5a1e018181aa352d"
+            ]
+        ]
+    },
+    {
+        "id": "545270490ee292a0",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 5160,
+        "wires": []
+    },
+    {
+        "id": "9a4c6b3cab45e613",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 4960,
+        "wires": []
+    },
+    {
+        "id": "5a1e018181aa352d",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 5080,
+        "wires": []
+    },
+    {
         "id": "a56ccb142412e4a3",
         "type": "debug",
         "z": "58de6cfd0e1f91cf",
@@ -8934,7 +9675,7 @@
         "type": "function",
         "z": "58de6cfd0e1f91cf",
         "name": "PoseToTF",
-        "func": "const pose = msg.payload.pose;\n\n// Frame naming (change as needed)\nconst parentFrame = global.get(\"ros_world_frame\");\nconst childFrame  = msg.payload.name;\n\n// Timestamp (ROS2 style)\nconst now = Date.now();\nconst sec = Math.floor(now / 1000);\nconst nanosec = (now % 1000) * 1e6;\n\nmsg.payload = {\n    transforms: [\n        {\n            header: {\n                frame_id: parentFrame,\n                stamp: {\n                    sec: sec,\n                    nanosec: nanosec\n                }\n            },\n            child_frame_id: childFrame,\n            transform: {\n                translation: {\n                    x: pose.pose.position.x,\n                    y: pose.pose.position.y,\n                    z: pose.pose.position.z\n                },\n                rotation: {\n                    x: pose.pose.orientation.x,\n                    y: pose.pose.orientation.y,\n                    z: pose.pose.orientation.z,\n                    w: pose.pose.orientation.w\n                }\n            }\n        }\n    ]\n};\n\nreturn msg;\n",
+        "func": "const pose = msg.payload.pose;\n\n// Frame naming (change as needed)\nconst parentFrame = global.get(\"ros_world_frame\");\nconst childFrame  = msg.payload.name;\n\n// Timestamp (ROS2 style)\nconst now = Date.now();\nconst sec = Math.floor(now / 1000);\nconst nanosec = (now % 1000) * 1e6;\n\nmsg.payload = {\n    transforms: [\n        {\n            header: {\n                frame_id: parentFrame,\n                stamp: {\n                    sec: 0,//sec,\n                    nanosec: 0//nanosec\n                }\n            },\n            child_frame_id: childFrame,\n            transform: {\n                translation: {\n                    x: pose.pose.position.x,\n                    y: pose.pose.position.y,\n                    z: pose.pose.position.z\n                },\n                rotation: {\n                    x: pose.pose.orientation.x,\n                    y: pose.pose.orientation.y,\n                    z: pose.pose.orientation.z,\n                    w: pose.pose.orientation.w\n                }\n            }\n        }\n    ]\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8946,7 +9687,8 @@
         "wires": [
             [
                 "87d4ce8081a6fac5",
-                "a56ccb142412e4a3"
+                "a56ccb142412e4a3",
+                "49580a9b6ea40cba"
             ]
         ]
     },
@@ -8954,6 +9696,7 @@
         "id": "87d4ce8081a6fac5",
         "type": "ros-publish",
         "z": "58de6cfd0e1f91cf",
+        "d": true,
         "server": "4bf02018241b669e",
         "topicname": "/tf",
         "msgtype": "tf2_msgs/TFMessage",
@@ -8977,11 +9720,11 @@
         "y": 1080,
         "wires": [
             [
-                "ffd6ba79d75cb61c"
+                "3523d8fbde1997b9"
             ],
             [
                 "e17e19e10c03475d",
-                "255ce0445e1d5243"
+                "92fa8f72a923bf76"
             ]
         ]
     },
@@ -9029,21 +9772,23 @@
         "id": "904a9a3144a05d83",
         "type": "link in",
         "z": "58de6cfd0e1f91cf",
+        "d": true,
         "name": "PROCESS OBJECT ROS",
         "links": [
             "018013521726872c",
+            "0cd58b0c32f0ea81",
+            "16484e1890c799eb",
             "20fd3909d23e268d",
             "a2d921d655104a71",
-            "0cd58b0c32f0ea81",
             "d9268c761ac22e7e",
-            "16484e1890c799eb",
             "e74fee85d6a38bf6"
         ],
-        "x": 450,
+        "x": 430,
         "y": 580,
         "wires": [
             [
-                "39aed324555ec7b7"
+                "39aed324555ec7b7",
+                "9d814c8c6b7ba9d0"
             ]
         ],
         "l": true
@@ -9052,19 +9797,21 @@
         "id": "39aed324555ec7b7",
         "type": "function",
         "z": "58de6cfd0e1f91cf",
+        "d": true,
         "name": "SaveObjectPose",
-        "func": "// Incoming data\nconst name = msg.name;\nconst pose = msg.payload;\n\nif (!name || !pose) {\n    node.warn(\"Missing name or pose\");\n    return null;\n}\n\n// Get existing array (or init)\nlet poses = flow.get(\"object_poses\");\nif (!Array.isArray(poses)) {\n    poses = [];\n}\n\n// Find existing entry\nconst index = poses.findIndex(p => p.name === name);\n\nif (index === -1) {\n    // New name → push\n    poses.push({\n        name: name,\n        pose: pose\n    });\n    node.log(`Added new pose: ${name}`);\n} else {\n    // Existing name → update (optional behavior)\n    poses[index].pose = pose;\n    node.log(`Updated pose: ${name}`);\n}\n\nposes.sort((a, b) =>\n    a.name.toLowerCase().localeCompare(b.name.toLowerCase())\n);\n\n// Save back to context\nflow.set(\"object_poses\", poses);\nglobal.set(\"isaac_sim/object_poses\", poses);\n\n// Optional outputs\nmsg.payload = poses;\nmsg.count = poses.length;\n\nreturn msg;\n",
+        "func": "// Incoming data\nconst name = msg.name;\nconst pose = msg.payload;\n\nif (!name || !pose) {\n    node.warn(\"Missing name or pose\");\n    return null;\n}\n\n// Get existing array (or init)\nlet poses = flow.get(\"isaac_sim/object_poses\");\nif (!Array.isArray(poses)) {\n    poses = [];\n}\n\n// Find existing entry\nconst index = poses.findIndex(p => p.name === name);\n\nif (index === -1) {\n    // New name → push\n    poses.push({\n        name: name,\n        pose: pose\n    });\n    node.log(`Added new pose: ${name}`);\n} else {\n    // Existing name → update (optional behavior)\n    poses[index].pose = pose;\n    node.log(`Updated pose: ${name}`);\n}\n\n/*poses.sort((a, b) =>\n    a.name.toLowerCase().localeCompare(b.name.toLowerCase())\n);*/\n\nposes.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));  // Reverse\n\n// Save back to context\nglobal.set(\"isaac_sim/object_poses\", poses);\n\n// Optional outputs\nmsg.payload = poses;\nmsg.count = poses.length;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 770,
-        "y": 580,
+        "x": 790,
+        "y": 500,
         "wires": [
             [
-                "07f5c1e7ddfffa40"
+                "07f5c1e7ddfffa40",
+                "7aa469216bad86da"
             ]
         ]
     },
@@ -9102,7 +9849,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "1",
+        "repeat": "0.5",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -9127,8 +9874,8 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "object_poses",
-                "tot": "flow"
+                "to": "isaac_sim/object_poses",
+                "tot": "global"
             }
         ],
         "action": "",
@@ -9154,7 +9901,7 @@
             "0142dc90ad47b764",
             "dc4e8d83ce1b9c28"
         ],
-        "x": 1060,
+        "x": 1080,
         "y": 580,
         "wires": [],
         "l": true
@@ -9182,7 +9929,7 @@
         "type": "debug",
         "z": "58de6cfd0e1f91cf",
         "name": "ROS AttachCollisionObject",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9395,8 +10142,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1300,
-        "y": 1180,
+        "x": 1260,
+        "y": 1240,
         "wires": []
     },
     {
@@ -9406,8 +10153,8 @@
         "server": "4bf02018241b669e",
         "servicename": "/add_object_to_scene",
         "srvtype": "moveit_commander/AddObjectToScene",
-        "x": 1260,
-        "y": 1120,
+        "x": 1340,
+        "y": 1160,
         "wires": [
             [
                 "e6933503ea8f2782"
@@ -9427,8 +10174,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1880,
-        "y": 1120,
+        "x": 1960,
+        "y": 1200,
         "wires": []
     },
     {
@@ -9439,8 +10186,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1490,
-        "y": 1120,
+        "x": 1530,
+        "y": 1160,
         "wires": [
             [
                 "b01c5e0887dac1cf"
@@ -9455,12 +10202,12 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 1610,
-        "y": 1120,
+        "x": 1690,
+        "y": 1160,
         "wires": [
             [
                 "4439db1f31ec7c8b",
-                "7229a1860a48fcfc"
+                "74d533f1b8be31f2"
             ]
         ]
     },
@@ -9630,7 +10377,7 @@
         "type": "function",
         "z": "58de6cfd0e1f91cf",
         "name": "NEXT OBJECT",
-        "func": "var add_object_index = flow.get(\"add_object_index\");\nvar objects = global.get(\"isaac_sim/object_poses\");\nif(add_object_index >= objects.length)\n{\n    flow.set(\"add_object_index\", 0);\n    return null;\n}\n\nflow.set(\"add_object_index\", add_object_index+1);\n\nreturn {\n    payload : objects[add_object_index++]\n};",
+        "func": "var add_object_index = flow.get(\"add_object_index\");\nvar objects = global.get(\"isaac_sim/object_poses\");\nif(add_object_index >= objects.length)\n{\n    flow.set(\"add_object_index\", 0);\n    return null;\n}\n\nflow.set(\"add_object_index\", add_object_index+1);\n\nreturn {\n    payload : objects[add_object_index++]\n};\n/*\nvar add_object_index = flow.get(\"add_object_index\");\nvar objects = global.get(\"isaac_sim/object_poses\");\nvar filter = msg.filter_object; // The string/pattern to match against\n\nif (!objects || objects.length === 0) {\n    node.warn(\"No objects available\");\n    return null;\n}\n\n// If no filter provided, use original behavior\nif (!filter) {\n    if (add_object_index >= objects.length) {\n        flow.set(\"add_object_index\", 0);\n        return null;\n    }\n    \n    flow.set(\"add_object_index\", add_object_index + 1);\n    return {\n        payload: objects[add_object_index]\n    };\n}\n\n// Create regex from filter string\nvar regex = new RegExp(filter);\n\n// Search for next matching object starting from current index\nvar startIndex = add_object_index;\nvar found = false;\nvar matchedObject = null;\n\nfor (var i = 0; i < objects.length; i++) {\n    var currentIndex = (startIndex + i) % objects.length;\n    var obj = objects[currentIndex];\n    \n    // Match against object name\n    if (obj.name && regex.test(obj.name)) {\n        matchedObject = obj;\n        add_object_index = currentIndex + 1;\n        found = true;\n        break;\n    }\n}\n\n// If we've looped through all and back to start without finding anything\nif (!found) {\n    node.warn(`No object matching filter: ${filter}`);\n    return null;\n}\n\n// Update index for next call\nflow.set(\"add_object_index\", add_object_index);\n\nreturn {\n    payload: matchedObject\n};*/",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -9654,7 +10401,7 @@
         "links": [
             "7e667bf0becc6820"
         ],
-        "x": 1860,
+        "x": 2080,
         "y": 1080,
         "wires": [],
         "l": true
@@ -9809,7 +10556,8 @@
         "y": 380,
         "wires": [
             [
-                "a23f39e0cf191f88"
+                "a23f39e0cf191f88",
+                "2d6b196a40e58317"
             ]
         ]
     },
@@ -9828,6 +10576,613 @@
         "x": 1160,
         "y": 380,
         "wires": []
+    },
+    {
+        "id": "9f40e44e3b05f119",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "ADD SPL_02",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 500,
+        "wires": [
+            [
+                "2416d4b1e39b69bd"
+            ]
+        ]
+    },
+    {
+        "id": "2416d4b1e39b69bd",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "function 6",
+        "func": "msg = {\n  \"name\": \"station/position/spl_02\",\n  \"payload\": {\n    \"header\": {\n      \"frame_id\": \"world\",\n      \"stamp\": {\n        \"sec\": 0,\n        \"nanosec\": 0\n      }\n    },\n    \"pose\": {\n      \"position\": {\n        \"x\": 0.455,\n        \"y\": 0.15,\n        \"z\": 0.28\n      },\n      \"orientation\": {\n        \"x\": 0,\n        \"y\": 0,\n        \"z\": 0,\n        \"w\": 1\n      }\n    }\n  }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 500,
+        "wires": [
+            [
+                "39aed324555ec7b7",
+                "9d814c8c6b7ba9d0"
+            ]
+        ]
+    },
+    {
+        "id": "7aa469216bad86da",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "2d6b196a40e58317",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "isaac_sim/object_poses",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1240,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae53f6d81c87eba3",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "filter",
+                "pt": "msg",
+                "to": "leftarm/postion/red",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 1020,
+        "wires": [
+            [
+                "988d5fd6ebde28ae"
+            ]
+        ]
+    },
+    {
+        "id": "49580a9b6ea40cba",
+        "type": "ros-publish",
+        "z": "58de6cfd0e1f91cf",
+        "server": "4bf02018241b669e",
+        "topicname": "/tf_static",
+        "msgtype": "tf2_msgs/TFMessage",
+        "x": 1120,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "74d533f1b8be31f2",
+        "type": "delay",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1870,
+        "y": 1160,
+        "wires": [
+            [
+                "7229a1860a48fcfc"
+            ]
+        ]
+    },
+    {
+        "id": "8ab22af8e605df90",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 1440,
+        "wires": [
+            [
+                "541217b888762586"
+            ]
+        ]
+    },
+    {
+        "id": "541217b888762586",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "function 7",
+        "func": "msg.payload = {\n  \"name\": \"leftarm/position/redboard_06_box\",\n  \"object_template\": \"package://spl_markers/meshes/UNP_SPL_Redboard.obj\",\n  \"frame_id\": \"leftarm/position/redboard_06\",\n  \"pose\": {\n    \"position\": {\"x\": 0, \"y\": 0, \"z\": 0},\n    \"orientation\": {\"x\": 0, \"y\": 0, \"z\": 0, \"w\": 1}\n  }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1440,
+        "wires": [
+            [
+                "ebf98502cd15321d"
+            ]
+        ]
+    },
+    {
+        "id": "ebf98502cd15321d",
+        "type": "ros-call-service",
+        "z": "58de6cfd0e1f91cf",
+        "server": "4bf02018241b669e",
+        "servicename": "/add_object_to_scene",
+        "srvtype": "moveit_commander/AddObjectToScene",
+        "x": 840,
+        "y": 1440,
+        "wires": [
+            [
+                "e0b0f04ad317676b"
+            ]
+        ]
+    },
+    {
+        "id": "e0b0f04ad317676b",
+        "type": "json",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1070,
+        "y": 1440,
+        "wires": [
+            [
+                "0d2a6efcef2274ac"
+            ]
+        ]
+    },
+    {
+        "id": "0d2a6efcef2274ac",
+        "type": "json",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1190,
+        "y": 1440,
+        "wires": [
+            [
+                "b654ee177b8d3c42"
+            ]
+        ]
+    },
+    {
+        "id": "b654ee177b8d3c42",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "ROS AddObjectToScene Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1460,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "3523d8fbde1997b9",
+        "type": "switch",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "property": "attachPrimitives",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1190,
+        "y": 1060,
+        "wires": [
+            [
+                "ffd6ba79d75cb61c"
+            ],
+            [
+                "7229a1860a48fcfc"
+            ]
+        ]
+    },
+    {
+        "id": "92fa8f72a923bf76",
+        "type": "switch",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "property": "attachMeshes",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1170,
+        "y": 1120,
+        "wires": [
+            [
+                "9c03e23df1189824"
+            ],
+            [
+                "255ce0445e1d5243"
+            ]
+        ]
+    },
+    {
+        "id": "e84d130e61a3e2a5",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "PRIMITIVES",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 1220,
+        "wires": [
+            [
+                "0a0fb1aa48c28d39"
+            ]
+        ]
+    },
+    {
+        "id": "0a0fb1aa48c28d39",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "attachPrimitives",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1220,
+        "wires": [
+            [
+                "c63e1237980fd008"
+            ]
+        ]
+    },
+    {
+        "id": "02397d445a9dc290",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "attachMeshes",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 1300,
+        "wires": [
+            [
+                "c63e1237980fd008"
+            ]
+        ]
+    },
+    {
+        "id": "d116ed609b335d31",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "MESHES",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 1300,
+        "wires": [
+            [
+                "02397d445a9dc290"
+            ]
+        ]
+    },
+    {
+        "id": "67cd99fa1aa010dd",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "attachPrimitives",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1260,
+        "wires": [
+            [
+                "c63e1237980fd008"
+            ]
+        ]
+    },
+    {
+        "id": "e49893938f9678ac",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "PRIMITIVES OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 300,
+        "y": 1260,
+        "wires": [
+            [
+                "67cd99fa1aa010dd"
+            ]
+        ]
+    },
+    {
+        "id": "60ad3ca930bcfe82",
+        "type": "change",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "attachMeshes",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 1340,
+        "wires": [
+            [
+                "c63e1237980fd008"
+            ]
+        ]
+    },
+    {
+        "id": "8fe061761630f3e5",
+        "type": "inject",
+        "z": "58de6cfd0e1f91cf",
+        "name": "MESHES OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 1340,
+        "wires": [
+            [
+                "60ad3ca930bcfe82"
+            ]
+        ]
+    },
+    {
+        "id": "c63e1237980fd008",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "function 8",
+        "func": "msg.payload = {\n    primitives : flow.get(\"attachPrimitives\"),\n    meshes : flow.get(\"attachMeshes\"),\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 1280,
+        "wires": [
+            [
+                "34956f54589a5abe"
+            ]
+        ]
+    },
+    {
+        "id": "34956f54589a5abe",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "ATTACH STATE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "9d814c8c6b7ba9d0",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "SaveObjectPose (SORT by Type)",
+        "func": "// Incoming data\nconst name = msg.name;\nconst pose = msg.payload;\n\nif (!name || !pose) {\n    node.warn(\"Missing name or pose\");\n    return null;\n}\n\n// Get existing array (or init)\nlet poses = global.get(\"isaac_sim/object_poses\");\nif (!Array.isArray(poses)) {\n    poses = [];\n    node.warn(\"Initializing empty poses array\");\n}\n\nnode.warn(`[BEFORE] Array length: ${poses.length}, Adding/Updating: ${name}`);\n\n// Get collision objects definitions\nconst collisionObjects = flow.get(\"colision_objects\");\n\n// Find existing entry\nconst index = poses.findIndex(p => p.name === name);\n\nif (index === -1) {\n    // New name → push\n    poses.push({\n        name: name,\n        pose: pose\n    });\n    node.warn(`✓ Added new pose: ${name}`);\n} else {\n    // Existing name → update (optional behavior)\n    poses[index].pose = pose;\n    node.warn(`↻ Updated existing pose: ${name}`);\n}\n\n// Helper function to check if an object uses mesh\nfunction isMeshObject(poseName) {\n    if (!collisionObjects || !Array.isArray(collisionObjects)) {\n        node.warn(\"No collision objects found!\");\n        return false;\n    }\n    \n    const nameLower = poseName.toLowerCase();\n    const collisionObj = collisionObjects.find(obj => \n        nameLower.includes(obj.type.toLowerCase())\n    );\n    \n    if (collisionObj) {\n        const hasMesh = collisionObj.mesh ? true : false;\n        node.warn(`Object: ${poseName} -> Type: ${collisionObj.type} -> Has Mesh: ${hasMesh}`);\n        return hasMesh;\n    } else {\n        node.warn(`No collision object match for: ${poseName}`);\n        return false;\n    }\n}\n\n// Sort: non-mesh objects first, then mesh objects, alphabetically within each group\nposes.sort((a, b) => {\n    const aIsMesh = isMeshObject(a.name);\n    const bIsMesh = isMeshObject(b.name);\n    \n    node.warn(`Comparing: ${a.name} (mesh=${aIsMesh}) vs ${b.name} (mesh=${bIsMesh})`);\n    \n    // If types differ, non-mesh (false) comes before mesh (true)\n    if (aIsMesh !== bIsMesh) {\n        const result = aIsMesh ? 1 : -1;\n        node.warn(`  -> Different types, result: ${result}`);\n        return result;\n    }\n    \n    // Same type: sort alphabetically\n    return a.name.toLowerCase().localeCompare(b.name.toLowerCase());\n});\n\n// Save back to context\nglobal.set(\"isaac_sim/object_poses\", poses);\nnode.warn(`[AFTER] Saved ${poses.length} poses to global context`);\nnode.warn(`First 5 objects: ${poses.slice(0, 5).map(p => p.name).join(', ')}`);\n\n// Optional outputs\nmsg.payload = poses;\nmsg.count = poses.length;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 580,
+        "wires": [
+            [
+                "07f5c1e7ddfffa40",
+                "7aa469216bad86da"
+            ]
+        ]
     },
     {
         "id": "39423a72af92de80",
@@ -9882,5 +11237,178 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "comment_header",
+        "type": "comment",
+        "z": "flow_main",
+        "name": "🤖 RoboHub Stub API - All endpoints for development",
+        "info": "",
+        "x": 250,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "comment_bt",
+        "type": "comment",
+        "z": "flow_main",
+        "name": "🌳 Behavior Tree API",
+        "info": "",
+        "x": 140,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "http_get_bt_structure",
+        "type": "http in",
+        "z": "flow_main",
+        "name": "GET /bt/structure",
+        "url": "/bt/structure",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 740,
+        "wires": [
+            [
+                "func_bt_structure"
+            ]
+        ]
+    },
+    {
+        "id": "func_bt_structure",
+        "type": "function",
+        "z": "flow_main",
+        "name": "BT Structure",
+        "func": "msg.payload = {\n    nodes: [\n        {\n            type: \"BehaviorTree\",\n            class: \"MainTree\",\n            name: \"Root\",\n            id: 0,\n            nodes: [\n                {\n                    type: \"SequenceWithMemory\",\n                    class: \"SequenceWithMemory\",\n                    name: \"MainSequence\",\n                    id: 1,\n                    nodes: [\n                        {\n                            type: \"SubTree\",\n                            class: \"Initialize\",\n                            name: \"Initialize\",\n                            id: 2,\n                            nodes: [\n                                {\n                                    type: \"Sequence\",\n                                    class: \"Sequence\",\n                                    name: \"InitSequence\",\n                                    id: 3,\n                                    nodes: [\n                                        { type: \"Script\", class: \"Script\", name: \"CheckSystem\", id: 4 },\n                                        { type: \"WaitForReport\", class: \"WaitForReport\", name: \"WaitReady\", id: 5 }\n                                    ]\n                                }\n                            ]\n                        },\n                        {\n                            type: \"SubTree\",\n                            class: \"PickAndPlace\",\n                            name: \"PickAndPlace\",\n                            id: 6,\n                            nodes: [\n                                {\n                                    type: \"Sequence\",\n                                    class: \"Sequence\",\n                                    name: \"PickSequence\",\n                                    id: 7,\n                                    nodes: [\n                                        { type: \"Execute\", class: \"Execute\", name: \"MoveToPick\", id: 8 },\n                                        { type: \"Execute\", class: \"Execute\", name: \"CloseGripper\", id: 9 },\n                                        { type: \"Execute\", class: \"Execute\", name: \"MoveToPlace\", id: 10 },\n                                        { type: \"Execute\", class: \"Execute\", name: \"OpenGripper\", id: 11 }\n                                    ]\n                                }\n                            ]\n                        },\n                        {\n                            type: \"SubTree\",\n                            class: \"Finalize\",\n                            name: \"Finalize\",\n                            id: 12,\n                            nodes: [\n                                { type: \"Execute\", class: \"Execute\", name: \"MoveToHome\", id: 13 },\n                                { type: \"Script\", class: \"Script\", name: \"LogComplete\", id: 14 }\n                            ]\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 740,
+        "wires": [
+            [
+                "http_response_6"
+            ]
+        ]
+    },
+    {
+        "id": "http_response_6",
+        "type": "http response",
+        "z": "flow_main",
+        "name": "",
+        "statusCode": "200",
+        "headers": {
+            "Access-Control-Allow-Origin": "*"
+        },
+        "x": 550,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "comment_bt_sim",
+        "type": "comment",
+        "z": "flow_main",
+        "name": "🔄 BT Execution Simulator",
+        "info": "",
+        "x": 160,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "inject_bt_sim",
+        "type": "inject",
+        "z": "flow_main",
+        "name": "Start BT Simulation",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 860,
+        "wires": [
+            [
+                "func_bt_sim"
+            ]
+        ]
+    },
+    {
+        "id": "func_bt_sim",
+        "type": "function",
+        "z": "flow_main",
+        "name": "BT Node Simulator",
+        "func": "// Simulate BT execution by cycling through node IDs\nvar nodeIds = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];\nvar currentIndex = context.get('index') || 0;\n\nvar nodeId = nodeIds[currentIndex];\n\nmsg.payload = {\n    node_id: nodeId,\n    status: 'RUNNING',\n    timestamp: new Date().toISOString()\n};\nmsg.topic = '/bt/active_node';\n\n// Increment for next iteration\ncurrentIndex = (currentIndex + 1) % nodeIds.length;\ncontext.set('index', currentIndex);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 860,
+        "wires": [
+            [
+                "mqtt_bt_active",
+                "delay_bt"
+            ]
+        ]
+    },
+    {
+        "id": "delay_bt",
+        "type": "delay",
+        "z": "flow_main",
+        "name": "1s delay",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 580,
+        "y": 920,
+        "wires": [
+            [
+                "func_bt_sim"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_bt_active",
+        "type": "mqtt out",
+        "z": "flow_main",
+        "name": "MQTT Active Node",
+        "topic": "/bt/active_node",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "081f9e7c1510ca14",
+        "x": 630,
+        "y": 860,
+        "wires": []
     }
 ]
