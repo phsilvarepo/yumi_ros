@@ -51,13 +51,17 @@ fi
 # Create workspace if it doesn't exist
 if [ ! -d "$WORKSPACE/src" ]; then
     mkdir -p "$WORKSPACE/src"
-    #chown -R ubuntu:ubuntu "$WORKSPACE"
 fi
 
+# Ensure ownership of workspace before building
 chown -R ubuntu:ubuntu "$WORKSPACE"
 
-# Build the workspace as ubuntu
-su - ubuntu -c "source /opt/ros/$ROS_DISTRO/setup.bash && cd $WORKSPACE && catkin_make" || true
+# Build the workspace as ubuntu using catkin build (required for ABB packages)
+# Skip gazebo_mimic due to memory constraints - use single command to ensure it runs
+su - ubuntu -c "source /opt/ros/$ROS_DISTRO/setup.bash && cd $WORKSPACE && catkin config --skiplist gazebo_mimic && catkin build --continue-on-failure"
+
+# Ensure ownership after build (catkin build creates build/devel folders)
+chown -R ubuntu:ubuntu "$WORKSPACE"
 
 # Append ROS + workspace setup to bashrc if not already present
 grep -qF "source /opt/ros/$ROS_DISTRO/setup.bash" "$BASHRC" || echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> "$BASHRC"
@@ -81,8 +85,8 @@ chown ubuntu:ubuntu "$BASHRC"
 echo "Starting rosbridge server on port ${ROSBRIDGE_PORT:-9090}..."
 export ROSBRIDGE_PORT=${ROSBRIDGE_PORT:-9090}
 
-# Run rosbridge as ubuntu
-su - ubuntu -c "source /opt/ros/$ROS_DISTRO/setup.bash && roslaunch rosbridge_server rosbridge_websocket.launch port:=$ROSBRIDGE_PORT &"
+# Run rosbridge as ubuntu - SOURCE WORKSPACE SETUP to get custom messages/services
+su - ubuntu -c "source /opt/ros/$ROS_DISTRO/setup.bash && source $WORKSPACE/devel/setup.bash && roslaunch rosbridge_server rosbridge_websocket.launch port:=$ROSBRIDGE_PORT &"
 
 # Keep the container running
 wait
