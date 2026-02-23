@@ -79,90 +79,6 @@
         "color": "#DDAA99"
     },
     {
-        "id": "282732f6c356b383",
-        "type": "group",
-        "z": "f6f2187d.f17ca8",
-        "g": "7623108a794a4523",
-        "name": "YUMI RIGHT ARM CAMERAS",
-        "style": {
-            "label": true,
-            "fill": "#ffffff",
-            "fill-opacity": "0.5"
-        },
-        "nodes": [
-            "ea3fac867aecaa41",
-            "8b4be4910a56d8f0",
-            "86186fb8da18a826",
-            "2d56b2e4233afe84",
-            "f426c8286a63f1c5",
-            "efb5480d48ef4d3a",
-            "a87e4c61ee34483a",
-            "e819f6a2c9472bcc",
-            "327662d7cec76538",
-            "3f76a4281008f4ed",
-            "87318ad9e0bfbd54",
-            "dbc7324d95e3446d",
-            "be5bd153bf4562cb",
-            "bd8fb4db4fdbce52",
-            "6122f0fb81c41c8c",
-            "6a0af3f77bcfcae6",
-            "bc9de6d9c7fd0182",
-            "14fbcee066848dae",
-            "866c6d03ad5d2a80",
-            "dcc18994e7228b46",
-            "47afd541bea6f210",
-            "b05d6d3c62b513db",
-            "b39981a737042816",
-            "cb0af91f9301b77c"
-        ],
-        "x": 154,
-        "y": 1759,
-        "w": 1332,
-        "h": 442
-    },
-    {
-        "id": "4b1cff97afe0827a",
-        "type": "group",
-        "z": "f6f2187d.f17ca8",
-        "g": "7623108a794a4523",
-        "name": "YUMI LEFT ARM CAMERAS",
-        "style": {
-            "label": true,
-            "fill": "#ffffff",
-            "fill-opacity": "0.5"
-        },
-        "nodes": [
-            "5e2c6e63087ddcb1",
-            "a12e5a7cd57fbb78",
-            "e23adbc9d86292c7",
-            "e085f3e3f4416e6b",
-            "9e1ba3d3a3936d68",
-            "c923b1c7dc6210d5",
-            "a1f69455db93cb17",
-            "99645555bf0a8644",
-            "9fba294cd76c09de",
-            "1524c2e80777b0c9",
-            "4bd5ea7e40196105",
-            "c54b610a42fa4a0b",
-            "ce8236b27485d540",
-            "f7f54d820e15aec0",
-            "77bfb6644fd320cb",
-            "274b0b9b8dcb6580",
-            "62994a8630393e74",
-            "44fa8bc2609e92c1",
-            "2f6ac42b91da7794",
-            "550fabe5466c6a09",
-            "a8d658bd9f46b8dd",
-            "14254f1280aabfd3",
-            "decd3b43bcb81e53",
-            "4d2229d4d7fab37c"
-        ],
-        "x": 154,
-        "y": 1299,
-        "w": 1312,
-        "h": 442
-    },
-    {
         "id": "7623108a794a4523",
         "type": "group",
         "z": "f6f2187d.f17ca8",
@@ -327,6 +243,90 @@
         "y": 2159,
         "w": 1962,
         "h": 382
+    },
+    {
+        "id": "282732f6c356b383",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "g": "7623108a794a4523",
+        "name": "YUMI RIGHT ARM CAMERAS",
+        "style": {
+            "label": true,
+            "fill": "#ffffff",
+            "fill-opacity": "0.5"
+        },
+        "nodes": [
+            "ea3fac867aecaa41",
+            "8b4be4910a56d8f0",
+            "86186fb8da18a826",
+            "2d56b2e4233afe84",
+            "f426c8286a63f1c5",
+            "efb5480d48ef4d3a",
+            "a87e4c61ee34483a",
+            "e819f6a2c9472bcc",
+            "327662d7cec76538",
+            "3f76a4281008f4ed",
+            "87318ad9e0bfbd54",
+            "dbc7324d95e3446d",
+            "be5bd153bf4562cb",
+            "bd8fb4db4fdbce52",
+            "6122f0fb81c41c8c",
+            "6a0af3f77bcfcae6",
+            "bc9de6d9c7fd0182",
+            "14fbcee066848dae",
+            "866c6d03ad5d2a80",
+            "dcc18994e7228b46",
+            "47afd541bea6f210",
+            "b05d6d3c62b513db",
+            "b39981a737042816",
+            "cb0af91f9301b77c"
+        ],
+        "x": 154,
+        "y": 1759,
+        "w": 1332,
+        "h": 442
+    },
+    {
+        "id": "4b1cff97afe0827a",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "g": "7623108a794a4523",
+        "name": "YUMI LEFT ARM CAMERAS",
+        "style": {
+            "label": true,
+            "fill": "#ffffff",
+            "fill-opacity": "0.5"
+        },
+        "nodes": [
+            "5e2c6e63087ddcb1",
+            "a12e5a7cd57fbb78",
+            "e23adbc9d86292c7",
+            "e085f3e3f4416e6b",
+            "9e1ba3d3a3936d68",
+            "c923b1c7dc6210d5",
+            "a1f69455db93cb17",
+            "99645555bf0a8644",
+            "9fba294cd76c09de",
+            "1524c2e80777b0c9",
+            "4bd5ea7e40196105",
+            "c54b610a42fa4a0b",
+            "ce8236b27485d540",
+            "f7f54d820e15aec0",
+            "77bfb6644fd320cb",
+            "274b0b9b8dcb6580",
+            "62994a8630393e74",
+            "44fa8bc2609e92c1",
+            "2f6ac42b91da7794",
+            "550fabe5466c6a09",
+            "a8d658bd9f46b8dd",
+            "14254f1280aabfd3",
+            "decd3b43bcb81e53",
+            "4d2229d4d7fab37c"
+        ],
+        "x": 154,
+        "y": 1299,
+        "w": 1312,
+        "h": 442
     },
     {
         "id": "e910205b2c071dc5",
@@ -2511,9 +2511,9 @@
         "z": "f6f2187d.f17ca8",
         "g": "a9eeafd9a4bcbb67",
         "server": "4bf02018241b669e",
-        "topicname": "/panel_station/structure/camera//panel_stationspl_qr/pose_stamped",
+        "topicname": "/panel_station/structure/camera/spl_qr/pose_stamped",
         "msgtype": "geometry_msgs/PoseStamped",
-        "x": 1490,
+        "x": 1440,
         "y": 2500,
         "wires": []
     },
@@ -4465,7 +4465,7 @@
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\n/***\n * FINAL SPL PATH BASED ON OBJECTS\n */\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: -0.04,\n        z: 0.12/2 + 0.05 // EC Center + SPL Mount Offset\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 0.0,\n        yaw: 0//180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 1,\n    robot_id : \"left_arm\",\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n});\n\nflow.set(\"target_object\", \"leftarm/position/redboard_01_box\");\n\n\nglobal.set(\"sumPositionOffset\", function (base, offset) {\n    return {\n        header: base.header,\n        pose:\n        {\n            position: {\n                x: base.pose.position.x + offset.position.x,\n                y: base.pose.position.y + offset.position.y,\n                z: base.pose.position.z + offset.position.z\n            },\n            orientation: base.pose.orientation\n        }\n    };\n});\n\nflow.set(\"leftarm_home_joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n    ],\n    \"position\": [ -0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n    \"velocity\": [],\n    \"effort\": []\n});\n\n/**\n * TASK PATH-DECOMPOSITION INDEX\n */\n\nflow.set(\"spl_production_task_index\", 0);\nflow.set(\"task_plan_playmode\", \"OFF\");\n\n",
+        "initialize": "flow.set(\"joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_r\",\n        \"yumi_joint_2_r\",\n        \"yumi_joint_7_r\",\n        \"yumi_joint_3_r\",\n        \"yumi_joint_4_r\",\n        \"yumi_joint_5_r\",\n        \"yumi_joint_6_r\",\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n        \"gripper_r_joint\",\n        \"gripper_r_joint_m\",\n        \"gripper_l_joint\",\n        \"gripper_l_joint_m\"\n    ],\n    \"position\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \"velocity\": [],\n    \"effort\": []\n});\n\nflow.set(\"goal_pose\", {\n    position: {\n        x: 0.0,\n        y: 0.4,\n        z: 0.25\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"goal_redboard_pose\", {\n    position: {\n        x: -0.15,\n        y: 0.4,\n        z: 0.3\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\n\nflow.set(\"spl_container_pose\", {\n    position: {\n        x: 0.5 - 0.0428,\n        y: 0.15 - 0.04,\n        z: 0.4\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\n\nflow.set(\"execute\", false);\n\nflow.set(\"spl_path_index\", 0)\n\nflow.set(\"spl_container_path_index\", 0)\n\n/***\n * FINAL SPL PATH BASED ON OBJECTS\n */\n\nflow.set(\"spl_production_path_index\", 0)\n\nflow.set(\"offset_eurocontainer_slot\", {\n    position: {\n        x: -0.0428,\n        y: -0.04,\n        z: 0.12/2 + 0.05 // EC Center + SPL Mount Offset\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"offset_redboard\", {\n    position: {\n        x: 0.005, //SPL Descentrados\n        y: 0.00,\n        z: 0.05\n    },\n    orientation: {\n        roll: 90.0,\n        pitch: 0.0,\n        yaw: 180.0\n    }\n})\nflow.set(\"container_approach\", {\n    position: {\n        x: 0.0,\n        y: 0.0,\n        z: 0.05,\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n})\nflow.set(\"redboard_approach\", {\n    position: {\n        x: 0.0, //SPL Descentrados\n        y: 0.0,\n        z: 0.05\n    },\n    orientation: {\n        roll: -90.0,\n        pitch: 0.0,\n        yaw: 0//180.0\n    }\n});\n\n\nflow.set(\"current_eurocontainer_slot\", 0);\nflow.set(\"current_eurocontainer_spl_slot\", 0);\nflow.set(\"current_redboard_spl_slot\", 0);\n\nflow.set(\"current_task\", {\n    action: 1,\n    robot_id : \"left_arm\",\n    slots: [0, 0, 0]\n});\n\nflow.set(\"offset_eurocontainer_spl_slot\", {\n    position: {\n        x: 2*0.0428,\n        y: 0.02,\n        z: 0.0\n    },\n    orientation: {\n        roll: 0.0,\n        pitch: -180.0,\n        yaw: 0.0\n    }\n});\n\nflow.set(\"target_object\", \"station/position/spl_02\");\n\n\nglobal.set(\"sumPositionOffset\", function (base, offset) {\n    return {\n        header: base.header,\n        pose:\n        {\n            position: {\n                x: base.pose.position.x + offset.position.x,\n                y: base.pose.position.y + offset.position.y,\n                z: base.pose.position.z + offset.position.z\n            },\n            orientation: base.pose.orientation\n        }\n    };\n});\n\nflow.set(\"leftarm_home_joint_states\", {\n    \"header\": {\n        \"seq\": 5060,\n        \"stamp\": {\n            \"secs\": 1769686986,\n            \"nsecs\": 354053258\n        },\n        \"frame_id\": \"\"\n    },\n    \"name\": [\n        \"yumi_joint_1_l\",\n        \"yumi_joint_2_l\",\n        \"yumi_joint_7_l\",\n        \"yumi_joint_3_l\",\n        \"yumi_joint_4_l\",\n        \"yumi_joint_5_l\",\n        \"yumi_joint_6_l\",\n    ],\n    \"position\": [ -0.6, -1.2, -0.8, -0.3, 0.65, 0.435, -0.573],\n    \"velocity\": [],\n    \"effort\": []\n});\n\n/**\n * TASK PATH-DECOMPOSITION INDEX\n */\n\nflow.set(\"spl_production_task_index\", 0);\nflow.set(\"task_plan_playmode\", \"OFF\");\n\n",
         "finalize": "",
         "libs": [],
         "x": 190,
@@ -4481,7 +4481,6 @@
         "name": "DASH JOINTS Update",
         "mode": "link",
         "links": [
-            "0d7268fb3b726e84",
             "b026229d752d0576",
             "fb7303edc0e890d8"
         ],
@@ -4525,15 +4524,12 @@
             "b026229d752d0576",
             "fb7303edc0e890d8",
             "d9453bb3a0f459b8",
-            "0d7268fb3b726e84",
-            "98bab3db94280312",
-            "f1eb1c6364412642",
             "a449df471e95ccf4",
             "e8a95db0da5cab3c",
             "3e2bf9309f31a5c4",
             "49c42d39eb12f8b6"
         ],
-        "x": 440,
+        "x": 420,
         "y": 120,
         "wires": [],
         "l": true
@@ -4774,7 +4770,6 @@
         "name": "DASH POSE Update",
         "mode": "link",
         "links": [
-            "30f644c1779fd79e",
             "d9453bb3a0f459b8",
             "fb7303edc0e890d8"
         ],
@@ -7094,11 +7089,9 @@
         "z": "c68dc494590553a0",
         "name": "PUBLISH GOAL POSE",
         "links": [
-            "8ebb580cc2585ec8",
             "29b4ec8d2a43709e",
             "a0067e464c1ea33e",
-            "bc4545c76cdda841",
-            "8785019a65189a79"
+            "bc4545c76cdda841"
         ],
         "x": 1180,
         "y": 1940,
@@ -8583,9 +8576,7 @@
         "type": "link in",
         "z": "c68dc494590553a0",
         "name": "LEFT ARM GRIPPER Joint Command",
-        "links": [
-            "c4078a090a3ec8e8"
-        ],
+        "links": [],
         "x": 370,
         "y": 1340,
         "wires": [
@@ -9655,6 +9646,160 @@
         "wires": []
     },
     {
+        "id": "3911ad371eec1d5f",
+        "type": "http in",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "url": "/station/cognition/moveit_commander/joint_command",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 480,
+        "y": 5380,
+        "wires": [
+            [
+                "32abca7777e38f8d",
+                "e0b7ea1591e4f218",
+                "4b251e9ab9ad9964"
+            ]
+        ]
+    },
+    {
+        "id": "32abca7777e38f8d",
+        "type": "http response",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 5380,
+        "wires": []
+    },
+    {
+        "id": "e0b7ea1591e4f218",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "JOINT COMMAND API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 5340,
+        "wires": []
+    },
+    {
+        "id": "da1cbcafc39c71d3",
+        "type": "http in",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "url": "/station/cognition/moveit_commander/pose_command",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 480,
+        "y": 5460,
+        "wires": [
+            [
+                "9570adf437e6589f",
+                "a0da8f7a4f3ee106",
+                "4b251e9ab9ad9964"
+            ]
+        ]
+    },
+    {
+        "id": "9570adf437e6589f",
+        "type": "debug",
+        "z": "c68dc494590553a0",
+        "name": "POSE COMMAND API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 5500,
+        "wires": []
+    },
+    {
+        "id": "a0da8f7a4f3ee106",
+        "type": "http response",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 5460,
+        "wires": []
+    },
+    {
+        "id": "4b251e9ab9ad9964",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "SET EXTERNAL TASK",
+        "mode": "link",
+        "links": [
+            "fee7ca3b94eebd08"
+        ],
+        "x": 900,
+        "y": 5420,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "fee7ca3b94eebd08",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "EXTERNAL TASK",
+        "links": [
+            "4b251e9ab9ad9964"
+        ],
+        "x": 540,
+        "y": 4240,
+        "wires": [
+            [
+                "6f6a2f1159903155"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "6f6a2f1159903155",
+        "type": "change",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "current_robot_task",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 4240,
+        "wires": [
+            [
+                "2ebbad6c21e2c3a6"
+            ]
+        ]
+    },
+    {
         "id": "a56ccb142412e4a3",
         "type": "debug",
         "z": "58de6cfd0e1f91cf",
@@ -9898,7 +10043,6 @@
         "name": "OBJECT_POSES_OUT",
         "mode": "link",
         "links": [
-            "0142dc90ad47b764",
             "dc4e8d83ce1b9c28"
         ],
         "x": 1080,
@@ -11185,6 +11329,124 @@
         ]
     },
     {
+        "id": "e2fd08e2e21f6bf2",
+        "type": "ros-subscribe",
+        "z": "58de6cfd0e1f91cf",
+        "server": "4bf02018241b669e",
+        "topicname": "/planning_scene_lite",
+        "x": 270,
+        "y": 1560,
+        "wires": [
+            [
+                "5edf69febd4e8834"
+            ]
+        ]
+    },
+    {
+        "id": "5edf69febd4e8834",
+        "type": "json",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 530,
+        "y": 1560,
+        "wires": [
+            [
+                "6aa8cc8a412e6bf5"
+            ]
+        ]
+    },
+    {
+        "id": "6aa8cc8a412e6bf5",
+        "type": "json",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 1560,
+        "wires": [
+            [
+                "03dd8347064332c1",
+                "enrich_mesh_function"
+            ]
+        ]
+    },
+    {
+        "id": "3f3e2b26bb508c95",
+        "type": "mqtt out",
+        "z": "58de6cfd0e1f91cf",
+        "name": "",
+        "topic": "/station/cognition/move_group/monitored_planning_scene/objects",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "081f9e7c1510ca14",
+        "x": 1400,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "03dd8347064332c1",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "debug 28",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "enrich_mesh_function",
+        "type": "function",
+        "z": "58de6cfd0e1f91cf",
+        "name": "FillMarkersMesh",
+        "func": "// DEBUGGING VERSION - Add detailed logging\n//node.warn(\"========== MARKER ENRICHMENT DEBUG START ==========\");\n\n// Check if collision objects metadata exists\nconst collisionObjectsMeta = flow.get(\"colision_objects\");\n//node.warn(`Collision objects metadata: ${collisionObjectsMeta ? 'FOUND' : 'NOT FOUND'}`);\nif (collisionObjectsMeta) {\n    //node.warn(`Metadata array length: ${collisionObjectsMeta.length}`);\n    //node.warn(`Metadata types: ${collisionObjectsMeta.map(o => o.type).join(', ')}`);\n}\n\n// Check incoming message structure\n//node.warn(`msg.payload exists: ${!!msg.payload}`);\n//node.warn(`msg.payload type: ${typeof msg.payload}`);\n\nif (msg.payload) {\n    //node.warn(`msg.payload.markers exists: ${!!msg.payload.markers}`);\n    //node.warn(`msg.payload.markers is array: ${Array.isArray(msg.payload.markers)}`);\n    \n    if (msg.payload.markers) {\n        //node.warn(`Total markers received: ${msg.payload.markers.length}`);\n        \n        // Log first 3 markers in detail\n        for (let i = 0; i < Math.min(3, msg.payload.markers.length); i++) {\n            const marker = msg.payload.markers[i];\n            //node.warn(`--- Marker ${i} ---`);\n            //node.warn(`  ns: ${marker.ns}`);\n            //node.warn(`  type: ${marker.type}`);\n            //node.warn(`  text: ${marker.text}`);\n            //node.warn(`  scale: ${JSON.stringify(marker.scale)}`);\n        }\n    }\n}\n\n// If we don't have valid data, stop here\nif (!collisionObjectsMeta || !Array.isArray(collisionObjectsMeta)) {\n    node.error(\"Collision objects metadata not available\");\n    node.status({fill: \"red\", shape: \"ring\", text: \"No metadata\"});\n    return null;\n}\n\nif (!msg.payload || !msg.payload.markers || !Array.isArray(msg.payload.markers)) {\n    //node.warn(\"Invalid message format - expected payload.markers array\");\n    node.status({fill: \"red\", shape: \"ring\", text: \"Invalid format\"});\n    return null;\n}\n\n// Helper function to detect object type\nfunction detectObjectType(markerNs) {\n    const nsLower = markerNs.toLowerCase();\n    const collisionObj = collisionObjectsMeta.find(obj => \n        nsLower.includes(obj.type.toLowerCase())\n    );\n    return collisionObj || null;\n}\n\n// Process markers\nlet enrichedCount = 0;\nlet meshMarkersFound = 0;\nlet totalMarkers = msg.payload.markers.length;\n\n//node.warn(`Processing ${totalMarkers} markers...`);\n\nfor (const marker of msg.payload.markers) {\n    \n    // Check if this is a mesh placeholder\n    if (marker.type === 1 && marker.text === \"mesh\") {\n        meshMarkersFound++;\n        //node.warn(`Found mesh marker: ${marker.ns}`);\n        \n        const objMeta = detectObjectType(marker.ns);\n        \n        if (objMeta) {\n            //node.warn(`  -> Matched type: ${objMeta.type}`);\n            //node.warn(`  -> Has mesh: ${!!(objMeta.mesh && objMeta.mesh.resource)}`);\n            \n            if (objMeta.mesh && objMeta.mesh.resource) {\n                marker.mesh_resource = objMeta.mesh.resource;\n                marker.type = 10;\n                marker.scale.x = 1.0;\n                marker.scale.y = 1.0;\n                marker.scale.z = 1.0;\n                marker.mesh_use_embedded_materials = true;\n                \n                enrichedCount++;\n                //node.warn(`  -> ✓ ENRICHED with: ${marker.mesh_resource}`);\n            }\n        } else {\n            //node.warn(`  -> ⚠ NO MATCH in metadata`);\n        }\n    }\n}\n\n//node.warn(`========== RESULTS ==========`);\n//node.warn(`Total markers: ${totalMarkers}`);\n//node.warn(`Mesh markers found: ${meshMarkersFound}`);\n//node.warn(`Mesh markers enriched: ${enrichedCount}`);\n//node.warn(\"========== DEBUG END ==========\");\n\n// Set status\nif (meshMarkersFound > 0) {\n    node.status({\n        fill: enrichedCount > 0 ? \"green\" : \"yellow\",\n        shape: enrichedCount > 0 ? \"dot\" : \"ring\",\n        text: `${enrichedCount}/${meshMarkersFound} enriched`\n    });\n} else {\n    node.status({\n        fill: \"blue\",\n        shape: \"ring\",\n        text: `${totalMarkers} markers (no meshes)`\n    });\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 1560,
+        "wires": [
+            [
+                "222bb3c334bc0e9f",
+                "3f3e2b26bb508c95"
+            ]
+        ]
+    },
+    {
+        "id": "222bb3c334bc0e9f",
+        "type": "debug",
+        "z": "58de6cfd0e1f91cf",
+        "name": "debug 29",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 1620,
+        "wires": []
+    },
+    {
         "id": "39423a72af92de80",
         "type": "function",
         "z": "a88af1e1e73ea3b9",
@@ -11254,8 +11516,8 @@
         "z": "flow_main",
         "name": "🌳 Behavior Tree API",
         "info": "",
-        "x": 140,
-        "y": 700,
+        "x": 220,
+        "y": 180,
         "wires": []
     },
     {
@@ -11267,8 +11529,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 140,
-        "y": 740,
+        "x": 220,
+        "y": 220,
         "wires": [
             [
                 "func_bt_structure"
@@ -11287,8 +11549,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 740,
+        "x": 430,
+        "y": 220,
         "wires": [
             [
                 "http_response_6"
@@ -11304,8 +11566,8 @@
         "headers": {
             "Access-Control-Allow-Origin": "*"
         },
-        "x": 550,
-        "y": 740,
+        "x": 630,
+        "y": 220,
         "wires": []
     },
     {
@@ -11314,8 +11576,8 @@
         "z": "flow_main",
         "name": "🔄 BT Execution Simulator",
         "info": "",
-        "x": 160,
-        "y": 820,
+        "x": 240,
+        "y": 300,
         "wires": []
     },
     {
@@ -11339,8 +11601,8 @@
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
-        "x": 150,
-        "y": 860,
+        "x": 230,
+        "y": 340,
         "wires": [
             [
                 "func_bt_sim"
@@ -11359,8 +11621,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 860,
+        "x": 470,
+        "y": 340,
         "wires": [
             [
                 "mqtt_bt_active",
@@ -11385,8 +11647,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 580,
-        "y": 920,
+        "x": 660,
+        "y": 400,
         "wires": [
             [
                 "func_bt_sim"
@@ -11407,8 +11669,8 @@
         "correl": "",
         "expiry": "",
         "broker": "081f9e7c1510ca14",
-        "x": 630,
-        "y": 860,
+        "x": 710,
+        "y": 340,
         "wires": []
     }
 ]
