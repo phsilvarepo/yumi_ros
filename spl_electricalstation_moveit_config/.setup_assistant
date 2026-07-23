@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: spl_electricalstation_description
+    relative_path: urdf/spl_electricalstation.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/spl_electricalstation.srdf
+  CONFIG:
+    author_name: Pedro Silva
+    author_email: ph.silva@uninova.pt
+    generated_timestamp: 1741621918

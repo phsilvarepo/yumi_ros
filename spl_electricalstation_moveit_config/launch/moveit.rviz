@@ -1,0 +1,703 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /MotionPlanning1
+        - /GoalPose1
+        - /LeftArm_Gripper1
+      Splitter Ratio: 0.5
+    Tree Height: 363
+  - Class: rviz/Help
+    Name: Help
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Acceleration_Scaling_Factor: 0.1
+      Class: moveit_rviz_plugin/MotionPlanning
+      Enabled: true
+      JointsTab_Use_Radians: true
+      Move Group Namespace: ""
+      MoveIt_Allow_Approximate_IK: false
+      MoveIt_Allow_External_Program: false
+      MoveIt_Allow_Replanning: false
+      MoveIt_Allow_Sensor_Positioning: false
+      MoveIt_Planning_Attempts: 10
+      MoveIt_Planning_Time: 5
+      MoveIt_Use_Cartesian_Path: false
+      MoveIt_Use_Constraint_Aware_IK: false
+      MoveIt_Workspace:
+        Center:
+          X: 0
+          Y: 0
+          Z: 0
+        Size:
+          X: 2
+          Y: 2
+          Z: 2
+      Name: MotionPlanning
+      Planned Path:
+        Color Enabled: false
+        Interrupt Display: false
+        Links:
+          All Links Enabled: true
+          Expand Joint Details: false
+          Expand Link Details: false
+          Expand Tree: false
+          Link Tree Style: Links in Alphabetic Order
+          gripper_l_base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_l_finger_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_l_finger_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_l_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_finger_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_finger_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          world:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          yumi_base_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          yumi_body:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_1_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_1_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_2_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_2_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_3_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_3_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_4_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_4_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_5_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_5_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_6_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_6_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_7_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_7_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+        Loop Animation: true
+        Robot Alpha: 0.5
+        Robot Color: 150; 50; 150
+        Show Robot Collision: false
+        Show Robot Visual: false
+        Show Trail: false
+        State Display Time: 0.05 s
+        Trail Step Size: 1
+        Trajectory Topic: move_group/display_planned_path
+        Use Sim Time: false
+      Planning Metrics:
+        Payload: 1
+        Show Joint Torques: false
+        Show Manipulability: false
+        Show Manipulability Index: false
+        Show Weight Limit: false
+        TextHeight: 0.07999999821186066
+      Planning Request:
+        Colliding Link Color: 255; 0; 0
+        Goal State Alpha: 1
+        Goal State Color: 250; 128; 0
+        Interactive Marker Size: 0
+        Joint Violation Color: 255; 0; 255
+        Planning Group: left_arm
+        Query Goal State: false
+        Query Start State: false
+        Show Workspace: false
+        Start State Alpha: 1
+        Start State Color: 0; 255; 0
+      Planning Scene Topic: move_group/monitored_planning_scene
+      Robot Description: robot_description
+      Scene Geometry:
+        Scene Alpha: 1
+        Scene Color: 50; 230; 50
+        Scene Display Time: 0.009999999776482582
+        Show Scene Geometry: true
+        Voxel Coloring: Z-Axis
+        Voxel Rendering: Occupied Voxels
+      Scene Robot:
+        Attached Body Color: 150; 50; 150
+        Links:
+          All Links Enabled: true
+          Expand Joint Details: false
+          Expand Link Details: false
+          Expand Tree: false
+          Link Tree Style: Links in Alphabetic Order
+          gripper_l_base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_l_finger_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_l_finger_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_l_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_base:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_finger_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_finger_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          gripper_r_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          world:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          yumi_base_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          yumi_body:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_1_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_1_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_2_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_2_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_3_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_3_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_4_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_4_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_5_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_5_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_6_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_6_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_7_l:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          yumi_link_7_r:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+        Robot Alpha: 1
+        Show Robot Collision: true
+        Show Robot Visual: false
+      Value: true
+      Velocity_Scaling_Factor: 0.1
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        gripper_l_base:
+          Value: true
+        gripper_l_finger_l:
+          Value: true
+        gripper_l_finger_r:
+          Value: true
+        gripper_l_tcp:
+          Value: true
+        gripper_r_base:
+          Value: true
+        gripper_r_finger_l:
+          Value: true
+        gripper_r_finger_r:
+          Value: true
+        gripper_r_tcp:
+          Value: true
+        leftarm/position/redboard_00:
+          Value: true
+        leftarm/position/redboard_01:
+          Value: true
+        leftarm/position/redboard_02:
+          Value: true
+        leftarm/position/redboard_03:
+          Value: true
+        leftarm/position/redboard_04:
+          Value: true
+        leftarm/position/redboard_05:
+          Value: true
+        leftarm/position/redboard_07:
+          Value: true
+        panel_station_camera_spl_qr:
+          Value: true
+        rightarm/position/redboard_00:
+          Value: true
+        rightarm/position/redboard_01:
+          Value: true
+        rightarm/position/redboard_02:
+          Value: true
+        rightarm/position/redboard_03:
+          Value: true
+        rightarm/position/redboard_04:
+          Value: true
+        rightarm/position/redboard_05:
+          Value: true
+        rightarm/position/redboard_06:
+          Value: true
+        rightarm/position/redboard_07:
+          Value: true
+        spl_00:
+          Value: true
+        spl_01:
+          Value: true
+        station/leftarm/position/eurocontainer00:
+          Value: true
+        station/leftarm/position/eurocontainer01:
+          Value: true
+        station/position/spl_00:
+          Value: true
+        station/position/spl_01:
+          Value: true
+        station/position/spl_02:
+          Value: true
+        station/position/spl_03:
+          Value: true
+        station/position/spl_04:
+          Value: true
+        station/rightarm/position/eurocontainer00:
+          Value: true
+        station/rightarm/position/eurocontainer01:
+          Value: true
+        station/rightarm/position/spl00:
+          Value: true
+        station_camera_left_object_detection:
+          Value: true
+        station_camera_left_spl_qr:
+          Value: true
+        station_camera_people:
+          Value: true
+        station_camera_right_object_detection:
+          Value: true
+        station_camera_right_spl_qr:
+          Value: true
+        world:
+          Value: true
+        yumi_base_link:
+          Value: true
+        yumi_body:
+          Value: true
+        yumi_link_1_l:
+          Value: true
+        yumi_link_1_r:
+          Value: true
+        yumi_link_2_l:
+          Value: true
+        yumi_link_2_r:
+          Value: true
+        yumi_link_3_l:
+          Value: true
+        yumi_link_3_r:
+          Value: true
+        yumi_link_4_l:
+          Value: true
+        yumi_link_4_r:
+          Value: true
+        yumi_link_5_l:
+          Value: true
+        yumi_link_5_r:
+          Value: true
+        yumi_link_6_l:
+          Value: true
+        yumi_link_6_r:
+          Value: true
+        yumi_link_7_l:
+          Value: true
+        yumi_link_7_r:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 0.20000000298023224
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        world:
+          leftarm/position/redboard_00:
+            {}
+          leftarm/position/redboard_01:
+            {}
+          leftarm/position/redboard_02:
+            {}
+          leftarm/position/redboard_03:
+            {}
+          leftarm/position/redboard_04:
+            {}
+          leftarm/position/redboard_05:
+            {}
+          leftarm/position/redboard_07:
+            {}
+          panel_station_camera_spl_qr:
+            {}
+          rightarm/position/redboard_00:
+            {}
+          rightarm/position/redboard_01:
+            {}
+          rightarm/position/redboard_02:
+            {}
+          rightarm/position/redboard_03:
+            {}
+          rightarm/position/redboard_04:
+            {}
+          rightarm/position/redboard_05:
+            {}
+          rightarm/position/redboard_06:
+            {}
+          rightarm/position/redboard_07:
+            {}
+          spl_00:
+            {}
+          spl_01:
+            {}
+          station/leftarm/position/eurocontainer00:
+            {}
+          station/leftarm/position/eurocontainer01:
+            {}
+          station/position/spl_00:
+            {}
+          station/position/spl_01:
+            {}
+          station/position/spl_02:
+            {}
+          station/position/spl_03:
+            {}
+          station/position/spl_04:
+            {}
+          station/rightarm/position/eurocontainer00:
+            {}
+          station/rightarm/position/eurocontainer01:
+            {}
+          station/rightarm/position/spl00:
+            {}
+          station_camera_left_object_detection:
+            {}
+          station_camera_left_spl_qr:
+            {}
+          station_camera_people:
+            {}
+          station_camera_right_object_detection:
+            {}
+          station_camera_right_spl_qr:
+            {}
+          yumi_base_link:
+            yumi_body:
+              yumi_link_1_l:
+                yumi_link_2_l:
+                  yumi_link_3_l:
+                    yumi_link_4_l:
+                      yumi_link_5_l:
+                        yumi_link_6_l:
+                          yumi_link_7_l:
+                            gripper_l_base:
+                              gripper_l_finger_l:
+                                {}
+                              gripper_l_finger_r:
+                                {}
+                              gripper_l_tcp:
+                                {}
+              yumi_link_1_r:
+                yumi_link_2_r:
+                  yumi_link_3_r:
+                    yumi_link_4_r:
+                      yumi_link_5_r:
+                        yumi_link_6_r:
+                          yumi_link_7_r:
+                            gripper_r_base:
+                              gripper_r_finger_l:
+                                {}
+                              gripper_r_finger_r:
+                                {}
+                              gripper_r_tcp:
+                                {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Axes Length: 0.029999999329447746
+      Axes Radius: 0.006000000052154064
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: GoalPose
+      Queue Size: 10
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Axes
+      Topic: /yumi_commander/goal_pose
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 0.20000000298023224
+      Name: World
+      Radius: 0.019999999552965164
+      Reference Frame: <Fixed Frame>
+      Show Trail: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: false
+      Length: 0.10000000149011612
+      Name: LeftArm_Gripper
+      Radius: 0.009999999776482582
+      Reference Frame: gripper_l_tcp
+      Show Trail: false
+      Value: false
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /station/sensors/camera/right_spl_qr/rgb
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: LeftSPLQR_Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: false
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: world
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 2.6381442546844482
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Field of View: 0.7853981852531433
+      Focal Point:
+        X: 0.3171676695346832
+        Y: 0.18793000280857086
+        Z: 0.14516231417655945
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.4597955346107483
+      Target Frame: world
+      Yaw: 2.067218065261841
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: true
+  Height: 1080
+  Help:
+    collapsed: false
+  Hide Left Dock: true
+  Hide Right Dock: true
+  LeftSPLQR_Image:
+    collapsed: false
+  MotionPlanning:
+    collapsed: true
+  MotionPlanning - Trajectory Slider:
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd00000002000000000000021e000003defc0200000007fb000000100044006900730070006c006100790073000000003d000001d0000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670000000213000002080000017d00fffffffb0000001e004c00650066007400530050004c00510052005f0049006d006100670065000000031a000001020000001600ffffff0000000100000158000003defc0200000001fb0000000a00560069006500770073000000003d000003de000000a400ffffff00000427000003de00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Views:
+    collapsed: true
+  Width: 1063
+  X: 932
+  Y: 28

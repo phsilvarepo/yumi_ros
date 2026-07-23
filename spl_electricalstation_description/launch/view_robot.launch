@@ -1,0 +1,19 @@
+<launch>
+  <arg name="rviz" default="true"/>
+
+  <!-- Process the xacro to generate robot_description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find spl_electricalstation_description)/urdf/spl_electricalstation.xacro"/>
+
+  <!-- Publish joint states using the GUI slider tool -->
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" respawn="false" output="screen"/>
+
+  <!-- Robot state publisher to publish TFs -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+    <param name="publish_frequency" type="double" value="50.0"/>
+  </node>
+
+  <!-- Optional RViz, using the package's saved config -->
+  <node name="rviz" pkg="rviz" type="rviz" required="false" if="$(arg rviz)"
+        args="-d $(find spl_electricalstation_description)/config/spl_electricalstation.rviz"/>
+
+</launch>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>spl_electricalstation_description</name>
+  <version>0.0.1</version>
+  <description>Electrical station package: table base_link and yumi on top</description>
+
+  <maintainer email="you@example.com">Your Name</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>robot_state_publisher</build_depend>
+  <build_depend>xacro</build_depend>
+  <build_depend>yumi_description</build_depend>
+
+  <exec_depend>roslaunch</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>yumi_description</exec_depend>
+  <exec_depend>rviz</exec_depend>
+
+</package>
