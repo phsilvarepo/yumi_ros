@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ===================================================================
+       spl_eurocontainer.xacro
+
+       Defines a Eurocontainer marker built from the real mesh in the
+       "spl_markers" package (meshes/EuroContainer_EG43-12HG.stl), mounted
+       directly on the eurocontainer slot's parent link, mirroring
+       spl_redboard.xacro's pattern.
+
+       The mesh is authored lying flat along a different axis than our
+       world "up" (z), so it is rotated +90 deg about X in its visual/
+       collision origin to stand upright; the SPL slot reference frames
+       below are NOT affected by this rotation (they are separate,
+       world-aligned fixed frames on top of the container, independent of
+       how the visual mesh itself is oriented).
+
+       In addition to the base mesh link, this creates a 40-slot layout:
+       4 sub-grids of 2 columns x 5 rows (10 slots each), arranged 2x2
+       across the container's 40 x 30 cm footprint (inset 2 cm from each
+       edge). Within each sub-grid:
+         - rows spaced 2 cm apart (y)
+         - columns spaced 10.15 cm apart (x)
+
+       Usage:
+         xacro:spl_eurocontainer parent="eurocontainer_slot_left" name="left"
+
+       This creates:
+         - link  "eurocontainer_${name}_base_link"  (the visual/collision
+           mesh, fixed to "parent" at the parent's origin)
+         - joint "${parent}_to_eurocontainer_${name}_base_link" (fixed)
+         - links "eurocontainer_${name}_spl_slot_g${gx}${gy}_r${row}_c${col}"
+           for gx,gy in 0..1 (which of the 4 sub-grids), row in 0..4,
+           col in 0..1 (4 sub-grids x 2 cols x 5 rows = 40 slots)
+         - joints "..._base_link_to_spl_slot_g${gx}${gy}_r${row}_c${col}"
+           (fixed, positions each slot frame in its sub-grid, which is
+           itself positioned in its footprint quadrant, lifted above the
+           container's mesh base link)
+  =================================================================== -->
+
+  <!-- Container footprint (matches eurocontainer_length/width in
+       spl_electricalstation_slots.xacro) and margin kept clear from
+       each edge when placing the 2x2 arrangement of sub-grids. -->
+  <xacro:property name="eurocontainer_footprint_length" value="0.40"/> <!-- x -->
+  <xacro:property name="eurocontainer_footprint_width"  value="0.30"/> <!-- y -->
+  <xacro:property name="eurocontainer_footprint_height" value="0.12"/> <!-- z -->
+  <xacro:property name="eurocontainer_footprint_margin" value="0.02"/> <!-- 2 cm inset from edges -->
+
+  <!-- Usable area after the margin, split into a 2x2 arrangement of
+       quadrants; each sub-grid is centered within its quadrant. -->
+  <xacro:property name="eurocontainer_usable_length"
+                   value="${eurocontainer_footprint_length - 2 * eurocontainer_footprint_margin}"/>
+  <xacro:property name="eurocontainer_usable_width"
+                   value="${eurocontainer_footprint_width - 2 * eurocontainer_footprint_margin}"/>
+
+  <!-- Sub-grid layout: 2 columns x 5 rows (10 slots) per sub-grid -->
+  <xacro:property name="eurocontainer_subgrid_cols" value="2"/>
+  <xacro:property name="eurocontainer_subgrid_rows" value="5"/>
+  <xacro:property name="eurocontainer_subgrid_spacing_x" value="0.1015"/> <!-- 10.15 cm column pitch -->
+  <xacro:property name="eurocontainer_subgrid_spacing_y" value="0.02"/>   <!-- 2 cm row pitch -->
+
+  <!-- Vertical lift from the container's mesh base link to the slot grid
+       plane (top of the container). -->
+  <xacro:property name="eurocontainer_slot_grid_offset_z" value="0.12"/>
+
+  <!-- Helper macro: a single SPL slot reference frame within sub-grid
+       (gx,gy) at local (row,col). gx/gy in {0,1} select which of the 2x2
+       quadrants the sub-grid is centered in. -->
+  <xacro:macro name="eurocontainer_spl_slot" params="name gx gy row col">
+    <xacro:property name="quadrant_center_x"
+                     value="${-eurocontainer_usable_length / 4 + gx * eurocontainer_usable_length / 2}"/>
+    <xacro:property name="quadrant_center_y"
+                     value="${-eurocontainer_usable_width / 4 + gy * eurocontainer_usable_width / 2}"/>
+    <xacro:property name="slot_local_x"
+                     value="${(col - (eurocontainer_subgrid_cols - 1) / 2.0) * eurocontainer_subgrid_spacing_x}"/>
+    <xacro:property name="slot_local_y"
+                     value="${(row - (eurocontainer_subgrid_rows - 1) / 2.0) * eurocontainer_subgrid_spacing_y}"/>
+
+    <link name="eurocontainer_${name}_spl_slot_g${gx}${gy}_r${row}_c${col}"/>
+    <joint name="eurocontainer_${name}_base_link_to_spl_slot_g${gx}${gy}_r${row}_c${col}" type="fixed">
+      <parent link="eurocontainer_${name}_base_link"/>
+      <child link="eurocontainer_${name}_spl_slot_g${gx}${gy}_r${row}_c${col}"/>
+      <origin xyz="${quadrant_center_x + slot_local_x}
+                    ${quadrant_center_y + slot_local_y}
+                    ${eurocontainer_slot_grid_offset_z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Helper macro: instantiate a full 2 x 5 sub-grid (10 slots) for
+       quadrant (gx,gy) -->
+  <xacro:macro name="eurocontainer_spl_subgrid" params="name gx gy">
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="0" col="0"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="0" col="1"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="1" col="0"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="1" col="1"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="2" col="0"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="2" col="1"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="3" col="0"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="3" col="1"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="4" col="0"/>
+    <xacro:eurocontainer_spl_slot name="${name}" gx="${gx}" gy="${gy}" row="4" col="1"/>
+  </xacro:macro>
+
+  <xacro:macro name="spl_eurocontainer" params="parent name">
+
+    <!-- Visual/collision mesh link, this is the eurocontainer's base.
+         Mesh rotated +90 deg about X to stand upright. -->
+    <link name="eurocontainer_${name}_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI / 2} 0 0"/>
+        <geometry>
+          <mesh filename="package://spl_markers/meshes/EuroContainer_EG43-12HG.stl" scale="1 1 1"/>
+        </geometry>
+      </visual>
+      <!-- Simplified collision: 40 x 30 x 12 cm box matching the
+           container's footprint/height, centered above the base link
+           origin (which sits at the bottom of the container). -->
+      <collision>
+        <origin xyz="0 0 ${eurocontainer_footprint_height / 2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${eurocontainer_footprint_length} ${eurocontainer_footprint_width} ${eurocontainer_footprint_height}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+      </inertial>
+    </link>
+
+    <joint name="${parent}_to_eurocontainer_${name}_base_link" type="fixed">
+      <parent link="${parent}"/>
+      <child link="eurocontainer_${name}_base_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- 2x2 arrangement of 2x5 sub-grids (4 x 10 = 40 total) across the
+         container footprint, inset 2 cm from each edge -->
+    <xacro:eurocontainer_spl_subgrid name="${name}" gx="0" gy="0"/>
+    <xacro:eurocontainer_spl_subgrid name="${name}" gx="0" gy="1"/>
+    <xacro:eurocontainer_spl_subgrid name="${name}" gx="1" gy="0"/>
+    <xacro:eurocontainer_spl_subgrid name="${name}" gx="1" gy="1"/>
+
+  </xacro:macro>
+
+</robot>

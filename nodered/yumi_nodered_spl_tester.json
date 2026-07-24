@@ -785,7 +785,8 @@
         "wires": [
             [
                 "4e527f8dc9160dc6",
-                "16e9a86fca9632e5"
+                "16e9a86fca9632e5",
+                "bb9f8d7bd304e5d4"
             ]
         ]
     },
@@ -3049,6 +3050,7 @@
         "id": "4b57f9d1a7e71cc9",
         "type": "function",
         "z": "f6f2187d.f17ca8",
+        "d": true,
         "name": "Store JS Change",
         "func": "const threshold = 0.05;  // change limit\n\nlet prev = context.get(\"prev\");\nlet curr = msg.payload;\n\n// Get or initialize the stored list\nlet list = flow.get(\"list\") || [];\n\nif (!prev) {\n    context.set(\"prev\", curr);\n    list.push(curr);\n    flow.set(\"list\", list);\n    return msg;\n}\n\n// Example: check change in position[0] (customize as needed)\nlet changed = false;\nif (prev.position && curr.position) {\n    if (Math.abs(curr.position[0] - prev.position[0]) > threshold) {\n        changed = true;\n    }\n}\n\n// Save if flagged externally or if changed\nif (flow.get(\"save\") || changed) {\n    list.push(curr);          // store entire payload\n    flow.set(\"list\", list);\n    context.set(\"prev\", curr);\n    flow.set(\"save\", false);\n    return msg;\n}\n\n// Drop message if no significant change\nreturn null;\n",
         "outputs": 1,
@@ -3518,7 +3520,7 @@
         "type": "debug",
         "z": "593c790c41e8182c",
         "name": "MOVE GROUP ExecuteTrajectory Result",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3767,7 +3769,7 @@
         "type": "debug",
         "z": "593c790c41e8182c",
         "name": "debug 16",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3865,7 +3867,7 @@
         "type": "debug",
         "z": "593c790c41e8182c",
         "name": "debug 17",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3961,7 +3963,7 @@
         "type": "debug",
         "z": "593c790c41e8182c",
         "name": "debug 22",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3990,6 +3992,362 @@
             [
                 "7087b921167a645a",
                 "928ee92b4b5d5173"
+            ]
+        ]
+    },
+    {
+        "id": "5ee99a22998b6f2c",
+        "type": "http in",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "url": "/station/cognition/moveit_commander/compute_ik",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 390,
+        "y": 1560,
+        "wires": [
+            [
+                "3cd5719c739c0d3c"
+            ]
+        ]
+    },
+    {
+        "id": "3aa82527781eb501",
+        "type": "http response",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "application/xml"
+        },
+        "x": 2050,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "3cd5719c739c0d3c",
+        "type": "change",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "compute_ik",
+                "pt": "flow",
+                "to": "{}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 1560,
+        "wires": [
+            [
+                "2d91da8588c1f33d",
+                "26bb9aaed5c35bbd"
+            ]
+        ]
+    },
+    {
+        "id": "2d91da8588c1f33d",
+        "type": "delay",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "100",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1050,
+        "y": 1560,
+        "wires": [
+            [
+                "140fa7715eb7bc1d"
+            ]
+        ]
+    },
+    {
+        "id": "140fa7715eb7bc1d",
+        "type": "switch",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "property": "compute_ik",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "empty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1230,
+        "y": 1560,
+        "wires": [
+            [
+                "2d91da8588c1f33d"
+            ],
+            [
+                "53a0ca28e9ff1a25"
+            ]
+        ]
+    },
+    {
+        "id": "0254c2dd11be7ca8",
+        "type": "ros-call-service",
+        "z": "593c790c41e8182c",
+        "server": "4bf02018241b669e",
+        "servicename": "/moveit_commander/compute_ik",
+        "srvtype": "moveit_msgs/GetPositionIK",
+        "x": 1400,
+        "y": 1500,
+        "wires": [
+            [
+                "cc632772134db2bf"
+            ]
+        ]
+    },
+    {
+        "id": "8c4a10dcda590543",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "ComputeIK Request",
+        "func": "msg.payload = {\n  ik_request: {\n    group_name: \"left_arm\",\n    pose_stamped: {\n      header: { frame_id: \"world\" },\n      pose: {\n        position: { x: 0.15, y: 0.45, z: 0.4 },\n        orientation: { x: 1, y: 0, z: 0, w: 0 }  // quaternion\n      }\n    }\n  }\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 1460,
+        "wires": [
+            [
+                "0254c2dd11be7ca8"
+            ]
+        ]
+    },
+    {
+        "id": "5edae66b4e7a01a2",
+        "type": "debug",
+        "z": "593c790c41e8182c",
+        "name": "COMPUTE_IK RES",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2250,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "c839b6bf731cf244",
+        "type": "inject",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 840,
+        "y": 1460,
+        "wires": [
+            [
+                "8c4a10dcda590543"
+            ]
+        ]
+    },
+    {
+        "id": "cc632772134db2bf",
+        "type": "json",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1630,
+        "y": 1500,
+        "wires": [
+            [
+                "2a362f38e958764a"
+            ]
+        ]
+    },
+    {
+        "id": "2a362f38e958764a",
+        "type": "json",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1750,
+        "y": 1500,
+        "wires": [
+            [
+                "a01b3c32500abbc1"
+            ]
+        ]
+    },
+    {
+        "id": "26bb9aaed5c35bbd",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "ComputeIK Request",
+        "func": "// Function node to convert Meteor format to ROS IK request\nconst roll = msg.payload.pose.orientation.roll * (Math.PI / 180);  // degrees to radians\nconst pitch = msg.payload.pose.orientation.pitch * (Math.PI / 180);\nconst yaw = msg.payload.pose.orientation.yaw * (Math.PI / 180);\n\n// Convert Euler (roll, pitch, yaw) to Quaternion\nconst cy = Math.cos(yaw * 0.5);\nconst sy = Math.sin(yaw * 0.5);\nconst cp = Math.cos(pitch * 0.5);\nconst sp = Math.sin(pitch * 0.5);\nconst cr = Math.cos(roll * 0.5);\nconst sr = Math.sin(roll * 0.5);\n\nconst qw = cr * cp * cy + sr * sp * sy;\nconst qx = sr * cp * cy - cr * sp * sy;\nconst qy = cr * sp * cy + sr * cp * sy;\nconst qz = cr * cp * sy - sr * sp * cy;\n\nmsg.payload = {\n  ik_request: {\n    group_name: msg.payload.group,\n    pose_stamped: {\n      header: { frame_id: \"world\" },\n      pose: {\n        position: msg.payload.pose.position,  // Direct copy\n        orientation: { x: qx, y: qy, z: qz, w: qw }\n      }\n    },\n    // Add robot_state if provided\n    robot_state: msg.payload.robot_state || {}\n  }\n};\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 1500,
+        "wires": [
+            [
+                "0254c2dd11be7ca8",
+                "aa647cbc5a0a1c1e"
+            ]
+        ]
+    },
+    {
+        "id": "aa647cbc5a0a1c1e",
+        "type": "debug",
+        "z": "593c790c41e8182c",
+        "name": "COMPUTE_IK REQ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1350,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "5aa82012aa43dedd",
+        "type": "function",
+        "z": "593c790c41e8182c",
+        "name": "SetUp compute_ik REST Response",
+        "func": "// After calling ROS /compute_ik service\nconst errorCode = msg.payload.error_code.val;\nconst success = (errorCode === 1);\n\nif (success) {\n    msg.payload = {\n        success: true,\n        joint_names: msg.payload.solution.joint_state.name,\n        joint_positions: msg.payload.solution.joint_state.position\n    };\n} else {\n    // Map error codes to messages\n    const errorMessages = {\n        '-31': 'NO_IK_SOLUTION - Pose is not reachable',\n        '-15': 'INVALID_GROUP_NAME - Check move group name',\n        '-1': 'FAILURE - Generic failure',\n        // Add more as needed\n    };\n\n    msg.payload = {\n        success: false,\n        error_message: errorMessages[errorCode.toString()] || `Error code: ${errorCode}`\n    };\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1760,
+        "y": 1560,
+        "wires": [
+            [
+                "3aa82527781eb501",
+                "1219506d576bee04"
+            ]
+        ]
+    },
+    {
+        "id": "1219506d576bee04",
+        "type": "debug",
+        "z": "593c790c41e8182c",
+        "name": "REST compute_ik RES",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2100,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "53a0ca28e9ff1a25",
+        "type": "change",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "compute_ik",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1460,
+        "y": 1560,
+        "wires": [
+            [
+                "5aa82012aa43dedd"
+            ]
+        ]
+    },
+    {
+        "id": "a01b3c32500abbc1",
+        "type": "change",
+        "z": "593c790c41e8182c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "compute_ik",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1980,
+        "y": 1500,
+        "wires": [
+            [
+                "5edae66b4e7a01a2"
             ]
         ]
     },
@@ -6640,7 +6998,7 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload.pose.position",
+        "complete": "payload.pose",
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
@@ -8174,8 +8532,9 @@
         "y": 3740,
         "wires": [
             [
+                "b09aeca2d5741349",
                 "a148612c1e549ece",
-                "b09aeca2d5741349"
+                "a21a3f1fcc9130f9"
             ]
         ],
         "l": true
@@ -8360,26 +8719,6 @@
         ]
     },
     {
-        "id": "a148612c1e549ece",
-        "type": "function",
-        "z": "c68dc494590553a0",
-        "name": "Update Dash Tash Index",
-        "func": "return {\n    payload: flow.get(\"spl_production_task_index\"),\n    ui_update: {\n        max: flow.get(\"task_plan\").length - 1\n    }\n};",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 650,
-        "y": 3740,
-        "wires": [
-            [
-                "af231608f2ba1814"
-            ]
-        ]
-    },
-    {
         "id": "2ebbad6c21e2c3a6",
         "type": "switch",
         "z": "c68dc494590553a0",
@@ -8496,7 +8835,7 @@
         "type": "debug",
         "z": "c68dc494590553a0",
         "name": "GRIPPER TASK",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8624,7 +8963,7 @@
         "type": "function",
         "z": "c68dc494590553a0",
         "name": "Convert Pose",
-        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\n\nmsg.payload = {\n  position: msg.payload.pose.pose.position,\n  orientation: rpyToQuaternion(msg.payload.pose.pose.orientation)\n}\n\nreturn msg;",
+        "func": "function rpyToQuaternion(rpy) {\n  \n  // Convert half angles\n  const cy = Math.cos(rpy.yaw * (Math.PI / 180) * 0.5);\n  const sy = Math.sin(rpy.yaw * (Math.PI / 180) * 0.5);\n  const cp = Math.cos(rpy.pitch * (Math.PI / 180) * 0.5);\n  const sp = Math.sin(rpy.pitch * (Math.PI / 180) * 0.5);\n  const cr = Math.cos(rpy.roll * (Math.PI / 180) * 0.5);\n  const sr = Math.sin(rpy.roll * (Math.PI / 180) * 0.5);\n\n  const q = {\n    x: sr * cp * cy - cr * sp * sy,\n    y: cr * sp * cy + sr * cp * sy,\n    z: cr * cp * sy - sr * sp * cy,\n    w: cr * cp * cy + sr * sp * sy\n  };\n\n  return q;\n}\nnode.warn (\"BEFORE \" + JSON.stringify(msg.payload.pose.pose.orientation));\n\nmsg.payload = {\n  position: msg.payload.pose.pose.position,\n  orientation: rpyToQuaternion(msg.payload.pose.pose.orientation)\n}\n\nnode.warn(\"AFTER \" + JSON.stringify(msg.payload.orientation));\n\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -8967,13 +9306,15 @@
         "links": [
             "33d2be3aab688dd7",
             "4457b00cb5e7f136",
-            "8081469fa0d5ca97"
+            "8081469fa0d5ca97",
+            "330b31e1f52fc73b"
         ],
         "x": 310,
         "y": 4820,
         "wires": [
             [
-                "a03f3074396060c0"
+                "a03f3074396060c0",
+                "3abb5e048983b0c1"
             ]
         ],
         "l": true
@@ -9011,7 +9352,8 @@
         "links": [
             "4457b00cb5e7f136",
             "737383d95b78ce50",
-            "8081469fa0d5ca97"
+            "8081469fa0d5ca97",
+            "330b31e1f52fc73b"
         ],
         "x": 330,
         "y": 3940,
@@ -9268,7 +9610,7 @@
         "type": "debug",
         "z": "c68dc494590553a0",
         "name": "OBJECT ATTACH",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9796,6 +10138,242 @@
         "wires": [
             [
                 "2ebbad6c21e2c3a6"
+            ]
+        ]
+    },
+    {
+        "id": "aed7883caac4274b",
+        "type": "http in",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "url": "/station/supervision/task_executor/command",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 430,
+        "y": 5680,
+        "wires": [
+            [
+                "7206c60a908cc943"
+            ]
+        ]
+    },
+    {
+        "id": "ff5731888edaddb6",
+        "type": "http response",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1110,
+        "y": 5680,
+        "wires": []
+    },
+    {
+        "id": "7206c60a908cc943",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Change CurrentTask Params",
+        "func": "switch(msg.payload.action){\n    case \"play\":\n        flow.set(\"task_plan_playmode\", \"ON\");\n        break;\n    case \"pause\":\n        flow.set(\"task_plan_playmode\", \"OFF\");\n        break;\n    case \"step_back\":\n        flow.set(\"task_plan_playmode\", \"OFF\");\n        return [null, msg, null];\n    case \"step_forward\":\n        flow.set(\"task_plan_playmode\", \"OFF\");\n        return [null, null, msg];\n}\n\nreturn [msg, null, null];",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 5680,
+        "wires": [
+            [
+                "ff5731888edaddb6",
+                "330b31e1f52fc73b"
+            ],
+            [
+                "ff5731888edaddb6",
+                "966b956ac6afc177"
+            ],
+            [
+                "ff5731888edaddb6",
+                "328ad7eef84516a6"
+            ]
+        ],
+        "outputLabels": [
+            "PLAY/PAUSE",
+            "STEP BACK",
+            "STEP FORWARD"
+        ]
+    },
+    {
+        "id": "a148612c1e549ece",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update Dash Tash Index",
+        "func": "return {\n    payload: flow.get(\"spl_production_task_index\"),\n    ui_update: {\n        max: flow.get(\"task_plan\").length - 1\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 3740,
+        "wires": [
+            [
+                "af231608f2ba1814"
+            ]
+        ]
+    },
+    {
+        "id": "bb1586435f0f07f5",
+        "type": "mqtt out",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "topic": "/station/supervision/task_executor/current_index",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "081f9e7c1510ca14",
+        "x": 1050,
+        "y": 3820,
+        "wires": []
+    },
+    {
+        "id": "a21a3f1fcc9130f9",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Set TaskIndex MQTT Topic",
+        "func": "return {\n    payload : {\n        index : flow.get(\"spl_production_task_index\")\n    }\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 3820,
+        "wires": [
+            [
+                "bb1586435f0f07f5"
+            ]
+        ]
+    },
+    {
+        "id": "330b31e1f52fc73b",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "UPDATE TASK PLAY",
+        "mode": "link",
+        "links": [
+            "23015a46d759b6e2",
+            "49c42d39eb12f8b6"
+        ],
+        "x": 1160,
+        "y": 5720,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "fce9a09d2a91916f",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "TASK STEP FORWARD",
+        "links": [
+            "328ad7eef84516a6"
+        ],
+        "x": 320,
+        "y": 4000,
+        "wires": [
+            [
+                "ba67e54c3806d122"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "a9da867bcebb486c",
+        "type": "link in",
+        "z": "c68dc494590553a0",
+        "name": "TASK STEP BACK",
+        "links": [
+            "966b956ac6afc177"
+        ],
+        "x": 310,
+        "y": 4120,
+        "wires": [
+            [
+                "8104057e66e71482"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "328ad7eef84516a6",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "TASK STEP FORWARD",
+        "mode": "link",
+        "links": [
+            "fce9a09d2a91916f"
+        ],
+        "x": 1170,
+        "y": 5800,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "966b956ac6afc177",
+        "type": "link out",
+        "z": "c68dc494590553a0",
+        "name": "TASK STEP BACK",
+        "mode": "link",
+        "links": [
+            "a9da867bcebb486c"
+        ],
+        "x": 1150,
+        "y": 5760,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "92aa3fb2126ab064",
+        "type": "mqtt out",
+        "z": "c68dc494590553a0",
+        "name": "",
+        "topic": "/station/supervision/task_executor/status",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "081f9e7c1510ca14",
+        "x": 900,
+        "y": 4880,
+        "wires": []
+    },
+    {
+        "id": "3abb5e048983b0c1",
+        "type": "function",
+        "z": "c68dc494590553a0",
+        "name": "Update PlayMode",
+        "func": "msg.payload = (flow.get(\"task_plan_playmode\") === \"ON\") ? \n{\n    state: \"playing\"\n}:\n{\n    state: \"pause\"\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 4880,
+        "wires": [
+            [
+                "92aa3fb2126ab064"
             ]
         ]
     },

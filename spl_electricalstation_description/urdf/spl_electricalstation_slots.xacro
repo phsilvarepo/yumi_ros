@@ -17,47 +17,66 @@
   <xacro:property name="eurocontainer_width"  value="0.30"/> <!-- y -->
   <xacro:property name="eurocontainer_height" value="0.12"/> <!-- z -->
 
-  <!-- Position of the Eurocontainer slot center, relative to table_top -->
-  <xacro:property name="eurocontainer_offset_x" value="0.45"/>
-  <xacro:property name="eurocontainer_offset_y" value="0.0"/>
+  <!-- Position of the Eurocontainer slot center, relative to table_top.
+       eurocontainer_offset_y is the middle point between the two
+       recovered Isaac Sim ground-truth y values (eurocontainer00 y=0.15,
+       eurocontainer01 y=0.35 -> midpoint 0.25), used as the |y| magnitude
+       for both the left (+y) and right (-y) instances below. -->
+  <xacro:property name="eurocontainer_offset_x" value="0.55"/>
+  <xacro:property name="eurocontainer_offset_y" value="0.20"/>
 
   <!-- Redboard slots -->
-  <!-- 8 slots arranged in 2 rows x 4 columns, to the left of the robot (+y) -->
+  <!-- 8 slots arranged in 2 rows x 4 columns, to the side of the robot -->
   <xacro:property name="redboard_length" value="0.10"/> <!-- x (placeholder board size) -->
   <xacro:property name="redboard_width"  value="0.08"/> <!-- y (placeholder board size) -->
   <xacro:property name="redboard_height" value="0.02"/> <!-- z (placeholder board thickness) -->
 
-  <xacro:property name="redboard_spacing_x" value="0.15"/> <!-- column pitch along x -->
-  <xacro:property name="redboard_spacing_y" value="0.14"/> <!-- row pitch along y -->
+  <!-- Spacing and origin match recovered Isaac Sim ground-truth poses
+       (isaac_sim_objects.json, leftarm/position/redboard_XX, frame_id "world",
+       assumed coincident with the robot base / table_top, no additional offset).
+       redboard_origin_y / redboard_spacing_y are used as |y| magnitudes for
+       both the left (+y) and right (-y) instances below. -->
+  <xacro:property name="redboard_spacing_x" value="0.14"/> <!-- column pitch along x -->
+  <xacro:property name="redboard_spacing_y" value="0.15"/> <!-- row pitch along y -->
 
   <!-- Position of the first (row0,col0) redboard slot, relative to table_top -->
-  <xacro:property name="redboard_origin_x" value="-0.20"/>
-  <xacro:property name="redboard_origin_y" value="0.25"/>
+  <xacro:property name="redboard_origin_x" value="-0.15"/>
+  <xacro:property name="redboard_origin_y" value="0.40"/>
+
+  <!-- All slot marker boxes (eurocontainer and redboard) are thin 1 cm
+       high boxes, drawn BELOW their link's origin (i.e. from z=-slot_marker_height
+       to z=0). The slot link itself is raised slot_link_height_above_table
+       (1 cm) above table_top via the parent joint, so the box's top face
+       sits flush with the table surface. -->
+  <xacro:property name="slot_marker_height" value="0.01"/>
+  <xacro:property name="slot_link_height_above_table" value="0.01"/>
 
   <!-- ===================================================================
        Macro: eurocontainer_slot
        Creates a thin, semi-transparent box link marking where the
        Eurocontainer should be placed, and a fixed joint to "parent".
+       "side" is either "left" or "right" and only affects the link name
+       (the y value passed in should already carry the correct sign).
   =================================================================== -->
-  <xacro:macro name="eurocontainer_slot" params="parent name x y">
+  <xacro:macro name="eurocontainer_slot" params="parent name side x y">
     <link name="${name}">
       <visual>
-        <origin xyz="0 0 ${eurocontainer_height / 2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-slot_marker_height / 2}" rpy="0 0 0"/>
         <geometry>
-          <box size="${eurocontainer_length} ${eurocontainer_width} ${eurocontainer_height}"/>
+          <box size="${eurocontainer_length} ${eurocontainer_width} ${slot_marker_height}"/>
         </geometry>
         <material name="EuroContainerBlue">
           <color rgba="0.1 0.3 0.9 0.4"/>
         </material>
       </visual>
       <collision>
-        <origin xyz="0 0 ${eurocontainer_height / 2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-slot_marker_height / 2}" rpy="0 0 0"/>
         <geometry>
-          <box size="${eurocontainer_length} ${eurocontainer_width} ${eurocontainer_height}"/>
+          <box size="${eurocontainer_length} ${eurocontainer_width} ${slot_marker_height}"/>
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 0 ${eurocontainer_height / 2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-slot_marker_height / 2}" rpy="0 0 0"/>
         <mass value="0.01"/>
         <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
       </inertial>
@@ -66,7 +85,7 @@
     <joint name="${parent}_to_${name}" type="fixed">
       <parent link="${parent}"/>
       <child link="${name}"/>
-      <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
+      <origin xyz="${x} ${y} ${slot_link_height_above_table}" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
 
@@ -74,26 +93,28 @@
        Macro: redboard_slot
        Creates a thin box link marking a single Redboard slot, and a
        fixed joint to "parent".
+       "side" is either "left" or "right" and only affects the link name
+       (the y value passed in should already carry the correct sign).
   =================================================================== -->
-  <xacro:macro name="redboard_slot" params="parent name x y">
+  <xacro:macro name="redboard_slot" params="parent name side x y">
     <link name="${name}">
       <visual>
-        <origin xyz="0 0 ${redboard_height / 2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-slot_marker_height / 2}" rpy="0 0 0"/>
         <geometry>
-          <box size="${redboard_length} ${redboard_width} ${redboard_height}"/>
+          <box size="${redboard_length} ${redboard_width} ${slot_marker_height}"/>
         </geometry>
         <material name="RedboardGreen">
           <color rgba="0.1 0.8 0.2 0.6"/>
         </material>
       </visual>
       <collision>
-        <origin xyz="0 0 ${redboard_height / 2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-slot_marker_height / 2}" rpy="0 0 0"/>
         <geometry>
-          <box size="${redboard_length} ${redboard_width} ${redboard_height}"/>
+          <box size="${redboard_length} ${redboard_width} ${slot_marker_height}"/>
         </geometry>
       </collision>
       <inertial>
-        <origin xyz="0 0 ${redboard_height / 2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-slot_marker_height / 2}" rpy="0 0 0"/>
         <mass value="0.01"/>
         <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
       </inertial>
@@ -102,47 +123,76 @@
     <joint name="${parent}_to_${name}" type="fixed">
       <parent link="${parent}"/>
       <child link="${name}"/>
-      <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
+      <origin xyz="${x} ${y} ${slot_link_height_above_table}" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
 
   <!-- ===================================================================
        Macro: electrical_station_slots
        Instantiates the Eurocontainer slot and all 8 Redboard slots
-       (2 rows x 4 columns) on the given parent link (typically "table_top").
+       (2 rows x 4 columns), mirrored for both the left (+y) arm side and
+       the right (-y) arm side, on the given parent link (typically
+       "table_top").
   =================================================================== -->
   <xacro:macro name="electrical_station_slots" params="parent">
 
-    <xacro:eurocontainer_slot parent="${parent}" name="eurocontainer_slot"
+    <!-- Eurocontainer: left (+y) and right (-y) -->
+    <xacro:eurocontainer_slot parent="${parent}" name="eurocontainer_slot_left" side="left"
                                x="${eurocontainer_offset_x}" y="${eurocontainer_offset_y}"/>
+    <xacro:eurocontainer_slot parent="${parent}" name="eurocontainer_slot_right" side="right"
+                               x="${eurocontainer_offset_x}" y="${-eurocontainer_offset_y}"/>
 
-    <!-- Row 0 (y = redboard_origin_y) -->
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_0_0"
+    <!-- Redboards: left (+y) -->
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_0_0" side="left"
                           x="${redboard_origin_x + 0 * redboard_spacing_x}"
                           y="${redboard_origin_y + 0 * redboard_spacing_y}"/>
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_0_1"
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_0_1" side="left"
                           x="${redboard_origin_x + 1 * redboard_spacing_x}"
                           y="${redboard_origin_y + 0 * redboard_spacing_y}"/>
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_0_2"
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_0_2" side="left"
                           x="${redboard_origin_x + 2 * redboard_spacing_x}"
                           y="${redboard_origin_y + 0 * redboard_spacing_y}"/>
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_0_3"
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_0_3" side="left"
                           x="${redboard_origin_x + 3 * redboard_spacing_x}"
                           y="${redboard_origin_y + 0 * redboard_spacing_y}"/>
-
-    <!-- Row 1 (y = redboard_origin_y + redboard_spacing_y) -->
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_1_0"
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_1_0" side="left"
                           x="${redboard_origin_x + 0 * redboard_spacing_x}"
                           y="${redboard_origin_y + 1 * redboard_spacing_y}"/>
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_1_1"
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_1_1" side="left"
                           x="${redboard_origin_x + 1 * redboard_spacing_x}"
                           y="${redboard_origin_y + 1 * redboard_spacing_y}"/>
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_1_2"
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_1_2" side="left"
                           x="${redboard_origin_x + 2 * redboard_spacing_x}"
                           y="${redboard_origin_y + 1 * redboard_spacing_y}"/>
-    <xacro:redboard_slot parent="${parent}" name="redboard_slot_1_3"
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_left_1_3" side="left"
                           x="${redboard_origin_x + 3 * redboard_spacing_x}"
                           y="${redboard_origin_y + 1 * redboard_spacing_y}"/>
+
+    <!-- Redboards: right (-y), mirror of the left layout -->
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_0_0" side="right"
+                          x="${redboard_origin_x + 0 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 0 * redboard_spacing_y)}"/>
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_0_1" side="right"
+                          x="${redboard_origin_x + 1 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 0 * redboard_spacing_y)}"/>
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_0_2" side="right"
+                          x="${redboard_origin_x + 2 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 0 * redboard_spacing_y)}"/>
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_0_3" side="right"
+                          x="${redboard_origin_x + 3 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 0 * redboard_spacing_y)}"/>
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_1_0" side="right"
+                          x="${redboard_origin_x + 0 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 1 * redboard_spacing_y)}"/>
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_1_1" side="right"
+                          x="${redboard_origin_x + 1 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 1 * redboard_spacing_y)}"/>
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_1_2" side="right"
+                          x="${redboard_origin_x + 2 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 1 * redboard_spacing_y)}"/>
+    <xacro:redboard_slot parent="${parent}" name="redboard_slot_right_1_3" side="right"
+                          x="${redboard_origin_x + 3 * redboard_spacing_x}"
+                          y="${-(redboard_origin_y + 1 * redboard_spacing_y)}"/>
 
   </xacro:macro>
 

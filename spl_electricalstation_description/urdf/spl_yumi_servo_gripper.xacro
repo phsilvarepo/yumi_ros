@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<!--
+  SPL-specific YuMi servo gripper macro.
+
+  This is a copy of yumi_description's
+  urdf/Grippers/yumi_servo_gripper.xacro macro, kept entirely within
+  spl_electricalstation_description so the generic yumi_description
+  package is never modified. The only difference from the stock macro is
+  that the two finger links (${name}_finger_r / ${name}_finger_l) use the
+  SPL custom finger meshes instead of the stock yumi_description
+  gripper/finger.stl mesh.
+-->
+<robot name="yumi" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Reuse yumi_description's stock Gazebo/transmission extensions for
+         the gripper (no SPL-specific changes needed there). -->
+    <xacro:include filename="$(find yumi_description)/urdf/Grippers/yumi_servo_gripper.gazebo.xacro" />
+    <xacro:include filename="$(find yumi_description)/urdf/Grippers/yumi_servo_gripper.transmission.xacro" />
+
+    <!-- some constants (mirrors yumi_servo_gripper.xacro) -->
+    <xacro:property name="spl_gripper_joint_damping" value="1.0" />
+    <xacro:property name="spl_max_gripper_effort" value="20"/>
+    <xacro:property name="spl_max_gripper_velocity" value="2"/>
+
+  <xacro:macro name="spl_yumi_servo_gripper" params="parent name hardware_interface *origin">
+
+    <!--joint between {parent} and base-->
+    <joint name="${parent}_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent}"/>
+      <child link="${name}_base"/>
+    </joint>
+
+    <link name="${name}_base">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.0001"  ixy="0"  ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+      </inertial>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://yumi_description/meshes/gripper/base.stl"/>
+        </geometry>
+        <material name="Light_Grey"/>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://yumi_description/meshes/gripper/coarse/base.stl"/>
+        </geometry>
+        <material name="Light_Grey"/>
+      </collision>
+
+    </link>
+
+    <!-- joint between base and right finger -->
+    <joint name="${name}_joint" type="prismatic">
+      <parent link="${name}_base"/>
+      <child link="${name}_finger_r"/>
+      <origin xyz="0 -0.0065 0.0837" rpy="0 0 0"/>
+      <axis xyz="-1 0 0"/>
+      <limit lower="0" upper="0.025"
+             effort="${spl_max_gripper_effort}" velocity="${spl_max_gripper_velocity}" />
+      <dynamics damping="${spl_gripper_joint_damping}"/>
+    </joint>
+
+    <link name="${name}_finger_r">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.01"/>
+        <inertia ixx="0.000001"  ixy="0"  ixz="0" iyy="0.000001" iyz="0" izz="0.000001" />
+      </inertial>
+
+      <!-- SPL custom right finger mesh (rotated 180 deg about z to match
+           the mesh's native orientation to the gripper frame) -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
+        <geometry>
+          <mesh filename="package://spl_electricalstation_description/meshes/UNP_SPL_YumiRightFinger_v2.3.stl"/>
+        </geometry>
+        <material name="Blue"/>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 ${PI}"/>
+        <geometry>
+          <mesh filename="package://spl_electricalstation_description/meshes/UNP_SPL_YumiRightFinger_v2.3.stl"/>
+        </geometry>
+        <material name="Blue"/>
+      </collision>
+    </link>
+
+   <!-- joint between base and left finger -->
+    <joint name="${name}_joint_m" type="prismatic">
+      <parent link="${name}_base"/>
+      <child link="${name}_finger_l"/>
+      <origin xyz="0 0.0065 0.0837" rpy="0 0 ${PI}"/>
+      <axis xyz="-1 0 0"/>
+      <limit lower="0" upper="0.025"
+             effort="${spl_max_gripper_effort}" velocity="${spl_max_gripper_velocity}" />
+      <dynamics damping="${spl_gripper_joint_damping}"/>
+      <mimic joint="${name}_joint"/>
+    </joint>
+
+    <link name="${name}_finger_l">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.01"/>
+        <inertia ixx="0.000001"  ixy="0"  ixz="0" iyy="0.000001" iyz="0" izz="0.000001" />
+      </inertial>
+
+      <!-- SPL custom left finger mesh -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://spl_electricalstation_description/meshes/UNP_SPL_YumiLeftFinger_v2.3.stl"/>
+        </geometry>
+        <material name="Blue"/>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://spl_electricalstation_description/meshes/UNP_SPL_YumiLeftFinger_v2.3.stl"/>
+        </geometry>
+        <material name="Blue"/>
+      </collision>
+    </link>
+
+    <link name="${name}_tcp">
+    <!-- NO visual, NO collision, NO inertial - it's purely virtual! -->
+    <visual>
+      <geometry>
+        <sphere radius="0.005"/>  <!-- 5mm sphere marker -->
+      </geometry>
+      <material name="tcp_marker">
+        <color rgba="1 0 0 1"/>  <!-- Red color -->
+      </material>
+    </visual>
+  </link>
+  <!-- Fixed joint connecting base to TCP at desired offset -->
+  <joint name="${name}_tcp_joint" type="fixed">
+    <parent link="${name}_base"/>
+    <child link="${name}_tcp"/>
+    <!-- Position TCP 65mm forward and centered between fingers -->
+    <origin xyz="0.0 0.05 0.13" rpy="0 0 0"/>
+  </joint>
+
+     <!--Extensions -->
+    <xacro:yumi_servo_gripper_gazebo name="${name}" />
+    <xacro:yumi_servo_gripper_transmission name="${name}" hardware_interface="${hardware_interface}"/>
+
+  </xacro:macro>
+
+</robot>

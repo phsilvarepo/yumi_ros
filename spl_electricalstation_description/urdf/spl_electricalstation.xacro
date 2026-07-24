@@ -7,31 +7,51 @@
   <!-- Define PI in case utilities.xacro is not available in some include orders -->
   <xacro:property name="PI" value="3.141592653589793"/>
 
-  <!-- Table dimensions -->
-  <xacro:property name="table_length" value="1.2"/>
+  <!-- Table dimensions.
+       Matches the real MODUL4R_YumiWheeledSupport_noWheels.dae mesh, as
+       used (and offset) in MODUL4R/ROS/ros_modules/modular-description/
+       modul4r_station_description/urdf/modul4r_station.urdf.xacro:
+       that reference file's own collision box for this same mesh is
+       "<box size="0.8 0.8 0.01"/>" at origin xyz="-0.4 0 0.9", i.e. the
+       mesh's footprint is NOT centered on the link origin: it spans
+       roughly x in [-0.8, 0], y in [-0.4, 0.4], height ~0.9 m, with the
+       link/mesh origin at one corner (x=0 edge), not the footprint center. -->
+  <xacro:property name="table_length" value="0.8"/>
   <xacro:property name="table_width" value="0.8"/>
-  <xacro:property name="table_height" value="0.7"/>
+  <xacro:property name="table_height" value="0.9"/>
 
-  <!-- Table / base_link as a simple box. The link origin (0,0,0) is the CENTER of the box,
-       so the top surface of the table sits at z = table_height/2. -->
+  <!-- x-offset of the collision box center relative to the mesh/link
+       origin, matching the reference modul4r_station.urdf.xacro. -->
+  <xacro:property name="table_collision_offset_x" value="-0.4"/>
+
+  <!-- Instead of offsetting yumi off table_top, we keep yumi at table_top's
+       origin (0,0,0) and shift the table mesh (visual + collision) the
+       other way by half of the reference's yumi offset (0.21 / 2 = 0.105),
+       so that yumi ends up positioned the same relative to the table mesh
+       as in the reference file, without yumi itself being offset. -->
+  <xacro:property name="table_mesh_offset_x" value="0.105"/>
+
+  <!-- Table / base_link: visual is the real support mesh, shifted by
+       table_mesh_offset_x (see above). Collision is a simple box of the
+       same footprint/height for fast collision checking, offset in x to
+       match the mesh's actual footprint (table_collision_offset_x) plus
+       the same table_mesh_offset_x shift, and centered in z from the
+       mesh's bottom (z=0) up to table_height. -->
   <link name="base_link">
     <visual>
-      <origin xyz="0 0 ${table_height / 2}" rpy="0 0 0"/>
+      <origin xyz="${table_mesh_offset_x} 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="${table_length} ${table_width} ${table_height}" />
+        <mesh filename="package://spl_electricalstation_description/meshes/MODUL4R_YumiWheeledSupport_noWheels.dae" scale="1 1 1"/>
       </geometry>
-      <material name="Brown">
-        <color rgba="0.6 0.4 0.2 1.0"/>
-      </material>
     </visual>
     <collision>
-      <origin xyz="0 0 ${table_height / 2}" rpy="0 0 0"/>
+      <origin xyz="${table_collision_offset_x + table_mesh_offset_x} 0 ${table_height / 2}" rpy="0 0 0"/>
       <geometry>
         <box size="${table_length} ${table_width} ${table_height}" />
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0 0 ${table_height / 2}" rpy="0 0 0"/>
+      <origin xyz="${table_collision_offset_x + table_mesh_offset_x} 0 ${table_height / 2}" rpy="0 0 0"/>
       <mass value="20.0"/>
       <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
     </inertial>
@@ -71,13 +91,39 @@
   <!-- Include the yumi_description xacro and attach it to table_top -->
   <xacro:include filename="$(find yumi_description)/urdf/yumi.xacro" />
 
-  <!-- Call the yumi macro. The yumi macro signature is: parent name hardware_interface *origin -->
-  <!-- yumi_base_link is spawned at table_top's frame (already at the table surface), so no extra offset needed. -->
+  <!-- NOTE: the "parent"/"*origin" params of the xacro:yumi macro are NOT
+       actually used by the macro itself (yumi_base_link is defined
+       standalone inside it); the real attachment is the explicit fixed
+       joint below. Unlike the reference modul4r_station.urdf.xacro
+       (which offsets yumi_base_link by xyz="-0.21 0.0 0.905" relative to
+       its mesh/base link origin), we keep yumi_base_link centered at
+       table_top's origin (0,0,0) and instead shift the table mesh the
+       other way (see table_mesh_offset_x above), so yumi stays at a
+       clean 0,0 while ending up correctly positioned relative to the
+       table mesh. -->
   <xacro:yumi parent="table_top" name="yumi" hardware_interface="">
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:yumi>
 
-  <!-- Attach the yumi base directly on the table surface (table_top), single root remains base_link -->
+  <!-- Include and instantiate the SPL servo grippers (with SPL-specific
+       finger meshes) on each arm's wrist link (yumi_link_7_r / yumi_link_7_l),
+       matching the origin used by yumi_description's yumi.urdf.xacro
+       reference (0 0 0.007, rotated 180 deg about z). This uses a local
+       spl_yumi_servo_gripper macro (spl_yumi_servo_gripper.xacro) instead
+       of yumi_description's generic gripper, so yumi_description itself
+       stays untouched. -->
+  <xacro:include filename="$(find spl_electricalstation_description)/urdf/spl_yumi_servo_gripper.xacro" />
+
+  <xacro:spl_yumi_servo_gripper name="gripper_r" hardware_interface="" parent="yumi_link_7_r">
+    <origin xyz="0 0 0.007" rpy="0 0 ${PI}" />
+  </xacro:spl_yumi_servo_gripper>
+
+  <xacro:spl_yumi_servo_gripper name="gripper_l" hardware_interface="" parent="yumi_link_7_l">
+    <origin xyz="0 0 0.007" rpy="0 0 ${PI}" />
+  </xacro:spl_yumi_servo_gripper>
+
+  <!-- Attach the yumi base on the table surface (table_top) at its origin.
+       Single root remains base_link. -->
   <joint name="table_top_to_yumi_base_link" type="fixed">
     <parent link="table_top"/>
     <child link="yumi_base_link"/>
@@ -87,5 +133,25 @@
   <!-- Include and instantiate the Eurocontainer + Redboard slot layout on the table_top -->
   <xacro:include filename="$(find spl_electricalstation_description)/urdf/spl_electricalstation_slots.xacro" />
   <xacro:electrical_station_slots parent="table_top" />
+
+  <!-- Include and instantiate the real Eurocontainer mesh markers (with
+       their 2x5 grid of SPL slot frames) on the left and right
+       eurocontainer slots. -->
+  <xacro:include filename="$(find spl_electricalstation_description)/urdf/spl_eurocontainer.xacro" />
+  <xacro:spl_eurocontainer parent="eurocontainer_slot_left" name="left"/>
+  <xacro:spl_eurocontainer parent="eurocontainer_slot_right" name="right"/>
+
+  <!-- Include and instantiate the real Redboard mesh markers on each
+       left-side (+y) slot, named 00-07 to match the Isaac Sim object naming
+       (raster order: row0 col0..3 -> 00-03, row1 col0..3 -> 04-07). -->
+  <xacro:include filename="$(find spl_electricalstation_description)/urdf/spl_redboard.xacro" />
+  <xacro:spl_redboard parent="redboard_slot_left_0_0" name="'00'"/>
+  <xacro:spl_redboard parent="redboard_slot_left_0_1" name="'01'"/>
+  <xacro:spl_redboard parent="redboard_slot_left_0_2" name="'02'"/>
+  <xacro:spl_redboard parent="redboard_slot_left_0_3" name="'03'"/>
+  <xacro:spl_redboard parent="redboard_slot_left_1_0" name="'04'"/>
+  <xacro:spl_redboard parent="redboard_slot_left_1_1" name="'05'"/>
+  <xacro:spl_redboard parent="redboard_slot_left_1_2" name="'06'"/>
+  <xacro:spl_redboard parent="redboard_slot_left_1_3" name="'07'"/>
 
 </robot>
