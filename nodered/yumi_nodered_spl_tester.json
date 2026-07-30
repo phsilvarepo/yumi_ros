@@ -11421,6 +11421,7 @@
         "id": "49580a9b6ea40cba",
         "type": "ros-publish",
         "z": "58de6cfd0e1f91cf",
+        "d": true,
         "server": "4bf02018241b669e",
         "topicname": "/tf_static",
         "msgtype": "tf2_msgs/TFMessage",
