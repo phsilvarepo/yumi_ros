@@ -375,3 +375,37 @@ returns the first matching occupied slot, iterated in a **statically configured*
 descending order (see Decision #10) — not a live geometric/TF query (would violate Decisions Log
 #6/#7). Since slot layout is fixed at design time (xacro), "closest to the robot" reduces to a
 fixed index traversal direction, known and configurable at launch, no live geometry needed.
+
+### 9.5 The full pick loop, driven by `GetNextSPL`
+`GetNextSPL` is not a one-shot "find the starting slot" call — it's the **loop condition** itself,
+called once per iteration, before every pick in Section 9.2's sequence:
+
+```
+Supervisor:
+  loop:
+    res = StorageSystem(eurocontainer_<side>).GetNextSPL(state="READY")
+    if not res.found:
+      break                                   # <- loop termination: no more READY SPLs in this EC
+    slot_i, spl_id = res.slot, res.spl.id
+    <run Section 9.2's pick-from-EC / place-on-Redboard leaf sequence for slot_i / spl_id>
+    # Section 9.2 already clears slot_i (RemoveSPL) once the SPL leaves the EC, so the next
+    # GetNextSPL call in the next loop iteration naturally will not see it again.
+```
+
+This keeps the Supervisor's control flow trivial (a plain "ask, act, repeat" loop) and keeps all
+slot-selection logic — including the ascending/descending order — entirely on the Storage side,
+per Decision #10. The loop's only termination condition is `found=false`; there's no separate
+"is the EC empty" check needed, since an EC with no `READY` SPLs left (whether truly empty, or
+just fully drained of that state) reads identically as "nothing left to pick" from the Supervisor's
+point of view.
+
+Two things this deliberately leaves open (not blocking, config/BT-level concerns — same spirit
+as Section 5's Open Items):
+- **Which `state` value means "pickable"** (`"READY"` used above as a placeholder) is a BT/config
+  concern, not a Storage concern — Storage just matches whatever string it's given, per Decisions
+  Log #1 (Open Item 1: state values are opaque data).
+- **What happens if a pick fails partway** (e.g. grasp failure after `GetNextSPL` returned a slot)
+  is a Supervisor/BT retry-logic concern — Storage's state for that slot is left untouched unless
+  the Supervisor explicitly calls `RemoveSPL`/`UpdateSPLState`, so a failed pick is always safely
+  retryable by simply calling `GetNextSPL` again next loop iteration.
+

@@ -1,0 +1,182 @@
+@startuml StorageSystem_Supervisor_Interactions
+title StorageSystem <-> Supervisor interactions\nEC -> Gripper -> Redboard (process) -> Gripper -> EC
+
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 220
+
+actor Supervisor as SUP
+participant "MoveitCommander" as MC
+participant "StorageSystem\n(eurocontainer_<side>)" as EC
+participant "StorageSystem\n(gripper_<side>)" as GR
+participant "StorageSystem\n(redboard_<side>)" as RB
+
+== Pick-loop entry: find next READY SPL in the EC ==
+
+SUP -> EC : GetNextSPL(state="READY")
+activate EC
+EC --> SUP : found=true, slot=i, spl={id, state:"READY"}
+deactivate EC
+
+alt found = false
+  SUP -> SUP : no READY SPLs left in EC\n(loop terminates, see Section 9.5)
+end
+
+== Move SPL: EC slot i -> Gripper -> Redboard slot j ==
+
+SUP -> MC : MoveArm(EC slot i APPROACH/ENGAGE)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+SUP -> MC : AttachObject(spl_id, gripper_link)
+activate MC
+MC --> SUP : acknowledge
+deactivate MC
+
+note over SUP, EC
+  Source Storage cleared right after the physical grasp -
+  Attach (MoveIt) then RemoveSPL (Storage), never combined
+  (Decisions Log #8). At most one of {EC slot, Gripper slot,
+  MoveIt attached-object} claims the SPL at any instant.
+end note
+
+SUP -> EC : RemoveSPL(slot=i)
+activate EC
+EC --> SUP : success=true
+deactivate EC
+
+SUP -> GR : SetSPL(slot=0, spl={id, state:"READY"})
+activate GR
+GR --> SUP : success=true
+deactivate GR
+
+SUP -> MC : MoveArm(EC slot i APPROACH retreat)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+SUP -> RB : GetSlot()
+activate RB
+RB --> SUP : slots=[j], result=NONE
+deactivate RB
+
+alt result = STORAGE_FULL
+  SUP -> SUP : no free Redboard slot\n(handle: wait / alert)
+end
+
+SUP -> MC : MoveArm(RB slot j APPROACH/ENGAGE)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+SUP -> MC : DetachObject(spl_id)
+activate MC
+MC --> SUP : acknowledge
+deactivate MC
+
+SUP -> GR : RemoveSPL(slot=0)
+activate GR
+GR --> SUP : success=true
+deactivate GR
+
+SUP -> RB : SetSPL(slot=j, spl={id, state:"IN_PROCESS"})
+activate RB
+RB --> SUP : success=true
+deactivate RB
+
+SUP -> MC : MoveArm(RB slot j APPROACH retreat)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+note over RB
+  SPL now sits in Redboard slot j with state
+  "IN_PROCESS". Storage publishes no TF - slot j's
+  pose is already static (xacro), SPL's identity is
+  pure inventory data (Section 8).
+end note
+
+... time passes: in-Redboard process runs, e.g. via Redboard's\nown process-control node, outside StorageSystem's concern ...
+
+SUP -> RB : UpdateSPLState(id=spl_id, state="DONE")
+activate RB
+RB --> SUP : success=true
+deactivate RB
+
+== Return trip: pick a DONE SPL from Redboard, place back on an empty EC slot ==
+
+SUP -> RB : GetNextSPL(state="DONE")
+activate RB
+RB --> SUP : found=true, slot=j, spl={id, state:"DONE"}
+deactivate RB
+
+alt found = false
+  SUP -> SUP : no DONE SPLs ready to return yet\n(loop iterates later)
+end
+
+SUP -> MC : MoveArm(RB slot j APPROACH/ENGAGE)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+SUP -> MC : AttachObject(spl_id, gripper_link)
+activate MC
+MC --> SUP : acknowledge
+deactivate MC
+
+SUP -> RB : RemoveSPL(slot=j)
+activate RB
+RB --> SUP : success=true
+deactivate RB
+
+SUP -> GR : SetSPL(slot=0, spl={id, state:"DONE"})
+activate GR
+GR --> SUP : success=true
+deactivate GR
+
+SUP -> MC : MoveArm(RB slot j APPROACH retreat)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+SUP -> EC : GetSlot()
+activate EC
+EC --> SUP : slots=[k], result=NONE
+deactivate EC
+
+alt result = STORAGE_FULL
+  SUP -> SUP : no free EC slot\n(handle: wait / alert)
+end
+
+SUP -> MC : MoveArm(EC slot k APPROACH/ENGAGE)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+SUP -> MC : DetachObject(spl_id)
+activate MC
+MC --> SUP : acknowledge
+deactivate MC
+
+SUP -> GR : RemoveSPL(slot=0)
+activate GR
+GR --> SUP : success=true
+deactivate GR
+
+SUP -> EC : SetSPL(slot=k, spl={id, state:"DONE"})
+activate EC
+EC --> SUP : success=true
+deactivate EC
+
+SUP -> MC : MoveArm(EC slot k APPROACH retreat)
+activate MC
+MC --> SUP : ok
+deactivate MC
+
+note over SUP
+  SPL fully round-tripped: EC(i) -> Gripper -> RB(j) -> Gripper -> EC(k).
+  Every Storage call is Supervisor-initiated; Storage never calls
+  MoveitCommander (or vice versa) directly - Section 9.
+end note
+
+@enduml
