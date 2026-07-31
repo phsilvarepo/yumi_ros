@@ -1,0 +1,32 @@
+<!--
+  Generic launch file for a single StorageSystem instance.
+
+  Args:
+    storage_id  (string, required) e.g. "eurocontainer_left" — used both as
+                the ROS namespace (so services resolve to
+                /<storage_id>/get_slot, /<storage_id>/set_spl, etc.) and as
+                the ~storage_id param for logging.
+    capacity    (int, required)    number of slots for this instance.
+
+  See storage_system/SPECS/20260731_StorageSystem_Spec_and_Roadmap.md for
+  the full design (Decision #5: one shared node/class, launched multiple
+  times with different params, instead of per-storage-kind subclasses).
+-->
+<launch>
+
+  <arg name="storage_id" />
+  <arg name="capacity" />
+
+  <!-- respawn left off for now during development/testing (a crashed/killed
+       node fails loudly instead of silently restarting, and stray test
+       instances can be rosnode/pkill'd cleanly) — revisit once this is
+       promoted to a production launch. -->
+  <group ns="$(arg storage_id)">
+    <node name="storage_system" pkg="storage_system" type="slot_storage_system_node"
+          output="screen" respawn="false">
+      <param name="storage_id" value="$(arg storage_id)" />
+      <param name="capacity"   value="$(arg capacity)" />
+    </node>
+  </group>
+
+</launch>

@@ -1,0 +1,16 @@
+<!--
+  Gripper StorageSystem — 1 SPL slot per arm, mirrored left/right.
+-->
+<launch>
+
+  <include file="$(find storage_system)/launch/slot_storage_system.launch">
+    <arg name="storage_id" value="gripper_left" />
+    <arg name="capacity"   value="1" />
+  </include>
+
+  <include file="$(find storage_system)/launch/slot_storage_system.launch">
+    <arg name="storage_id" value="gripper_right" />
+    <arg name="capacity"   value="1" />
+  </include>
+
+</launch>

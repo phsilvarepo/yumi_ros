@@ -1,0 +1,4 @@
+# GetSlot — request a free slot index in this storage.
+---
+int32[] slots      # populated with the first free slot index found (single-element on success)
+storage_system/Result result

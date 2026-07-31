@@ -1,0 +1,8 @@
+# UpdateSPLState — update the state of an SPL already present in this
+# storage, searched by id.
+
+int32 id
+string state
+---
+bool success
+storage_system/Result result

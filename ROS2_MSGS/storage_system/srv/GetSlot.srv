@@ -1,0 +1,5 @@
+# GetSlot — request a free slot index in this storage.
+# Mirror of yumi_ros/storage_system/srv/GetSlot.srv (ROS1) — keep in sync.
+---
+int32[] slots      # populated with the first free slot index found (single-element on success)
+storage_system/Result result

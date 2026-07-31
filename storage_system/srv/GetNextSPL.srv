@@ -1,0 +1,16 @@
+# GetNextSPL — pick-loop entry point. PEEK ONLY (does not modify storage
+# state, mirrors GetSPL semantics — see SPECS doc Decisions Log #8/#10).
+#
+# Returns the first occupied slot whose SPL state matches the requested
+# state, scanned in a statically configured ascending/descending slot-index
+# order (~ascending_order param on the node — see SPECS doc Decisions Log
+# #10). This is NOT a live TF/geometry query: "closest to the robot" is
+# just launch-time configuration of which end of the slot range to scan
+# from first, mirroring the reference repo's `get_minitray_order` pattern.
+
+string state
+---
+storage_system/SPL spl
+int32 slot
+bool found
+storage_system/Result result

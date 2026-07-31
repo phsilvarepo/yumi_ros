@@ -1,0 +1,9 @@
+# SetSPL — place an SPL (id + state) into a specific slot index.
+# Fails with Result.SLOT_OUT_OF_BOUNDS if slot >= capacity, or
+# Result.SLOT_OCCUPIED if the slot already holds an SPL.
+
+int32 slot
+storage_system/SPL spl
+---
+bool success
+storage_system/Result result

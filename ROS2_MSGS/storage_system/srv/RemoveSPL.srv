@@ -1,0 +1,7 @@
+# RemoveSPL — POP. Explicitly empties a slot.
+# Mirror of yumi_ros/storage_system/srv/RemoveSPL.srv (ROS1) — keep in sync.
+
+int32 slot
+---
+bool success
+storage_system/Result result

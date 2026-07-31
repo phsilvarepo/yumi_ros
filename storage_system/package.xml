@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>storage_system</name>
+  <version>0.1.0</version>
+  <description>
+    ROS1 node tracking SPL inventory across per-workspace (left/right) storage
+    instances (Eurocontainer, Redboard, Gripper slots). Pure inventory/data
+    service: tracks which SPL (id + state) occupies which slot index. Does not
+    publish TF and does not interact with MoveIt's planning scene — those
+    concerns are owned by the Supervisor BT / Robot Controllers /
+    moveit_commander, which orchestrate calls to both. See
+    storage_system/SPECS/20260731_StorageSystem_Spec_and_Roadmap.md for the
+    full design rationale.
+  </description>
+
+  <maintainer email="andre.lourenco@unparallel.pt">Andre Lourenco</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+</package>

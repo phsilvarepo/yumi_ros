@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>storage_system</name>
+  <version>1.0.0</version>
+  <description>
+    ROS2 message/service-only mirror of the ROS1 storage_system package's
+    msg/srv interface, for use by ROS2 nodes communicating with the ROS1
+    storage_system node(s) across a ROS1/ROS2 bridge. Contains no executable
+    code — message/service definitions only. See yumi_ros/storage_system for
+    the actual ROS1 implementation and design docs (SPECS/).
+  </description>
+
+  <maintainer email="andre.lourenco@uninova.pt">André Lourenço</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>rosidl_default_generators</build_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

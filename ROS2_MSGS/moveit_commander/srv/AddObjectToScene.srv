@@ -1,0 +1,6 @@
+string name
+string object_template
+string frame_id
+geometry_msgs/Pose pose
+---
+bool acknowledge

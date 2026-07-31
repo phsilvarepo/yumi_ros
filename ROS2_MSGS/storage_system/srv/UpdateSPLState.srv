@@ -1,0 +1,9 @@
+# UpdateSPLState — update the state of an SPL already present in this
+# storage, searched by id.
+# Mirror of yumi_ros/storage_system/srv/UpdateSPLState.srv (ROS1) — keep in sync.
+
+int32 id
+string state
+---
+bool success
+storage_system/Result result

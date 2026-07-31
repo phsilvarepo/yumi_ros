@@ -1,0 +1,8 @@
+# SetSPL — place an SPL (id + state) into a specific slot index.
+# Mirror of yumi_ros/storage_system/srv/SetSPL.srv (ROS1) — keep in sync.
+
+int32 slot
+storage_system/SPL spl
+---
+bool success
+storage_system/Result result

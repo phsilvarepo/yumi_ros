@@ -1,0 +1,9 @@
+# RemoveSPL — POP. Explicitly empties a slot (does not return the removed
+# SPL's data — callers should GetSPL first if they need it, since GetSPL is
+# peek-only and does not consume the slot). Separate call from GetSPL by
+# design, see SPECS doc Decisions Log #8.
+
+int32 slot
+---
+bool success
+storage_system/Result result

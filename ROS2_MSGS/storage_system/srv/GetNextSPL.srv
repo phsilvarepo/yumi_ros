@@ -1,0 +1,12 @@
+# GetNextSPL — pick-loop entry point. PEEK ONLY. Returns the first occupied
+# slot whose SPL state matches the requested state, scanned in a statically
+# configured ascending/descending slot-index order (~ascending_order param
+# on the ROS1 node).
+# Mirror of yumi_ros/storage_system/srv/GetNextSPL.srv (ROS1) — keep in sync.
+
+string state
+---
+storage_system/SPL spl
+int32 slot
+bool found
+storage_system/Result result

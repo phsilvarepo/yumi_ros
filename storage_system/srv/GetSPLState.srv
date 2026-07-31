@@ -1,0 +1,8 @@
+# GetSPLState — query the state of an SPL, by id or by slot.
+
+int32 id       # -1 to query by slot instead
+int32 slot     # -1 to query by id instead
+---
+string state
+bool found
+storage_system/Result result

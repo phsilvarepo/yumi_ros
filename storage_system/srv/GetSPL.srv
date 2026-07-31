@@ -1,0 +1,15 @@
+# GetSPL — PEEK. Search/retrieve an SPL's id+state (and which slot it's in),
+# without modifying storage state. Does NOT clear/remove the slot — use
+# RemoveSPL for that (kept intentionally separate, see SPECS doc Decisions
+# Log #8).
+#
+# Lookup by slot index (set slot >= 0, id ignored) OR by SPL id (set slot=-1,
+# id >= 0, searches all slots for a match).
+
+int32 slot     # -1 to search by id instead
+int32 id       # -1 to search by slot instead
+---
+storage_system/SPL spl
+int32 slot           # the slot index the SPL was found in (echoes input if looked up by slot)
+bool found
+storage_system/Result result

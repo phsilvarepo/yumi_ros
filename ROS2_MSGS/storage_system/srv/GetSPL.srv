@@ -1,0 +1,12 @@
+# GetSPL — PEEK. Search/retrieve an SPL's id+state (and which slot it's in),
+# without modifying storage state. Lookup by slot index (slot >= 0, id
+# ignored) OR by SPL id (slot=-1, id >= 0).
+# Mirror of yumi_ros/storage_system/srv/GetSPL.srv (ROS1) — keep in sync.
+
+int32 slot     # -1 to search by id instead
+int32 id       # -1 to search by slot instead
+---
+storage_system/SPL spl
+int32 slot
+bool found
+storage_system/Result result

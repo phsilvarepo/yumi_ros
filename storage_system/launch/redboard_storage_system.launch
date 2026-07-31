@@ -1,0 +1,18 @@
+<!--
+  Redboard StorageSystem — 8 Redboards per arm, 1 SPL slot each, mirrored
+  left/right. (Modeled as 8 slots per side, one per Redboard — a Redboard
+  itself holding "1 slot for SPL" per directives.md.)
+-->
+<launch>
+
+  <include file="$(find storage_system)/launch/slot_storage_system.launch">
+    <arg name="storage_id" value="redboard_left" />
+    <arg name="capacity"   value="8" />
+  </include>
+
+  <include file="$(find storage_system)/launch/slot_storage_system.launch">
+    <arg name="storage_id" value="redboard_right" />
+    <arg name="capacity"   value="8" />
+  </include>
+
+</launch>

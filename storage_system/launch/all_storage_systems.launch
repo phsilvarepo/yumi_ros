@@ -1,0 +1,11 @@
+<!--
+  Convenience launch file bringing up all StorageSystem instances (all
+  storage kinds x both arms) at once.
+-->
+<launch>
+
+  <include file="$(find storage_system)/launch/eurocontainer_storage_system.launch" />
+  <include file="$(find storage_system)/launch/redboard_storage_system.launch" />
+  <include file="$(find storage_system)/launch/gripper_storage_system.launch" />
+
+</launch>
