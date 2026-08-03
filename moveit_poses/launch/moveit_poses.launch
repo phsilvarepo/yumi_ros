@@ -1,0 +1,16 @@
+<!--
+  moveit_poses — single node, covers both EuroContainer and Redboard,
+  both sides (side is a request-time parameter, not per-instance, since
+  this is a stateless computation service — unlike storage_system, which
+  is per-instance because it holds real inventory state).
+
+  Looks up TF and resolves each request's output frame from target_frame /
+  group_name (falling back to ~default_root_frame, see config yaml).
+-->
+<launch>
+
+  <node name="moveit_poses" pkg="moveit_poses" type="moveit_poses_node" output="screen">
+    <rosparam file="$(find moveit_poses)/config/moveit_poses.yaml" command="load"/>
+  </node>
+
+</launch>

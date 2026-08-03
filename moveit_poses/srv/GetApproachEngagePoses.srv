@@ -1,0 +1,31 @@
+# GetApproachEngagePoses — given a StorageSystem-style (storage_id, slot)
+# pair, derive the APPROACH and ENGAGE end-effector poses for that slot.
+#
+# storage_id follows the same convention as storage_system's node names:
+# "eurocontainer_left", "eurocontainer_right", "redboard_left",
+# "redboard_right" (kind = prefix before "_<side>", side = "left"/"right").
+# Gripper storage is NOT covered here — an SPL "in gripper" has no
+# APPROACH/ENGAGE motion of its own (see SPECS doc).
+#
+# slot is the same flat slot index used by StorageSystem for that
+# storage_id (0-39 for eurocontainer, 0-7 for redboard).
+#
+# group_name / target_frame — control which frame the returned poses are
+# expressed in (this node DOES look up TF and transform into this frame,
+# see SPECS doc Decision #1 revised 2026-08-03):
+#   - if target_frame is non-empty, it wins outright (explicit override).
+#   - else if group_name is non-empty, it is resolved to a root frame via
+#     the ~group_root_frames ROS param map (e.g. "left_arm" -> "yumi_base_link").
+#   - else falls back to the node's ~default_root_frame param (default:
+#     "world").
+# Both fields may be left empty to just get the default root frame.
+
+string storage_id
+int32 slot
+string group_name
+string target_frame
+---
+geometry_msgs/PoseStamped approach_pose
+geometry_msgs/PoseStamped engage_pose
+bool success
+string message

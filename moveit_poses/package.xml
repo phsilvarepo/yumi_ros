@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+  <name>moveit_poses</name>
+  <version>1.0.0</version>
+  <description>
+    Given a StorageSystem-style (storage_id, slot) pair for the EuroContainer
+    or Redboard, derives the APPROACH and ENGAGE end-effector poses for that
+    slot. Looks up TF to resolve the slot's own static frame (published by
+    spl_electricalstation_description's xacro) into a requested planning
+    root frame (via explicit target_frame, or a group_name -> root frame
+    param map, defaulting to "world"). See
+    SPECS/20260731_PoseDeriver_Design.md for the full design rationale.
+  </description>
+
+  <maintainer email="andre.lourenco@uninova.pt">André Lourenço</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
+
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf2</run_depend>
+  <run_depend>tf2_ros</run_depend>
+  <run_depend>tf2_geometry_msgs</run_depend>
+
+  <export>
+  </export>
+</package>

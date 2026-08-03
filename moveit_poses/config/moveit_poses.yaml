@@ -1,0 +1,41 @@
+# Default output frame used when a request's group_name and target_frame
+# are both empty. "base_link" is the actual root frame published by
+# spl_electricalstation_description's xacro (there is no "world" frame in
+# that tree) - confirmed via live TF test 2026-08-03.
+default_root_frame: "base_link"
+
+# lookupTransform wait timeout, in seconds.
+tf_timeout_sec: 0.5
+
+# Maps a MoveIt planning group name to its root/base frame, used to resolve
+# a request's group_name into a TF root frame when target_frame is not
+# explicitly given. Update these to match the real MoveIt SRDF group names
+# once confirmed (see SPECS doc, Open Items) - "yumi_base_link" is the
+# actual URDF base link (yumi_description/urdf/yumi.xacro), used here as a
+# placeholder target since it's a known-good frame.
+group_root_frames:
+  left_arm: "yumi_base_link"
+  right_arm: "yumi_base_link"
+
+eurocontainer:
+  capacity: 40
+  engage:
+    position: {x: 0.0, y: 0.0, z: 0.05}
+    orientation: {roll_deg: 0.0, pitch_deg: -180.0, yaw_deg: 0.0}
+  approach:
+    # NOTE: approach orientation is always forced to match engage's
+    # orientation in code (see PoseDeriver::getPosesClbk) - approach is a
+    # straight retreat along Z, not an independently-rotated pose. Only
+    # the position (z retreat distance) below is actually used.
+    position: {x: 0.0, y: 0.0, z: 0.15}
+
+redboard:
+  capacity: 8
+  engage:
+    position: {x: 0.0, y: 0.0, z: 0.05}
+    orientation: {roll_deg: 90.0, pitch_deg: 0.0, yaw_deg: 180.0}
+  approach:
+    # NOTE: orientation ignored - see eurocontainer.approach comment above.
+    # Previously this had roll_deg: -90.0 here, which produced a physically
+    # wrong disjoint rotation between approach and engage - removed 2026-08-03.
+    position: {x: 0.0, y: 0.0, z: 0.15}
